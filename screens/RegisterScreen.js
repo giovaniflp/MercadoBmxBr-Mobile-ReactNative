@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, ImageBackground } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 
 export default function RegisterScreen(){
@@ -6,36 +6,40 @@ export default function RegisterScreen(){
     const changePage = useNavigation();
 
     return(
-        <View className="flex justify-center items-center h-full">
-            <Text>
-                Faça seu cadastro!
-            </Text>
-            <View>
-                <Text>Nome</Text>
-                <TextInput placeholder="Insira aqui seu nome"></TextInput>
+        <ImageBackground source={require('../public/images/brandWPP.jpg')}>
+            <View className="flex justify-center items-center h-full">
+                <View className="bg-black p-12 rounded-lg">
+                    <Text className="text-white text-center text-3xl">
+                        Faça seu cadastro!
+                    </Text>
+                    <View className="my-4">
+                        <Text className="text-white">Nome</Text>
+                        <TextInput className="text-white border-2 border-white rounded-lg p-1" placeholder="Insira aqui seu nome"></TextInput>
+                    </View>
+                    <View className="mb-4">
+                        <Text className="text-white">Email</Text>
+                        <TextInput className="text-white border-2 border-white rounded-lg p-1" placeholder="Insira aqui seu email" inputMode="email"></TextInput>
+                    </View>
+                    <View className="mb-4">
+                        <Text className="text-white">Senha</Text>
+                        <TextInput className="text-white border-2 border-white rounded-lg p-1" placeholder="Insira aqui sua senha" secureTextEntry={true}></TextInput>
+                    </View>
+                    <View className="mb-4">
+                        <Text className="text-white">Confirme sua senha</Text>
+                        <TextInput className="text-white border-2 border-white rounded-lg p-1" placeholder="Insira aqui sua senha novamente" secureTextEntry={true}></TextInput>
+                    </View>
+                    <View className="bg-white p-2 rounded-lg">
+                        <TouchableOpacity>
+                            <Text className="text-center">Cadastrar</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View className="bg-white p-2 rounded-lg mt-4">
+                        <TouchableOpacity onPress={()=>changePage.navigate('HomePage')}>
+                            <Text className="text-center">Tela Principal</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
             </View>
-            <View>
-                <Text>Email</Text>
-                <TextInput placeholder="Insira aqui seu email" inputMode="email"></TextInput>
-            </View>
-            <View>
-                <Text>Senha</Text>
-                <TextInput placeholder="Insira aqui sua senha" secureTextEntry={true}></TextInput>
-            </View>
-            <View>
-                <Text>Confirme sua senha</Text>
-                <TextInput placeholder="Insira aqui sua senha novamente" secureTextEntry={true}></TextInput>
-            </View>
-            <View>
-                <TouchableOpacity>
-                    <Text>Cadastrar</Text>
-                </TouchableOpacity>
-            </View>
-            <View>
-                <TouchableOpacity onPress={()=>changePage.navigate('HomePage')}>
-                    <Text>Home Page</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
+        </ImageBackground>
     )
 }

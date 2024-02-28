@@ -1,26 +1,15 @@
-import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
+import { View, TextInput, TouchableOpacity, Image, Text } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 
+export default function SearchScreen(){
 
-export default function AppMain() {
+    const changePage = useNavigation();
 
-  const changePage = useNavigation();
-
-  return (
-    <View className="flex h-full mt-8 p-4">
-      <View>
-        <View>
-          <Text>Lojas Verificadas</Text>
-        </View>
-        <View>
-          <Text>Peças Novas</Text>
-        </View>
-        <View>
-          <Text>Peças Usadas</Text>
-        </View>
-      </View>
-      <View className="absolute bottom-0 left-0 right-0 h-20 flex flex-row justify-center border-t-2">
-        <TouchableOpacity className="flex items-center mx-4">
+    return(
+        <View className="flex h-full mt-8 p-4">
+            <TextInput className="border-2 border-black p-1 rounded-lg" placeholder="Buscar"></TextInput>
+            <View className="absolute bottom-0 left-0 right-0 h-20 flex flex-row justify-center border-t-2">
+        <TouchableOpacity className="flex items-center mx-4" onPress={()=>changePage.navigate('AppMain')}>
           <Image source={require('../public/icons/homePNG.png')}></Image>
           <Text>Início</Text>
         </TouchableOpacity>
@@ -37,6 +26,6 @@ export default function AppMain() {
           <Text>Menu</Text>
         </TouchableOpacity>
       </View>
-    </View>
-  );
+        </View>
+    )
 }
