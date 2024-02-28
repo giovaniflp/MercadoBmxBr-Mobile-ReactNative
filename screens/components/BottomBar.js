@@ -12,7 +12,7 @@ export default function BottomBar(){
           <Image source={require('../../public/icons/homePNG.png')}></Image>
           <Text>Início</Text>
         </TouchableOpacity>
-        <TouchableOpacity className="flex items-center mx-4">
+        <TouchableOpacity className="flex items-center mx-4" onPress={()=>changePage.navigate('CategoryScreen')}>
           <Image source={require('../../public/icons/categoryPNG.png')}></Image>
           <Text>Categorias</Text>
         </TouchableOpacity>

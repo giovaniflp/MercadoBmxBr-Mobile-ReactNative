@@ -8,7 +8,7 @@ export default function FullAdScreen(){
             <TopBar></TopBar>
             <ScrollView>
                 <View className="mb-24">
-                    <Image style={{resizeMode:"contain"}} className="w-full h-40 bg-red-300" source={require('../public/images/guidaoOdyssey.png')}></Image>
+                    <Image style={{resizeMode:"contain"}} className="w-full h-40" source={require('../public/images/guidaoOdyssey.png')}></Image>
                     <View>
                         <Text>Guidão Odyssey 49ER</Text>
                         <Text>R$ 355</Text>

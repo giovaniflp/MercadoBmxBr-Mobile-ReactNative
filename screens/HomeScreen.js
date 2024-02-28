@@ -9,11 +9,11 @@ export default function HomeScreen() {
       <View>
         <ScrollView className="flex">
           <View>
-            <Text>Lojas Verificadas</Text>
+            <Text className="text-3xl">Lojas Verificadas</Text>
             <VerifiedStores></VerifiedStores>
           </View>
-          <View>
-            <Text>Peças Novas</Text>
+          <View className="mb-8">
+            <Text className="text-3xl">Peças Novas</Text>
             <ScrollView horizontal={true}>
               <View className="flex flex-row">
                 <HomeAd></HomeAd>
@@ -22,8 +22,8 @@ export default function HomeScreen() {
               </View>
             </ScrollView>
           </View>
-          <View>
-            <Text>Peças Usadas</Text>
+          <View className="mb-8">
+            <Text className="text-3xl">Peças Usadas</Text>
             <ScrollView horizontal={true}>
               <View className="flex flex-row">
                 <HomeAd></HomeAd>
@@ -33,7 +33,7 @@ export default function HomeScreen() {
             </ScrollView>
           </View>
           <View className="mb-20">
-            <Text>Peças para Doação</Text>
+            <Text className="text-3xl">Peças para Doação</Text>
             <ScrollView horizontal={true}>
               <View className="flex flex-row">
                 <HomeAd></HomeAd>
