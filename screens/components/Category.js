@@ -22,6 +22,10 @@ const images = [
         name: "Bikes Completas"
     },
     {
+        image: require('../../public/images/categoryImages/camara.png'),
+        name: "Câmaras"
+    },
+    {
         image: require('../../public/images/categoryImages/canote.png'),
         name: "Canotes"
     },
@@ -40,6 +44,10 @@ const images = [
     {
         image: require('../../public/images/categoryImages/cuboTraseiro.png'),
         name: "Cubos Traseiros"
+    },
+    {
+        image: require('../../public/images/categoryImages/outros.png'),
+        name: "Diversos"
     },
     {
         image: require('../../public/images/categoryImages/eixo.png'),
@@ -104,14 +112,14 @@ const images = [
     {
         image: require('../../public/images/categoryImages/raios.png'),
         name: "Raios"
-    }
+    },
 ]
 
 export default function Category(){
     return(
         <View>
             <Text className="text-center text-6xl">Categorias</Text>
-            <ScrollView className="mb-24">
+            <ScrollView className="mb-32">
                 <View className="flex flex-row flex-wrap justify-center">
                     {images.map((item, index) => (
                         <TouchableOpacity className="p-4" key={index}>
