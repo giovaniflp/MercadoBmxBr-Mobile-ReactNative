@@ -28,7 +28,7 @@ export default function LoginScreen(){
                     </View>
                     
                     <View className="bg-white p-2 rounded-lg">
-                        <TouchableOpacity className="" onPress={()=>changePage.navigate('AppMain')}>
+                        <TouchableOpacity className="" onPress={()=>changePage.navigate('HomeScreen')}>
                             <Text className="text-center">Entrar</Text>
                         </TouchableOpacity>
                     </View>
