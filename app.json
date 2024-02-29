@@ -1,16 +1,20 @@
 {
-  "expo": {
-    "name": "mobile-marketbmxbr",
-    "slug": "mobile-marketbmxbr",
-    "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "extra": {
-      "eas": {
-        "projectId": "d089149b-ca3e-407d-b4f1-7551cca70b2b"
-      }
-    }
-  },
-  "name": "mobile-marketbmxbr"
+    "expo": {
+        "name": "mobile-marketbmxbr",
+        "slug": "mobile-marketbmxbr",
+        "scheme": "mobile-marketbmxbr",
+        "version": "1.0.0",
+        "assetBundlePatterns": [
+            "**/*"
+        ],
+        "extra": {
+            "eas": {
+                "projectId": "d089149b-ca3e-407d-b4f1-7551cca70b2b"
+            }
+        },
+        "plugins": [
+            "expo-router"
+        ]
+    },
+    "name": "mobile-marketbmxbr"
 }
