@@ -1,5 +1,6 @@
 import { View, Text, TextInput, TouchableOpacity, ImageBackground } from "react-native";
 import Button from "./components/Button";
+import { Link } from "expo-router"
 
 export default function RegisterScreen(){
     return(
@@ -27,10 +28,10 @@ export default function RegisterScreen(){
                     </View>
                     <View className="flex items-center gap-4">
                         <View>
-                            <Button text="Cadastrar" route="HomePage" color="blue"></Button>
+                            <Button text="Cadastrar" route="/" color="blue"></Button>
                         </View>
                         <View>
-                            <Button text="Tela Principal" route="HomePage"></Button>
+                            <Button text="Tela Principal" route="/"></Button>
                         </View>
                     </View>
                 </View>

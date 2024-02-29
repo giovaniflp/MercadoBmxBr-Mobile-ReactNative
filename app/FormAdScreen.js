@@ -1,6 +1,7 @@
 import { View, Text } from "react-native";
 
 import BottomBar from "./components/BottomBar";
+import { Link } from "expo-router"
 
 export default function FormAdScreen(){
     return(

@@ -1,6 +1,7 @@
 import { View, Image, Text, TouchableOpacity } from "react-native";
 import BottomBar from "./components/BottomBar";
 import Button from "./components/Button";
+import { Link } from "expo-router"
 
 export default function MenuScreen(){
     return(

@@ -1,6 +1,7 @@
 import { View, TextInput } from "react-native";
 import BottomBar from "./components/BottomBar";
 import HomeAd from "./components/HomeAd";
+import { Link } from "expo-router"
 
 export default function SearchScreen(){
 

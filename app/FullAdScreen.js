@@ -1,6 +1,7 @@
 import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
 import BottomBar from "./components/BottomBar";
 import TopBar from "./components/TopBar";
+import { Link } from "expo-router"
 
 export default function FullAdScreen(){
     return(

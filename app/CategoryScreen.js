@@ -1,6 +1,7 @@
 import { View } from "react-native";
 import Category from "./components/Category";
 import BottomBar from "./components/BottomBar";
+import { Link } from "expo-router"
 
 export default function CategoryScreen(){
     return(

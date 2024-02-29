@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, TextInput, TouchableOpacity, ImageBackground } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import Button from "./components/Button";
+import { Link } from "expo-router"
 
 export default function LoginScreen(){
 
@@ -29,10 +30,10 @@ export default function LoginScreen(){
                     </View>
                     <View className="flex gap-4 items-center">
                         <View>
-                            <Button color="blue" text="Entrar" route="HomeScreen"></Button>
+                            <Button color="blue" text="Entrar" route="/HomeScreen"></Button>
                         </View>
                         <View>
-                            <Button text="Tela Principal" route="HomePage"></Button>
+                            <Button text="Tela Principal" route="/"></Button>
                         </View>
                     </View>
                 </View>

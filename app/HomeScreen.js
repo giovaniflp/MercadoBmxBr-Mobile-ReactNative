@@ -2,6 +2,7 @@ import { View, Text, ScrollView } from "react-native";
 import BottomBar from "./components/BottomBar";
 import HomeAd from "./components/HomeAd";
 import VerifiedStores from "./components/VerifiedStores";
+import { Link } from "expo-router"
 
 export default function HomeScreen() {
   return (
