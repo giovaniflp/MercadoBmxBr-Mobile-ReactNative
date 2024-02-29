@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, TextInput, TouchableOpacity, ImageBackground } from "react-native";
 import { useNavigation } from '@react-navigation/native';
+import Button from "./components/Button";
 
 export default function LoginScreen(){
 
@@ -26,16 +27,13 @@ export default function LoginScreen(){
                             <Text className="text-blue-400">Esqueceu a senha?</Text>
                         </TouchableOpacity>
                     </View>
-                    
-                    <View className="bg-white p-2 rounded-lg">
-                        <TouchableOpacity className="" onPress={()=>changePage.navigate('HomeScreen')}>
-                            <Text className="text-center">Entrar</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View className="bg-white p-2 rounded-lg mt-4">
-                        <TouchableOpacity className="" onPress={()=>changePage.navigate('HomePage')}>
-                            <Text className="text-center">Tela Principal</Text>
-                        </TouchableOpacity>
+                    <View className="flex gap-4 items-center">
+                        <View>
+                            <Button color="blue" text="Entrar" route="HomeScreen"></Button>
+                        </View>
+                        <View>
+                            <Button text="Tela Principal" route="HomePage"></Button>
+                        </View>
                     </View>
                 </View>
             </View>

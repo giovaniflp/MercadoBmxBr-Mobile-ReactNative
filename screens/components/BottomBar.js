@@ -20,7 +20,7 @@ export default function BottomBar(){
           <Image source={require('../../public/icons/searchPNG.png')}></Image>
           <Text>Buscar</Text>
         </TouchableOpacity>
-        <TouchableOpacity className="flex items-center mx-4">
+        <TouchableOpacity className="flex items-center mx-4" onPress={()=>changePage.navigate('MenuScreen')}>
           <Image source={require('../../public/icons/menuPNG.png')}></Image>
           <Text>Menu</Text>
         </TouchableOpacity>

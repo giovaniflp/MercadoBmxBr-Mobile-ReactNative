@@ -1,10 +1,7 @@
 import { View, Text, TextInput, TouchableOpacity, ImageBackground } from "react-native";
-import { useNavigation } from '@react-navigation/native';
+import Button from "./components/Button";
 
 export default function RegisterScreen(){
-
-    const changePage = useNavigation();
-
     return(
         <ImageBackground source={require('../public/images/brandWPP.jpg')}>
             <View className="flex justify-center items-center h-full">
@@ -28,15 +25,13 @@ export default function RegisterScreen(){
                         <Text className="text-white">Confirme sua senha</Text>
                         <TextInput className="text-white border-2 border-white rounded-lg p-1" placeholder="Insira aqui sua senha novamente" secureTextEntry={true}></TextInput>
                     </View>
-                    <View className="bg-white p-2 rounded-lg">
-                        <TouchableOpacity>
-                            <Text className="text-center">Cadastrar</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View className="bg-white p-2 rounded-lg mt-4">
-                        <TouchableOpacity onPress={()=>changePage.navigate('HomePage')}>
-                            <Text className="text-center">Tela Principal</Text>
-                        </TouchableOpacity>
+                    <View className="flex items-center gap-4">
+                        <View>
+                            <Button text="Cadastrar" route="HomePage" color="blue"></Button>
+                        </View>
+                        <View>
+                            <Button text="Tela Principal" route="HomePage"></Button>
+                        </View>
                     </View>
                 </View>
             </View>

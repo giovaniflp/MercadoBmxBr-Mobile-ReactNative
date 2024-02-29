@@ -9,6 +9,7 @@ import SearchScreen from './screens/SearchScreen';
 import HomeScreen from './screens/HomeScreen';
 import FullAdScreen from './screens/FullAdScreen';
 import CategoryScreen from './screens/CategoryScreen';
+import MenuScreen from './screens/MenuScreen';
 
 export default function App() {
 
@@ -24,6 +25,7 @@ export default function App() {
         <rotasPages.Screen name="SearchScreen" component={SearchScreen}/>
         <rotasPages.Screen name="FullAdScreen" component={FullAdScreen}/>
         <rotasPages.Screen name="CategoryScreen" component={CategoryScreen}/>
+        <rotasPages.Screen name="MenuScreen" component={MenuScreen}/>
       </rotasPages.Navigator>
     </NavigationContainer>
   );
