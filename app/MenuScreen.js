@@ -11,13 +11,13 @@ export default function MenuScreen(){
             </TouchableOpacity>
             <Text className="text-4xl mt-4">Giovani Feitosa</Text>
             <View className="my-4">
-                <Button route="HomePage" text="Alterar Nome" color="blue"></Button>
+                <Button route="/" text="Alterar Nome" color="blue"></Button>
             </View>
             <View >
-                <Button route="HomePage" text="Alterar Senha" color="blue"></Button>
+                <Button route="/" text="Alterar Senha" color="blue"></Button>
             </View>
             <View className="my-4">
-                <Button route="HomePage" text="Sair" color="red"></Button>
+                <Button route="/" text="Sair" color="red"></Button>
             </View>
             <BottomBar></BottomBar>
         </View>
