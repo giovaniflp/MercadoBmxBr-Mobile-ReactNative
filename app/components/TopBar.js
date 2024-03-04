@@ -8,11 +8,11 @@ export default function TopBar(){
 
     return(
         <View className="bg-blue-600 p-4">
-            <TouchableOpacity>
-                <Link href="/HomeScreen">
+            <Link href="/HomeScreen" asChild>
+                <TouchableOpacity>
                     <Image source={require('../../public/icons/arrowBackPNG.png')}></Image>
-                </Link>
-            </TouchableOpacity>
+                </TouchableOpacity>
+            </Link>
         </View>
     )
 }
