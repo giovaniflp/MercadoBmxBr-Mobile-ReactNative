@@ -5,7 +5,7 @@ import BottomBar from "./components/BottomBar";
 import {Picker} from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
 import Button from "./components/Button";
-import { Link } from "expo-router"
+import SpecialAspects from "./components/SpecialAspects";
 
 export default function FormAdScreen(){
 
@@ -14,7 +14,6 @@ export default function FormAdScreen(){
 
     const [image, setImage] = useState(null);
     const [estado, setEstado] = useState();
-
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -71,16 +70,17 @@ export default function FormAdScreen(){
                     <View className="m-4">
                         <View>
                             <View className="flex flex-row justify-between items-center">
-                                <Text className="text-2xl">Aspectos Gerais</Text>
+                                <Text className="text-2xl">Aspectos Gerais *</Text>
                                 <TouchableOpacity onPress={pickImage}>
                                     <Image source={require("../public/icons/photoAdd.png")}></Image>
                                 </TouchableOpacity>
                             </View>
+                            <Text className="text-sm">*Obrigatório</Text>
                             <View className="flex justify-center items-center">
-                            {image && <Image className="rounded-lg" source={{uri: image}} style={{width: 300, height: 300}} />}
+                            {image && <Image className="rounded-lg mt-8" source={{uri: image}} style={{width: 300, height: 300}} />}
                             </View>
                         </View>
-                        <Text>Estado da peça</Text>
+                        <Text className="mt-8">Estado da peça</Text>
                         <View className="border-2 border-black rounded-lg">
                             <Picker selectedValue={estado} onValueChange={(value)=>setEstado(value)}>
                                 <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
@@ -119,7 +119,13 @@ export default function FormAdScreen(){
                             </Picker>
                         </View>
                         <Text>Peso</Text>
-                        <TextInput className="border-2 border-black rounded-lg p-3"> </TextInput>
+                        <TextInput inputMode="numeric" placeholder="634g" className="border-2 border-black rounded-lg p-3 text-black"> </TextInput>
+                        <Text>Descrição</Text>
+                        <TextInput numberOfLines={5} className="border-2 border-black rounded-lg p-3"></TextInput>
+                        <View className="mt-8">
+                            <Text className="text-2xl mb-8">Aspectos Específicos</Text>
+                            <SpecialAspects categoria={selectedCategory}></SpecialAspects>
+                        </View>
                         <View className="flex justify-center items-center mt-8">
                             <Button route={"/HomeScreen"} color={"blue"} text={"Anunciar"}></Button>
                         </View>
