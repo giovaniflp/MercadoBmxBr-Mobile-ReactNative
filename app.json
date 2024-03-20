@@ -1,0 +1,26 @@
+{
+    "expo": {
+        "name": "mobile-marketbmxbr",
+        "slug": "mobile-marketbmxbr",
+        "scheme": "mobile-marketbmxbr",
+        "version": "1.0.0",
+        "assetBundlePatterns": [
+            "**/*"
+        ],
+        "extra": {
+            "eas": {
+                "projectId": "d089149b-ca3e-407d-b4f1-7551cca70b2b"
+            }
+        },
+        "plugins": [
+            "expo-router",
+            [
+                "expo-image-picker",
+                {
+                  "photosPermission": "The app accesses your photos to let you share them with your friends."
+                }
+              ]
+        ]
+    },
+    "name": "mobile-marketbmxbr"
+}
