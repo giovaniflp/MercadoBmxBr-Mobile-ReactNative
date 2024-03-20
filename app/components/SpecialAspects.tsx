@@ -110,7 +110,7 @@ export default function SpecialAspects({categoria} : {categoria:string}){
                         <Picker.Item label="aro 20" value="aro20"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Tipo de Válvula</Text>
+                <Text>Tipo de válvula da Câmara</Text>
                 <View className="border-2 border-black rounded-lg mb-8">
                     <Picker>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
