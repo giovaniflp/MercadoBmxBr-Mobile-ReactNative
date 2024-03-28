@@ -6,17 +6,73 @@ import SpecialAspects from "./components/SpecialAspects";
 import React, {useState} from "react";
 import {Picker} from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
+import axiosInstance from "./server/axios";
 
 
 export default function FormAdScreen(){
 
-    const [selectedCategory, setSelectedCategory] = useState();
+    
+    const [categoria, setCategory] = useState();
+    const [marca, setMarca] = useState();
+    const [modelo, setModelo] = useState();
+    const [preco, setPreco] = useState();
+    const [localidade, setLocalidade] = useState();
+    const [dataPostagem, setDataPostagem] = useState();  
+    const [imagem, setImagem] = useState(null);
+    const [estadoDaPeca, setEstadoDaPeca] = useState();
+    const [grauDeDesgaste, setGrauDeDesgaste] = useState();
+    const [cor, setCor] = useState();
+    const [material, setMaterial] = useState();
+    const [peso, setPeso] = useState();
+    const [descricao, setDescricao] = useState();
+    const [whatsapp, setWhatsapp] = useState();
+    
+    const formRequestData = {
+        categoria: categoria,
+        marca: marca,
+        modelo: modelo,
+        preco: preco,
+        localidade: localidade,
+        dataPostagem: dataPostagem,
+        imagem: imagem,
+        estadoDaPeca: estadoDaPeca,
+        grauDeDesgaste: grauDeDesgaste,
+        cor: cor,
+        material: material,
+        peso: peso,
+        descricao: descricao,
+        whatsapp: whatsapp
+    }
+
+    const submitForm = () => {
+        axiosInstance.post("/advertisement", formRequestData)
+        .then((res) => {
+            console.log(res.data)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
+
     const [subCategory, setSubCategory] = useState(false);
 
-    let categoria: string = selectedCategory;
+    const testar = () => {
+        console.log(categoria);
+        console.log(marca);
+        console.log(modelo);
+        console.log(preco);
+        console.log(localidade);
+        console.log(dataPostagem);
+        console.log(imagem);
+        console.log(estadoDaPeca);
+        console.log(grauDeDesgaste);
+        console.log(cor);
+        console.log(material);
+        console.log(peso);
+        console.log(descricao);
+        console.log(whatsapp);
+    }
 
-    const [image, setImage] = useState(null);
-    const [estado, setEstado] = useState();
 
     const pickImage = async () => {
  
@@ -28,7 +84,7 @@ export default function FormAdScreen(){
         });
 
         if (!result.canceled) {
-            setImage(result.assets[0].uri);
+            setImagem(result.assets[0].uri);
           }
     }
 
@@ -37,37 +93,37 @@ export default function FormAdScreen(){
             <ScrollView className="mb-12">
 
             <View className="border-2 border-black rounded-lg m-4">
-                <Picker selectedValue={selectedCategory} 
-                onValueChange={(itemValue, itemIndex)=> {setSelectedCategory(itemValue); if(itemValue !== null){setSubCategory(true)} else{setSubCategory(false)}}}>
+                <Picker selectedValue={categoria} 
+                onValueChange={(itemValue, itemIndex)=> {setCategory(itemValue); if(itemValue !== null){setSubCategory(true)} else{setSubCategory(false)}}}>
                     <Picker.Item label="Selecione uma categoria" value={null}></Picker.Item>
-                    <Picker.Item label="Abraçadeiras" value="abracadeiras"></Picker.Item>
-                    <Picker.Item label="Aros" value="aros"></Picker.Item>
-                    <Picker.Item label="Bancos" value="bancos"></Picker.Item>
-                    <Picker.Item label="Bar ends" value="barEnds"></Picker.Item>
-                    <Picker.Item label="Bikes Completas" value="bikesCompletas"></Picker.Item>
-                    <Picker.Item label="Câmaras" value="camaras"></Picker.Item>
-                    <Picker.Item label="Canotes" value="canotes"></Picker.Item>
-                    <Picker.Item label="Coroas" value="coroas"></Picker.Item>
-                    <Picker.Item label="Correntes" value="correntes"></Picker.Item>
-                    <Picker.Item label="Cubos Dianteiros" value="cubosDianteiros"></Picker.Item>
-                    <Picker.Item label="Cubos Traseiros" value="cubosTraseiros"></Picker.Item>
-                    <Picker.Item label="Diversos" value="diversos"></Picker.Item>
-                    <Picker.Item label="Eixo central" value="eixoCentral"></Picker.Item>
-                    <Picker.Item label="Freios" value="freios"></Picker.Item>
-                    <Picker.Item label="Garfos" value="garfos"></Picker.Item>
-                    <Picker.Item label="Guidões" value="guidoes"></Picker.Item>
-                    <Picker.Item label="Kit rotor" value="kitRotor"></Picker.Item>
-                    <Picker.Item label="Manoplas" value="manoplas"></Picker.Item>
-                    <Picker.Item label="Mesas" value="mesas"></Picker.Item>
-                    <Picker.Item label="Mov. Central" value="movCentral"></Picker.Item>
-                    <Picker.Item label="Mov. de Direção" value="movDirecao"></Picker.Item>
-                    <Picker.Item label="Pedais" value="pedais"></Picker.Item>
-                    <Picker.Item label="Pedaleiras" value="pedaleiras"></Picker.Item>
-                    <Picker.Item label="Pedivelas" value="pedivelas"></Picker.Item>
-                    <Picker.Item label="Pneus" value="pneus"></Picker.Item>
-                    <Picker.Item label="Protetores" value="protetores"></Picker.Item>
-                    <Picker.Item label="Quadros" value="quadros"></Picker.Item>
-                    <Picker.Item label="Raios" value="raios"></Picker.Item>
+                    <Picker.Item label="Abraçadeiras" value="Abraçadeira"></Picker.Item>
+                    <Picker.Item label="Aros" value="Aro"></Picker.Item>
+                    <Picker.Item label="Bancos" value="Banco"></Picker.Item>
+                    <Picker.Item label="Bar ends" value="Bar Ends"></Picker.Item>
+                    <Picker.Item label="Bikes Completas" value="Bike Completa"></Picker.Item>
+                    <Picker.Item label="Câmaras" value="Câmara"></Picker.Item>
+                    <Picker.Item label="Canotes" value="Canotes"></Picker.Item>
+                    <Picker.Item label="Coroas" value="Coroa"></Picker.Item>
+                    <Picker.Item label="Correntes" value="Corrente"></Picker.Item>
+                    <Picker.Item label="Cubos Dianteiros" value="Cubo Dianteiro"></Picker.Item>
+                    <Picker.Item label="Cubos Traseiros" value="Cubo Traseiro"></Picker.Item>
+                    <Picker.Item label="Diversos" value="Diversos"></Picker.Item>
+                    <Picker.Item label="Eixo central" value="Eixo Central"></Picker.Item>
+                    <Picker.Item label="Freios" value="Freio"></Picker.Item>
+                    <Picker.Item label="Garfos" value="Garfo"></Picker.Item>
+                    <Picker.Item label="Guidões" value="Guidão"></Picker.Item>
+                    <Picker.Item label="Kit rotor" value="Kit Rotor"></Picker.Item>
+                    <Picker.Item label="Manoplas" value="Manopla"></Picker.Item>
+                    <Picker.Item label="Mesas" value="Mesa"></Picker.Item>
+                    <Picker.Item label="Mov. Central" value="Movimento Central"></Picker.Item>
+                    <Picker.Item label="Mov. de Direção" value="Movimento de Direção"></Picker.Item>
+                    <Picker.Item label="Pedais" value="Pedal"></Picker.Item>
+                    <Picker.Item label="Pedaleiras" value="Pedaleira"></Picker.Item>
+                    <Picker.Item label="Pedivelas" value="Pedivela"></Picker.Item>
+                    <Picker.Item label="Pneus" value="Pneu"></Picker.Item>
+                    <Picker.Item label="Protetores" value="Protetor"></Picker.Item>
+                    <Picker.Item label="Quadros" value="Quadro"></Picker.Item>
+                    <Picker.Item label="Raios" value="Raios"></Picker.Item>
                 </Picker>
             </View>
                 {subCategory &&(
@@ -81,98 +137,103 @@ export default function FormAdScreen(){
                             </View>
                             <Text className="text-sm">*Obrigatório</Text>
                             <View className="flex justify-center items-center">
-                            {image && <Image className="rounded-lg mt-8" source={{uri: image}} style={{width: 300, height: 300}} />}
+                            {imagem && <Image className="rounded-lg mt-8" source={{uri: imagem}} style={{width: 300, height: 300}} />}
                             </View>
                         </View>
-                        <Text className="mt-8">Estado da peça *</Text>
+                        <Text className="mt-8">Preço em R$ *</Text>
+                        <TextInput value={preco} onChangeText={setPreco} className="border-2 border-black rounded-lg p-3" placeholder="R$ 40" keyboardType="numeric"></TextInput>
+                        <Text>Estado da peça *</Text>
                         <View className="border-2 border-black rounded-lg">
-                            <Picker selectedValue={estado} onValueChange={(value)=>setEstado(value)}>
+                            <Picker selectedValue={estadoDaPeca} onValueChange={setEstadoDaPeca}>
                                 <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
-                                <Picker.Item label="Novo" value="novo"></Picker.Item>
-                                <Picker.Item label="Usado" value="usado"></Picker.Item>
+                                <Picker.Item label="Novo" value="Novo"></Picker.Item>
+                                <Picker.Item label="Usado" value="Usado"></Picker.Item>
                             </Picker>
                         </View>
                         <Text>Grau de desgaste *</Text>
                         <View className="border-2 border-black rounded-lg">
-                            <Picker>
+                            <Picker selectedValue={grauDeDesgaste} onValueChange={setGrauDeDesgaste}>
                                 <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
-                                <Picker.Item label="Nenhum" value="nenhum"></Picker.Item>
-                                <Picker.Item label="Pouco" value="pouco"></Picker.Item>
-                                <Picker.Item label="Médio" value="medio"></Picker.Item>
-                                <Picker.Item label="Grande" value="grande"></Picker.Item>
-                                <Picker.Item label="Quebrado" value="quebrado"></Picker.Item>
+                                <Picker.Item label="Nenhum" value="Nenhum"></Picker.Item>
+                                <Picker.Item label="Pouco" value="Pouco"></Picker.Item>
+                                <Picker.Item label="Médio" value="Médio"></Picker.Item>
+                                <Picker.Item label="Grande" value="Grande"></Picker.Item>
+                                <Picker.Item label="Quebrado" value="Quebrado"></Picker.Item>
                             </Picker>
                         </View>
                         <Text>Localidade *</Text>
                         <View className="border-2 border-black rounded-lg">
-                            <Picker>
-                                <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
-                                <Picker.Item label="AC" value="ac"></Picker.Item>
-                                <Picker.Item label="AL" value="al"></Picker.Item>
-                                <Picker.Item label="AP" value="ap"></Picker.Item>
-                                <Picker.Item label="AM" value="am"></Picker.Item>
-                                <Picker.Item label="BA" value="ba"></Picker.Item>
-                                <Picker.Item label="CE" value="ce"></Picker.Item>
-                                <Picker.Item label="DF" value="df"></Picker.Item>
-                                <Picker.Item label="ES" value="es"></Picker.Item>
-                                <Picker.Item label="GO" value="go"></Picker.Item>
-                                <Picker.Item label="MA" value="ma"></Picker.Item>
-                                <Picker.Item label="MT" value="mt"></Picker.Item>
-                                <Picker.Item label="MS" value="ms"></Picker.Item>
-                                <Picker.Item label="MG" value="mg"></Picker.Item>
-                                <Picker.Item label="PA" value="pa"></Picker.Item>
-                                <Picker.Item label="PB" value="pb"></Picker.Item>
-                                <Picker.Item label="PR" value="pr"></Picker.Item>
-                                <Picker.Item label="PE" value="pe"></Picker.Item>
-                                <Picker.Item label="PI" value="pi"></Picker.Item>
-                                <Picker.Item label="RJ" value="rj"></Picker.Item>
-                                <Picker.Item label="RN" value="rn"></Picker.Item>
-                                <Picker.Item label="RS" value="rs"></Picker.Item>
-                                <Picker.Item label="RO" value="ro"></Picker.Item>
-                                <Picker.Item label="RR" value="rr"></Picker.Item>
-                                <Picker.Item label="SC" value="sc"></Picker.Item>
-                                <Picker.Item label="SP" value="sp"></Picker.Item>
-                                <Picker.Item label="SE" value="se"></Picker.Item>
-                                <Picker.Item label="TO" value="to"></Picker.Item>
-                            </Picker>
+                        <Picker selectedValue={localidade} onValueChange={setLocalidade}>
+                            <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
+                            <Picker.Item label="Acre" value="Acre"></Picker.Item>
+                            <Picker.Item label="Alagoas" value="Alagoas"></Picker.Item>
+                            <Picker.Item label="Amapá" value="Amapá"></Picker.Item>
+                            <Picker.Item label="Amazonas" value="Amazonas"></Picker.Item>
+                            <Picker.Item label="Bahia" value="Bahia"></Picker.Item>
+                            <Picker.Item label="Ceará" value="Ceará"></Picker.Item>
+                            <Picker.Item label="Distrito Federal" value="Distrito Federal"></Picker.Item>
+                            <Picker.Item label="Espírito Santo" value="Espírito Santo"></Picker.Item>
+                            <Picker.Item label="Goiás" value="Goiás"></Picker.Item>
+                            <Picker.Item label="Maranhão" value="Maranhão"></Picker.Item>
+                            <Picker.Item label="Mato Grosso" value="Mato Grosso"></Picker.Item>
+                            <Picker.Item label="Mato Grosso do Sul" value="Mato Grosso do Sul"></Picker.Item>
+                            <Picker.Item label="Minas Gerais" value="Minas Gerais"></Picker.Item>
+                            <Picker.Item label="Pará" value="Pará"></Picker.Item>
+                            <Picker.Item label="Paraíba" value="Paraíba"></Picker.Item>
+                            <Picker.Item label="Paraná" value="Paraná"></Picker.Item>
+                            <Picker.Item label="Pernambuco" value="Pernambuco"></Picker.Item>
+                            <Picker.Item label="Piauí" value="Piauí"></Picker.Item>
+                            <Picker.Item label="Rio de Janeiro" value="Rio de Janeiro"></Picker.Item>
+                            <Picker.Item label="Rio Grande do Norte" value="Rio Grande do Norte"></Picker.Item>
+                            <Picker.Item label="Rio Grande do Sul" value="Rio Grande do Sul"></Picker.Item>
+                            <Picker.Item label="Rondônia" value="Rondônia"></Picker.Item>
+                            <Picker.Item label="Roraima" value="Roraima"></Picker.Item>
+                            <Picker.Item label="Santa Catarina" value="Santa Catarina"></Picker.Item>
+                            <Picker.Item label="São Paulo" value="São Paulo"></Picker.Item>
+                            <Picker.Item label="Sergipe" value="Sergipe"></Picker.Item>
+                            <Picker.Item label="Tocantins" value="Tocantins"></Picker.Item>
+                        </Picker>
+
                         </View>
                         <Text>Digite seu whatsapp (DDD e Número) para contato *</Text>
-                        <TextInput className="border-2 border-black rounded-lg p-3" placeholder="81912345678"></TextInput>
+                        <TextInput value={whatsapp} onChangeText={setWhatsapp} className="border-2 border-black rounded-lg p-3" placeholder="81912345678" keyboardType="numeric"></TextInput>
                         <Text>Marca *</Text>
                         <View className="border-2 border-black rounded-lg">
-                            <Picker>
+                            <Picker selectedValue={marca} onValueChange={setMarca}>
                                 <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
-                                <Picker.Item label="Animal" value="animal"></Picker.Item>
-                                <Picker.Item label="Odyssey" value="odyssey"></Picker.Item>
+                                <Picker.Item label="Animal" value="Animal"></Picker.Item>
+                                <Picker.Item label="Odyssey" value="Odyssey"></Picker.Item>
                             </Picker>
                         </View>
+                        <Text>Modelo da peça</Text>
+                        <TextInput value={modelo} onChangeText={setModelo} className="border-2 border-black rounded-lg p-3" placeholder="Thunderbolt"></TextInput>
                         <Text>Cor *</Text>
                         <View className="border-2 border-black rounded-lg">
-                            <Picker>
+                            <Picker selectedValue={cor} onValueChange={setCor}>
                                 <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
-                                <Picker.Item label="Preto" value="preto"></Picker.Item>
-                                <Picker.Item label="Branco" value="branco"></Picker.Item>
-                                <Picker.Item label="Cromado" value="cromado"></Picker.Item>
-                                <Picker.Item label="Polido" value="polido"></Picker.Item>
-                                <Picker.Item label="Óleo" value="oleo"></Picker.Item>
-                                <Picker.Item label="Outra" value="outra"></Picker.Item>
+                                <Picker.Item label="Preto" value="Preto"></Picker.Item>
+                                <Picker.Item label="Branco" value="Branco"></Picker.Item>
+                                <Picker.Item label="Cromado" value="Cromado"></Picker.Item>
+                                <Picker.Item label="Polido" value="Polido"></Picker.Item>
+                                <Picker.Item label="Óleo" value="Óleo"></Picker.Item>
+                                <Picker.Item label="Outra" value="Outra"></Picker.Item>
                             </Picker>
                         </View>
                         <Text>Material *</Text>
                         <View className="border-2 border-black rounded-lg">
-                            <Picker>
+                            <Picker selectedValue={material} onValueChange={setMaterial}>
                                 <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
-                                <Picker.Item label="Cromo" value="cromo"></Picker.Item>
-                                <Picker.Item label="Aço" value="aco"></Picker.Item>
-                                <Picker.Item label="Alumínio" value="aluminio"></Picker.Item>
-                                <Picker.Item label="Titânio" value="titanio"></Picker.Item>
-                                <Picker.Item label="Nylon" value="nylon"></Picker.Item>
-                                <Picker.Item label="Outro" value="outro"></Picker.Item>
+                                <Picker.Item label="Cromo" value="Cromo"></Picker.Item>
+                                <Picker.Item label="Aço" value="Aço"></Picker.Item>
+                                <Picker.Item label="Alumínio" value="Alumínio"></Picker.Item>
+                                <Picker.Item label="Titânio" value="Titânio"></Picker.Item>
+                                <Picker.Item label="Nylon" value="Nylon"></Picker.Item>
+                                <Picker.Item label="Outro" value="Outro"></Picker.Item>
                             </Picker>
                         </View>
                         <Text>Peso aproximado *</Text>
                         <View className="border-2 border-black rounded-lg">
-                            <Picker>
+                            <Picker selectedValue={peso} onValueChange={setPeso}>
                                     <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                                     <Picker.Item label="50g" value="50g"></Picker.Item>
                                     <Picker.Item label="100g" value="100g"></Picker.Item>
@@ -192,13 +253,18 @@ export default function FormAdScreen(){
                                     <Picker.Item label="+2,5kg" value="+2,5kg"></Picker.Item>
                                 </Picker>
                             </View>
-                        <Text>Observação</Text>
-                        <TextInput numberOfLines={5} multiline={true} textAlignVertical="top" className="border-2 border-black rounded-lg pl-3 pt-3"></TextInput>
+                        <Text>Descrição</Text>
+                        <TextInput value={descricao} onChangeText={setDescricao} numberOfLines={5} multiline={true} textAlignVertical="top" className="border-2 border-black rounded-lg pl-3 pt-3"></TextInput>
                         <View className="mt-8">
                             <SpecialAspects categoria={categoria}></SpecialAspects>
                         </View>
                         <View className="flex justify-center items-center">
-                            <Button route={"/HomeScreen"} color={"blue"} text={"Anunciar"}></Button>
+                            <TouchableOpacity className="bg-red-400 p-4" onPress={submitForm}>
+                                <Text>Anunciar</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity className="bg-green-400 p-4" onPress={testar}>
+                                <Text>TESTAR</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 )}

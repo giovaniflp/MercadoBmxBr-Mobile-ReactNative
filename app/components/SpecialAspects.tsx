@@ -7,7 +7,7 @@ export default function SpecialAspects({categoria} : {categoria:string}){
     const[tipoCubo, setTipoCubo] = useState()
     const[freecoaster, setFreecoaster] = useState(true)
 
-    if (categoria == "abracadeiras"){
+    if (categoria == "Abraçadeira"){
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>

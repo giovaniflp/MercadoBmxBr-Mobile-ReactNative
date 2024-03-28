@@ -23,13 +23,13 @@ export default function FullAdScreen(){
 
 
     return(
-        <View className="flex h-full mt-8 bg-white">
+        <View className="flex h-full bg-white">
             <TopBar></TopBar>
             <ScrollView>
-                <View className="mb-24">
+                <View>
                     <Image style={{resizeMode:"contain"}} className="w-full h-60" source={{uri:adData.imagem}}></Image>
                     <View>
-                        <Text>{adData.category} {adData.marca}</Text>
+                        <Text>{adData.categoria} {adData.marca}</Text>
                         <Text>Modelo: {adData.modelo}</Text>
                         <Text>Preço: R${adData.preco}</Text>
                         <Text>{adData.localidade}</Text>
@@ -52,11 +52,11 @@ export default function FullAdScreen(){
                     <View className="mt-4">
                         <Text>Anunciado por {adData.anunciante}</Text>
                         <Text>Fale com o vendedor:</Text>
-                        <Link href={"https://api.whatsapp.com/send?phone=" + 
+                        <Link href={"https://api.whatsapp.com/send?phone=55" + 
                         adData.whatsapp + 
-                        "&text=Ol%C3%A1,%20vim%20do%20seu%20an%C3%BAncio%20no%20Mercado%20Bmx%20Br"+ 
+                        "&text=Ol%C3%A1%20"+ adData.anunciante +",%20vim%20do%20seu%20an%C3%BAncio%20no%20Mercado%20Bmx%20Br"+ 
                         "%20-%20" + 
-                        adData.category + 
+                        adData.categoria + 
                         "%20" +
                         adData.marca +
                         "%20" +
