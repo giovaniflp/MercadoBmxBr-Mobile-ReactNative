@@ -20,7 +20,7 @@ export default function HomeAd({id} : {id: string}){
     , [])
     
     return(
-            <TouchableOpacity className="border-2 border-black w-60 h-72 bg-white rounded-lg justify-center items-center mr-8" onPress={()=>{
+            <TouchableOpacity className="border-2 border-black w-40 h-52 bg-white rounded-lg justify-center items-center mx-2 my-2" onPress={()=>{
                 router.push({
                     pathname: "/FullAdScreen/[id]",
                     params: {
@@ -28,12 +28,12 @@ export default function HomeAd({id} : {id: string}){
                     }
                 })
             }}>
-                <Image style={{resizeMode:"contain"}} className="w-full h-40" source={{uri:adData.imagem}}></Image>
-                <Text className="text-center">{adData.category} {adData.marca} {adData.modelo}</Text>
-                <Text className="text-center">R${adData.preco}</Text>
+                <Image style={{resizeMode:"contain"}} className="w-full h-20" source={{uri:adData.imagem}}></Image>
+                <Text className="text-center text-xs">{adData.category} {adData.marca} {adData.modelo}</Text>
+                <Text className="text-center text-xs">R${adData.preco}</Text>
                 <View className="flex flex-row gap-4">
-                    <Text className="text-cente">{adData.localidade}</Text>
-                    <Text className="text-cente">{adData.dataPostagem}</Text>
+                    <Text className="text-cente text-xs">{adData.localidade}</Text>
+                    <Text className="text-cente text-xs">{adData.dataPostagem}</Text>
                 </View>
             </TouchableOpacity>
     )

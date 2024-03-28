@@ -4,14 +4,14 @@ import BottomBar from "../components/BottomBar";
 import TopBar from "../components/TopBar";
 import { Link } from "expo-router"
 import { useLocalSearchParams } from "expo-router";
-import axios from "axios"
+import axiosInstance from "../server/axios";
 
 export default function FullAdScreen(){
 
     const { id } = useLocalSearchParams()
 
     fetchApi = async () => {
-        const adData = await axios.get("http://10.31.89.114:3000/advertisement/" + id)
+        const adData = await axiosInstance.get("/advertisement/" + id)
         setAdData(adData.data)
     }
 
