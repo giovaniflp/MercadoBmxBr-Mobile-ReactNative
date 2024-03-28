@@ -3,15 +3,24 @@ import BottomBar from "./components/BottomBar";
 import Button from "./components/Button";
 import SpecialAspects from "./components/SpecialAspects";
 
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Picker} from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
 import axiosInstance from "./server/axios";
 
 
 export default function FormAdScreen(){
-
     
+    const [abracadeira, setAbraçadeira] = useState();
+    const updateFilho = (filhoData) =>{
+        setAbraçadeira(filhoData.abracadeira);
+    }
+
+
+    useEffect(() => {
+        updateFilho({abracadeira: abracadeira})
+    })
+
     const [categoria, setCategory] = useState();
     const [marca, setMarca] = useState();
     const [modelo, setModelo] = useState();
@@ -41,7 +50,9 @@ export default function FormAdScreen(){
         material: material,
         peso: peso,
         descricao: descricao,
-        whatsapp: whatsapp
+        whatsapp: whatsapp,
+        // Especificos abaixo
+        abracadeira: abracadeira
     }
 
     const submitForm = () => {
@@ -71,6 +82,8 @@ export default function FormAdScreen(){
         console.log(peso);
         console.log(descricao);
         console.log(whatsapp);
+        // Especificos abaixo
+        console.log(abracadeira);
     }
 
 
@@ -94,7 +107,7 @@ export default function FormAdScreen(){
 
             <View className="border-2 border-black rounded-lg m-4">
                 <Picker selectedValue={categoria} 
-                onValueChange={(itemValue, itemIndex)=> {setCategory(itemValue); if(itemValue !== null){setSubCategory(true)} else{setSubCategory(false)}}}>
+                onValueChange={(itemValue)=> {setCategory(itemValue); if(itemValue !== null){setSubCategory(true)} else{setSubCategory(false)}}}>
                     <Picker.Item label="Selecione uma categoria" value={null}></Picker.Item>
                     <Picker.Item label="Abraçadeiras" value="Abraçadeira"></Picker.Item>
                     <Picker.Item label="Aros" value="Aro"></Picker.Item>
@@ -102,7 +115,7 @@ export default function FormAdScreen(){
                     <Picker.Item label="Bar ends" value="Bar Ends"></Picker.Item>
                     <Picker.Item label="Bikes Completas" value="Bike Completa"></Picker.Item>
                     <Picker.Item label="Câmaras" value="Câmara"></Picker.Item>
-                    <Picker.Item label="Canotes" value="Canotes"></Picker.Item>
+                    <Picker.Item label="Canotes" value="Canote"></Picker.Item>
                     <Picker.Item label="Coroas" value="Coroa"></Picker.Item>
                     <Picker.Item label="Correntes" value="Corrente"></Picker.Item>
                     <Picker.Item label="Cubos Dianteiros" value="Cubo Dianteiro"></Picker.Item>
@@ -256,7 +269,7 @@ export default function FormAdScreen(){
                         <Text>Descrição</Text>
                         <TextInput value={descricao} onChangeText={setDescricao} numberOfLines={5} multiline={true} textAlignVertical="top" className="border-2 border-black rounded-lg pl-3 pt-3"></TextInput>
                         <View className="mt-8">
-                            <SpecialAspects categoria={categoria}></SpecialAspects>
+                            <SpecialAspects categoria={categoria} onChangeState={updateFilho}></SpecialAspects>
                         </View>
                         <View className="flex justify-center items-center">
                             <TouchableOpacity className="bg-red-400 p-4" onPress={submitForm}>

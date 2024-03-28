@@ -45,6 +45,7 @@ export default function FullAdScreen(){
                     </View>
                     <View className="mt-4">
                         <Text className="mb-4">Características Específicas</Text>
+                        <Text>{adData.abracadeira}</Text>
                         <Text>{adData.tipoDeFolha}</Text>
                         <Text>{adData.furos}</Text>
                         <Text>{adData.grossuraDosRaios}</Text>

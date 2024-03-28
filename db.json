@@ -178,6 +178,23 @@
       "peso": "400g",
       "descricao": "Mesa em ótimo estado, parafusos +-",
       "whatsapp": "81994606666"
+    },
+    {
+      "id": "8034",
+      "categoria": "Abraçadeira",
+      "marca": "Odyssey",
+      "modelo": "Fuego",
+      "preco": "20",
+      "localidade": "Espírito Santo",
+      "imagem": "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540giovaniflp%252Fmobile-marketbmxbr/ImagePicker/f0e7e5d4-2492-4a41-adec-40680f7e93ee.jpeg",
+      "estadoDaPeca": "Novo",
+      "grauDeDesgaste": "Médio",
+      "cor": "Polido",
+      "material": "Titânio",
+      "peso": "800g",
+      "descricao": "Muito foda",
+      "whatsapp": "81994606666",
+      "abracadeira": "25.4mm de Diâmetro"
     }
   ]
 }

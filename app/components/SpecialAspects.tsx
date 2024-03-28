@@ -1,8 +1,20 @@
 import { View, Text } from "react-native"
 import {Picker} from '@react-native-picker/picker';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function SpecialAspects({categoria} : {categoria:string}){
+export default function SpecialAspects({categoria, onChangeState} : {categoria:string, onChangeState: any}){
+
+    const onChange = () =>{
+        onChangeState(
+            {abracadeira: abracadeira, tipoCubo: tipoCubo, freecoaster: freecoaster}
+            )
+    }
+
+    useEffect(() => {
+        onChange()
+    })
+
+    const [abracadeira, setAbracadeira] = useState()
 
     const[tipoCubo, setTipoCubo] = useState()
     const[freecoaster, setFreecoaster] = useState(true)
@@ -13,15 +25,15 @@ export default function SpecialAspects({categoria} : {categoria:string}){
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
                 <Text>Diâmetro</Text>
                 <View className="border-2 border-black rounded-lg mb-8">
-                    <Picker>
+                    <Picker selectedValue={abracadeira} onValueChange={(value)=>{setAbracadeira(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
-                        <Picker.Item label="Quadro 25.4mm" value="25.4mm"></Picker.Item>
-                        <Picker.Item label="Quadro 27.2mm" value="27.2mm"></Picker.Item>
+                        <Picker.Item label="25.4mm de Diâmetro" value="25.4mm de Diâmetro"></Picker.Item>
+                        <Picker.Item label="27.2mm de Diâmetro" value="27,2mm de Diâmetro"></Picker.Item>
                     </Picker>
                 </View>
             </View>
         )
-    } else if (categoria == "aros"){
+    } else if (categoria == "Aro"){
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
@@ -51,7 +63,7 @@ export default function SpecialAspects({categoria} : {categoria:string}){
                 </View>
             </View>
         )
-    } else if (categoria == "bancos"){
+    } else if (categoria == "Banco"){
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
@@ -80,7 +92,7 @@ export default function SpecialAspects({categoria} : {categoria:string}){
                 </View>
             </View>
         )
-    } else if (categoria == "bikesCompletas"){
+    } else if (categoria == "Bike Completa"){
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
@@ -96,7 +108,7 @@ export default function SpecialAspects({categoria} : {categoria:string}){
                 </View>
             </View>
         )
-    } else if (categoria == "camaras"){
+    } else if (categoria == "Câmara"){
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
@@ -120,7 +132,7 @@ export default function SpecialAspects({categoria} : {categoria:string}){
                 </View>
             </View>
         )
-    } else if (categoria == "canotes"){
+    } else if (categoria == "Canote"){
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
@@ -147,7 +159,7 @@ export default function SpecialAspects({categoria} : {categoria:string}){
                 </View>
             </View>
         )
-    } else if (categoria == "coroas"){
+    } else if (categoria == "Coroa"){
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
@@ -179,7 +191,7 @@ export default function SpecialAspects({categoria} : {categoria:string}){
                 </View>
             </View>
         )
-    }  else if (categoria == "correntes"){
+    }  else if (categoria == "Corrente"){
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
@@ -193,7 +205,7 @@ export default function SpecialAspects({categoria} : {categoria:string}){
                 </View>
             </View>
         )
-    } else if (categoria == "cubosDianteiros"){
+    } else if (categoria == "Cubo Dianteiro"){
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
@@ -245,7 +257,7 @@ export default function SpecialAspects({categoria} : {categoria:string}){
                 </View>
             </View>
         )
-    } else if (categoria == "cubosTraseiros"){
+    } else if (categoria == "Cubo Traseiro"){
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
@@ -338,7 +350,7 @@ export default function SpecialAspects({categoria} : {categoria:string}){
                 </View>
             </View>
         )
-    }  else if (categoria == "eixoCentral"){
+    }  else if (categoria == "Eixo Central"){
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
@@ -361,7 +373,7 @@ export default function SpecialAspects({categoria} : {categoria:string}){
                 </View>
             </View>
         )
-    } else if (categoria == "freios"){
+    } else if (categoria == "Freio"){
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
@@ -376,7 +388,7 @@ export default function SpecialAspects({categoria} : {categoria:string}){
                 </View>
             </View>
         )
-    } else if (categoria == "garfos"){
+    } else if (categoria == "Garfo"){
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
@@ -403,7 +415,7 @@ export default function SpecialAspects({categoria} : {categoria:string}){
                 </View>
             </View>
         )
-    } else if (categoria == "guidoes"){
+    } else if (categoria == "Guidão"){
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
@@ -463,7 +475,7 @@ export default function SpecialAspects({categoria} : {categoria:string}){
                 </View>
             </View>
         )
-    } else if (categoria == "manoplas"){
+    } else if (categoria == "Manopla"){
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
@@ -494,7 +506,7 @@ export default function SpecialAspects({categoria} : {categoria:string}){
                 </View>
             </View>
         )
-    } else if (categoria == "mesas"){
+    } else if (categoria == "Mesa"){
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
@@ -542,7 +554,7 @@ export default function SpecialAspects({categoria} : {categoria:string}){
                 </View>
             </View>
         )
-    } else if (categoria == "movCentral"){
+    } else if (categoria == "Movimento Central"){
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
@@ -574,7 +586,7 @@ export default function SpecialAspects({categoria} : {categoria:string}){
                 </View>
             </View>
         )
-    } else if (categoria == "movDirecao"){
+    } else if (categoria == "Movimento de Direção"){
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
@@ -605,7 +617,7 @@ export default function SpecialAspects({categoria} : {categoria:string}){
                 </View>
             </View>
         )
-    } else if (categoria == "pedais"){
+    } else if (categoria == "Pedal"){
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
@@ -627,7 +639,7 @@ export default function SpecialAspects({categoria} : {categoria:string}){
                 </View>
             </View>
         )
-    } else if (categoria == "pedaleiras"){
+    } else if (categoria == "Pedaleira"){
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
@@ -662,7 +674,7 @@ export default function SpecialAspects({categoria} : {categoria:string}){
                 </View>
             </View>
         )
-    } else if (categoria == "pedivelas"){
+    } else if (categoria == "Pedivela"){
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
@@ -723,7 +735,7 @@ export default function SpecialAspects({categoria} : {categoria:string}){
                 </View>
             </View>
         )
-    } else if (categoria == "pneus"){
+    } else if (categoria == "Pneu"){
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
@@ -777,7 +789,7 @@ export default function SpecialAspects({categoria} : {categoria:string}){
                 </View>
             </View>
         )
-    }  else if (categoria == "quadros"){
+    }  else if (categoria == "Quadro"){
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
@@ -876,7 +888,7 @@ export default function SpecialAspects({categoria} : {categoria:string}){
                 </View>
             </View>
         )
-    }  else if (categoria == "protetores"){
+    }  else if (categoria == "Protetor"){
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
@@ -891,7 +903,7 @@ export default function SpecialAspects({categoria} : {categoria:string}){
                 </View>
             </View>
         )
-    } else if (categoria == "raios"){
+    } else if (categoria == "Raios"){
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
