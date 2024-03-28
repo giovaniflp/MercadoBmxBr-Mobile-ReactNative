@@ -4,7 +4,7 @@ import { Link } from "expo-router"
 
 export default function BottomBar(){
     return(
-      <View className="absolute bg-white bottom-0 left-0 right-0 flex flex-row justify-around border-t-2 p-3">
+      <View className="absolute bg-white bottom-0 left-0 right-0 flex flex-row justify-around items-center border-t-2 p-3">
         <Link href="/HomeScreen" asChild>
           <TouchableOpacity className="flex items-center mx-4">
             <View className="flex items-center">

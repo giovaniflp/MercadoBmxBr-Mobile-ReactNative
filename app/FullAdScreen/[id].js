@@ -25,12 +25,11 @@ export default function FullAdScreen(){
     return(
         <View className="flex h-full bg-white">
             <TopBar></TopBar>
-            <ScrollView>
+            <ScrollView className="mb-12">
                 <View>
                     <Image style={{resizeMode:"contain"}} className="w-full h-60" source={{uri:adData.imagem}}></Image>
                     <View>
-                        <Text>{adData.categoria} {adData.marca}</Text>
-                        <Text>Modelo: {adData.modelo}</Text>
+                        <Text>{adData.categoria} {adData.marca} {adData.modelo}</Text>
                         <Text>Preço: R${adData.preco}</Text>
                         <Text>{adData.localidade}</Text>
                         <Text>{adData.dataPostagem}</Text>             
@@ -70,7 +69,6 @@ export default function FullAdScreen(){
                     </View>
                 </View>
             </ScrollView>
-            
             <BottomBar></BottomBar>
         </View>
     )

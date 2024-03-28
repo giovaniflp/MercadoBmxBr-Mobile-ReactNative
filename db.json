@@ -195,6 +195,54 @@
       "descricao": "Muito foda",
       "whatsapp": "81994606666",
       "abracadeira": "25.4mm de Diâmetro"
+    },
+    {
+      "id": "cef8",
+      "categoria": "Abraçadeira",
+      "imagem": null,
+      "cor": null
+    },
+    {
+      "id": "d061",
+      "categoria": "Abraçadeira",
+      "marca": "Odyssey",
+      "preco": "20",
+      "localidade": "Distrito Federal",
+      "imagem": "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540giovaniflp%252Fmobile-marketbmxbr/ImagePicker/9c5c6d5d-4c8d-4fe6-b7ba-2922739ebb5a.jpeg",
+      "estadoDaPeca": "Novo",
+      "grauDeDesgaste": "Pouco",
+      "cor": "Cromado",
+      "material": "Alumínio",
+      "peso": "400g",
+      "whatsapp": "81994606666"
+    },
+    {
+      "id": "6f80",
+      "categoria": "Aro",
+      "marca": "Odyssey",
+      "preco": "20",
+      "localidade": "Espírito Santo",
+      "imagem": "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540giovaniflp%252Fmobile-marketbmxbr/ImagePicker/b6d5264a-834b-44e2-b39c-75f8614f15b5.jpeg",
+      "estadoDaPeca": "Novo",
+      "grauDeDesgaste": "Médio",
+      "cor": "Outra",
+      "material": "Titânio",
+      "peso": "800g",
+      "whatsapp": "81994606666"
+    },
+    {
+      "id": "dcfa",
+      "categoria": "Aro",
+      "marca": "Odyssey",
+      "preco": "40",
+      "localidade": "Espírito Santo",
+      "imagem": "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540giovaniflp%252Fmobile-marketbmxbr/ImagePicker/6ad307b5-5375-452d-b9b7-d8abfb24c46a.jpeg",
+      "estadoDaPeca": "Usado",
+      "grauDeDesgaste": "Grande",
+      "cor": "Óleo",
+      "material": "Nylon",
+      "peso": "1kg",
+      "whatsapp": "81"
     }
   ]
 }

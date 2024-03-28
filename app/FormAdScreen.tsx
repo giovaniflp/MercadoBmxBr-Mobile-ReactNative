@@ -7,6 +7,7 @@ import React, {useEffect, useState} from "react";
 import {Picker} from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
 import axiosInstance from "./server/axios";
+import { router } from "expo-router";
 
 
 export default function FormAdScreen(){
@@ -58,11 +59,27 @@ export default function FormAdScreen(){
     const submitForm = () => {
         axiosInstance.post("/advertisement", formRequestData)
         .then((res) => {
+            alert("Anúncio criado com sucesso")
+            router.push({
+                pathname:"/FullAdScreen/[id]",
+                params: {
+                    id: res.data.id
+                }
+            })
             console.log(res.data)
         })
         .catch((err) => {
             console.log(err)
         })
+    }
+
+    const validateForm = ()=>{
+        // Adicionar data pelo back end
+        if(categoria && marca && preco && localidade && imagem && estadoDaPeca && grauDeDesgaste && cor && material && peso && whatsapp){
+            submitForm()
+        } else {
+            alert("Preencha todos os campos obrigatórios")
+        }
     }
 
     const [subCategory, setSubCategory] = useState(false);
@@ -143,19 +160,20 @@ export default function FormAdScreen(){
                     <View className="m-4">
                         <View>
                             <View className="flex flex-row justify-between items-center">
-                                <Text className="text-2xl">Aspectos Gerais *</Text>
-                                <TouchableOpacity onPress={pickImage}>
+                                <Text className="text-2xl">Aspectos Gerais <Text className="text-red-600">*</Text></Text>
+                                <TouchableOpacity className="flex flex-row" onPress={pickImage}>
+                                    <Text className="text-red-600">*</Text>
                                     <Image source={require("../public/icons/photoAdd.png")}></Image>
                                 </TouchableOpacity>
                             </View>
-                            <Text className="text-sm">*Obrigatório</Text>
+                            <Text className="text-sm"><Text className="text-red-600">*</Text>Obrigatório</Text>
                             <View className="flex justify-center items-center">
                             {imagem && <Image className="rounded-lg mt-8" source={{uri: imagem}} style={{width: 300, height: 300}} />}
                             </View>
                         </View>
-                        <Text className="mt-8">Preço em R$ *</Text>
+                        <Text className="mt-8">Preço em R$ <Text className="text-red-600">*</Text></Text>
                         <TextInput value={preco} onChangeText={setPreco} className="border-2 border-black rounded-lg p-3" placeholder="R$ 40" keyboardType="numeric"></TextInput>
-                        <Text>Estado da peça *</Text>
+                        <Text>Estado da peça <Text className="text-red-600">*</Text></Text>
                         <View className="border-2 border-black rounded-lg">
                             <Picker selectedValue={estadoDaPeca} onValueChange={setEstadoDaPeca}>
                                 <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
@@ -163,7 +181,7 @@ export default function FormAdScreen(){
                                 <Picker.Item label="Usado" value="Usado"></Picker.Item>
                             </Picker>
                         </View>
-                        <Text>Grau de desgaste *</Text>
+                        <Text>Grau de desgaste <Text className="text-red-600">*</Text></Text>
                         <View className="border-2 border-black rounded-lg">
                             <Picker selectedValue={grauDeDesgaste} onValueChange={setGrauDeDesgaste}>
                                 <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
@@ -174,7 +192,7 @@ export default function FormAdScreen(){
                                 <Picker.Item label="Quebrado" value="Quebrado"></Picker.Item>
                             </Picker>
                         </View>
-                        <Text>Localidade *</Text>
+                        <Text>Localidade <Text className="text-red-600">*</Text></Text>
                         <View className="border-2 border-black rounded-lg">
                         <Picker selectedValue={localidade} onValueChange={setLocalidade}>
                             <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
@@ -208,19 +226,9 @@ export default function FormAdScreen(){
                         </Picker>
 
                         </View>
-                        <Text>Digite seu whatsapp (DDD e Número) para contato *</Text>
+                        <Text>Digite seu whatsapp (DDD e Número) para contato <Text className="text-red-600">*</Text></Text>
                         <TextInput value={whatsapp} onChangeText={setWhatsapp} className="border-2 border-black rounded-lg p-3" placeholder="81912345678" keyboardType="numeric"></TextInput>
-                        <Text>Marca *</Text>
-                        <View className="border-2 border-black rounded-lg">
-                            <Picker selectedValue={marca} onValueChange={setMarca}>
-                                <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
-                                <Picker.Item label="Animal" value="Animal"></Picker.Item>
-                                <Picker.Item label="Odyssey" value="Odyssey"></Picker.Item>
-                            </Picker>
-                        </View>
-                        <Text>Modelo da peça</Text>
-                        <TextInput value={modelo} onChangeText={setModelo} className="border-2 border-black rounded-lg p-3" placeholder="Thunderbolt"></TextInput>
-                        <Text>Cor *</Text>
+                        <Text>Cor <Text className="text-red-600">*</Text></Text>
                         <View className="border-2 border-black rounded-lg">
                             <Picker selectedValue={cor} onValueChange={setCor}>
                                 <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
@@ -232,7 +240,7 @@ export default function FormAdScreen(){
                                 <Picker.Item label="Outra" value="Outra"></Picker.Item>
                             </Picker>
                         </View>
-                        <Text>Material *</Text>
+                        <Text>Material <Text className="text-red-600">*</Text></Text>
                         <View className="border-2 border-black rounded-lg">
                             <Picker selectedValue={material} onValueChange={setMaterial}>
                                 <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
@@ -244,7 +252,7 @@ export default function FormAdScreen(){
                                 <Picker.Item label="Outro" value="Outro"></Picker.Item>
                             </Picker>
                         </View>
-                        <Text>Peso aproximado *</Text>
+                        <Text>Peso aproximado <Text className="text-red-600">*</Text></Text>
                         <View className="border-2 border-black rounded-lg">
                             <Picker selectedValue={peso} onValueChange={setPeso}>
                                     <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
@@ -266,13 +274,23 @@ export default function FormAdScreen(){
                                     <Picker.Item label="+2,5kg" value="+2,5kg"></Picker.Item>
                                 </Picker>
                             </View>
+                        <Text>Marca <Text className="text-red-600">*</Text></Text>
+                        <View className="border-2 border-black rounded-lg">
+                            <Picker selectedValue={marca} onValueChange={setMarca}>
+                                <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
+                                <Picker.Item label="Animal" value="Animal"></Picker.Item>
+                                <Picker.Item label="Odyssey" value="Odyssey"></Picker.Item>
+                            </Picker>
+                        </View>
+                        <Text>Modelo da peça</Text>
+                        <TextInput value={modelo} onChangeText={setModelo} className="border-2 border-black rounded-lg p-3" placeholder="Thunderbolt"></TextInput>
                         <Text>Descrição</Text>
                         <TextInput value={descricao} onChangeText={setDescricao} numberOfLines={5} multiline={true} textAlignVertical="top" className="border-2 border-black rounded-lg pl-3 pt-3"></TextInput>
                         <View className="mt-8">
                             <SpecialAspects categoria={categoria} onChangeState={updateFilho}></SpecialAspects>
                         </View>
                         <View className="flex justify-center items-center">
-                            <TouchableOpacity className="bg-red-400 p-4" onPress={submitForm}>
+                            <TouchableOpacity className="bg-red-400 p-4" onPress={validateForm}>
                                 <Text>Anunciar</Text>
                             </TouchableOpacity>
                             <TouchableOpacity className="bg-green-400 p-4" onPress={testar}>
