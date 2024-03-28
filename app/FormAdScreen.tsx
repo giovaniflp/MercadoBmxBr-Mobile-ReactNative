@@ -33,8 +33,8 @@ export default function FormAdScreen(){
     }
 
     return(
-        <View className="h-full mt-8">
-            <ScrollView className="mb-20">
+        <View className="h-full">
+            <ScrollView className="mb-12">
 
             <View className="border-2 border-black rounded-lg m-4">
                 <Picker selectedValue={selectedCategory} 
@@ -92,6 +92,17 @@ export default function FormAdScreen(){
                                 <Picker.Item label="Usado" value="usado"></Picker.Item>
                             </Picker>
                         </View>
+                        <Text>Grau de desgaste *</Text>
+                        <View className="border-2 border-black rounded-lg">
+                            <Picker>
+                                <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
+                                <Picker.Item label="Nenhum" value="nenhum"></Picker.Item>
+                                <Picker.Item label="Pouco" value="pouco"></Picker.Item>
+                                <Picker.Item label="Médio" value="medio"></Picker.Item>
+                                <Picker.Item label="Grande" value="grande"></Picker.Item>
+                                <Picker.Item label="Quebrado" value="quebrado"></Picker.Item>
+                            </Picker>
+                        </View>
                         <Text>Localidade *</Text>
                         <View className="border-2 border-black rounded-lg">
                             <Picker>
@@ -143,6 +154,7 @@ export default function FormAdScreen(){
                                 <Picker.Item label="Branco" value="branco"></Picker.Item>
                                 <Picker.Item label="Cromado" value="cromado"></Picker.Item>
                                 <Picker.Item label="Polido" value="polido"></Picker.Item>
+                                <Picker.Item label="Óleo" value="oleo"></Picker.Item>
                                 <Picker.Item label="Outra" value="outra"></Picker.Item>
                             </Picker>
                         </View>
