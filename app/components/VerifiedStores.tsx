@@ -5,7 +5,7 @@ export default function VerifiedStores(){
     return(
         <View>
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                <View  className="flex flex-row gap-4">
+                <View  className="flex flex-row gap-4 px-4">
                     <TouchableOpacity onPress={()=>{Linking.openURL("https://www.dreambmx.com.br/")}}>
                         <Image style={{resizeMode:"contain"}} className="w-40 h-40" source={require('../../public/images/dreamBmxLogo.png')}></Image>
                     </TouchableOpacity>

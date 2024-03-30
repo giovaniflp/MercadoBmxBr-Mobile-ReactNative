@@ -452,10 +452,14 @@ export default function FormAdScreen(){
         raioTipo: raioTipo,
         raioTamanho: raioTamanho
     };
-    
+
+    const filterRequestData = Object.fromEntries(
+        Object.entries(formRequestData).filter(([key, value]) => value !== null)
+    )
 
     const submitForm = () => {
-        axiosInstance.post("/advertisement", formRequestData)
+        console.log(filterRequestData)
+        axiosInstance.post("/advertisement", filterRequestData)
         .then((res) => {
             alert("Anúncio criado com sucesso")
             router.push({

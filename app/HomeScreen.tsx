@@ -20,17 +20,17 @@ export default function HomeScreen() {
   }, [])
 
   return (
-    <View className="flex h-full p-4">
+    <View className="flex h-full">
       <View>
         <ScrollView className="flex">
           <View>
-            <Text className="text-3xl">Lojas Verificadas</Text>
+            <Text className="text-3xl px-4 pt-4">Lojas Verificadas</Text>
             <VerifiedStores></VerifiedStores>
           </View>
           <View className="mb-8">
-            <Text className="text-3xl">Peças Novas</Text>
+            <Text className="text-3xl px-4">Peças Novas</Text>
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-              <View className="flex flex-row">
+              <View className="flex flex-row px-4 py-2">
                 {adData.map((ad, index) => {
                   return <HomeAd id={ad.id} key={index}></HomeAd>
                 }
@@ -39,9 +39,9 @@ export default function HomeScreen() {
             </ScrollView>
           </View>
           <View className="mb-8">
-            <Text className="text-3xl">Peças Usadas</Text>
+            <Text className="text-3xl px-4">Peças Usadas</Text>
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            <View className="flex flex-row">
+            <View className="flex flex-row px-4 py-2">
                 {adData.map((ad, index) => {
                   return <HomeAd id={ad.id} key={index}></HomeAd>
                 }
@@ -50,9 +50,9 @@ export default function HomeScreen() {
             </ScrollView>
           </View>
           <View className="mb-8">
-            <Text className="text-3xl">Peças para Doação</Text>
+            <Text className="text-3xl px-4">Peças para Doação</Text>
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            <View className="flex flex-row">
+            <View className="flex flex-row px-4 py-2">
                 {adData.map((ad, index) => {
                   return <HomeAd id={ad.id} key={index}></HomeAd>
                 }
@@ -61,9 +61,9 @@ export default function HomeScreen() {
             </ScrollView>
           </View>
           <View className="mb-8">
-            <Text className="text-3xl">Peças para Street</Text>
+            <Text className="text-3xl px-4">Peças para Street</Text>
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            <View className="flex flex-row">
+            <View className="flex flex-row px-4 py-2">
                 {adData.map((ad, index) => {
                   return <HomeAd id={ad.id} key={index}></HomeAd>
                 }
@@ -72,9 +72,9 @@ export default function HomeScreen() {
             </ScrollView>
           </View>
           <View className="mb-8">
-            <Text className="text-3xl">Peças para Park</Text>
+            <Text className="text-3xl px-4">Peças para Park</Text>
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            <View className="flex flex-row">
+            <View className="flex flex-row px-4 py-2">
                 {adData.map((ad, index) => {
                   return <HomeAd id={ad.id} key={index}></HomeAd>
                 }
@@ -83,9 +83,9 @@ export default function HomeScreen() {
             </ScrollView>
           </View>
           <View className="mb-20">
-            <Text className="text-3xl">Peças para Dirt</Text>
+            <Text className="text-3xl px-4">Peças para Dirt</Text>
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            <View className="flex flex-row">
+            <View className="flex flex-row px-4 py-2">
                 {adData.map((ad, index) => {
                   return <HomeAd id={ad.id} key={index}></HomeAd>
                 }

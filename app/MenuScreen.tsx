@@ -16,6 +16,9 @@ export default function MenuScreen(){
                 <Button route="/" text="Alterar Senha" color="blue"></Button>
             </View>
             <View className="mt-4">
+                <Button route="/" text="Termos de Uso" color="blue"></Button>
+            </View>
+            <View className="mt-4">
                 <Button route="/" text="Meus anúncios" color="green"></Button>
             </View>
             <View className="my-4">
