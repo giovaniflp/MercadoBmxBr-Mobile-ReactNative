@@ -12,17 +12,337 @@ import { router } from "expo-router";
 
 export default function FormAdScreen(){
     
-    const [abracadeira, setAbraçadeira] = useState();
-    const updateFilho = (filhoData) =>{
-        setAbraçadeira(filhoData.abracadeira);
-    }
+    const [abracadeiraDiametro, setAbracadeiraDiametro] = useState(null)
+    const [aroTipoFolha, setAroTipoFolha] = useState(null)
+    const [aroFuros, setArosFuros] = useState(null)
+    const [aroGrossura, setAroGrossura] = useState(null)
+    const [bancoTipo, setBancoTipo] = useState(null)
+    const [bancoCanoteTamanho, setBancoCanoteTamanho] = useState(null)
+    const [bikeCompletaModalidade, setBikeCompletaModalidade] = useState(null)
+    const [camaraAroTamanho, setCamaraAroTamanho] = useState(null)
+    const [camaraTipoValvula, setCamaraTipoValvula] = useState(null)
+    const [canoteTipo, setCanoteTipo] = useState(null)
+    const [canoteTamanho, setCanoteTamanho] = useState(null)
+    const [coroaDentes, setCoroaDentes] = useState(null)
+    const [coroaProtetor, setCoroaProtetor] = useState(null)
+    const [coroaAdaptador, setCoroaAdaptador] = useState(null)
+    const [correnteTipoElo, setCorrenteTipoElo] = useState(null)
+    const [cuboDianteiroFuros, setCuboDianteiroFuros] = useState(null)
+    const [cuboDianteiroTipoEixo, setCuboDianteiroTipoEixo] = useState(null)
+    const [cuboDianteiroMaterialEixo, setCuboDianteiroMaterialEixo] = useState(null)
+    const [cuboDianteiroMaterialParafusos, setCuboDianteiroMaterialParafusos] = useState(null)
+    const [cuboDianteiroProtetor, setCuboDianteiroProtetor] = useState(null)
 
+    const[tipoCubo, setTipoCubo] = useState()
+    const[freecoaster, setFreecoaster] = useState(true)
+
+    const [cuboTraseiroTracao, setCuboTraseiroTracao] = useState(null)
+    const [cuboTraseiroCog, setCuboTraseiroCog] = useState(null)
+    const [cuboTraseiroTravas, setCuboTraseiroTravas] = useState(null)
+    const [cuboTraseiroFuros, setCuboTraseiroFuros] = useState(null)
+    const [cuboTraseiroTipoEixo, setCuboTraseiroTipoEixo] = useState(null)
+    const [cuboTraseiroMaterialEixo, setCuboTraseiroMaterialEixo] = useState(null)
+    const [cuboTraseiroMaterialParafusos, setCuboTraseiroMaterialParafusos] = useState(null)
+    const [cuboTraseiroProtetor, setCuboTraseiroProtetor] = useState(null)
+    const [eixoCentralEstrias, setEixoCentralEstrias] = useState(null)
+    const [eixoCentralTamanho, setEixoCentralTamanho] = useState(null)
+    const [freioPeca, setFreioPeca] = useState(null)
+    const [garfoOffset, setGarfoOffset] = useState(null)
+    const [garfoTampa, setGarfoTampa] = useState(null)
+    const [guidaoTamanho, setGuidaoTamanho] = useState(null)
+    const [guidaoLargura, setGuidaoLargura] = useState(null)
+    const [guidaoAngulo, setGuidaoAngulo] = useState(null)
+    const [guidaoTipo, setGuidaoTipo] = useState(null)
+    const [manoplaTamanho, setManoplaTamanho] = useState(null)
+    const [manoplaBarEnds, setManoplaBarEnds] = useState(null)
+    const [mesaTamanho, setMesaTamanho] = useState(null)
+    const [mesaAltura, setMesaAltura] = useState(null)
+    const [mesaTipo, setMesaTipo] = useState(null)
+    const [mesaFabricacao, setMesaFabricacao] = useState(null)
+    const [movimentoCentralTipo, setMovimentoCentralTipo] = useState(null)
+    const [movimentoCentralRolamento, setMovimentoCentralRolamento] = useState(null)
+    const [movimentoCentralAcompanha, setMovimentoCentralAcompanha] = useState(null)
+    const [movimentoDirecaoTipo, setMovimentoDirecaoTipo] = useState(null)
+    const [movimentoDirecaoTampa, setMovimentoDirecaoTampa] = useState(null)
+    const [movimentoDirecaoAcompanha, setMovimentoDirecaoAcompanha] = useState(null)
+    const [pedalRosca, setPedalRosca] = useState(null)
+    const [pedalConstrucao, setPedalConstrucao] = useState(null)
+    const [pedaleiraQuantidade, setPedaleiraQuantidade] = useState(null)
+    const [pedaleiraEncaixe, setPedaleiraEncaixe] = useState(null)
+    const [pedaleiraTamanho, setPedaleiraTamanho] = useState(null)
+    const [pedivelaTracao, setPedivelaTracao] = useState(null)
+    const [pedivelaTamanho, setPedivelaTamanho] = useState(null)
+    const [pedivelaRolamento, setPedivelaRolamento] = useState(null)
+    const [pedivelaEstrias, setPedivelaEstrias] = useState(null)
+    const [pedivelaAcompanha, setPedivelaAcompanha] = useState(null)
+    const [pedivelaConstrucao, setPedivelaConstrucao] = useState(null)
+    const [pneuAro, setPneuAro] = useState(null)
+    const [pneuBandaLateral, setPneuBandaLateral] = useState(null)
+    const [pneuIndicacao, setPneuIndicacao] = useState(null)
+    const [pneuTamanho, setPneuTamanho] = useState(null)
+    const [quadroAbracadeira, setQuadroAbracadeira] = useState(null)
+    const [quadroCentral, setQuadroCentral] = useState(null)
+    const [quadroDirecao, setQuadroDirecao] = useState(null)
+    const [quadroEsticador, setQuadroEsticador] = useState(null)
+    const [quadroMedida, setQuadroMedida] = useState(null)
+    const [quadroModalidade, setQuadroModalidade] = useState(null)
+    const [quadroPinos, setQuadroPinos] = useState(null)
+    const [quadroTamanhoAro, setQuadroTamanhoAro] = useState(null)
+    const [quadroTolerancia, setQuadroTolerancia] = useState(null)
+    const [protetorLado, setProtetorLado] = useState(null)
+    const [raioTipo, setRaioTipo] = useState(null)
+    const [raioTamanho, setRaioTamanho] = useState(null)
+
+    const updateFilho = (filhoData) => {
+        setAbracadeiraDiametro(filhoData.abracadeiraDiametro);
+        setAroTipoFolha(filhoData.aroTipoFolha);
+        setArosFuros(filhoData.aroFuros);
+        setAroGrossura(filhoData.aroGrossura);
+        setBancoTipo(filhoData.bancoTipo);
+        setBancoCanoteTamanho(filhoData.bancoCanoteTamanho);
+        setBikeCompletaModalidade(filhoData.bikeCompletaModalidade);
+        setCamaraAroTamanho(filhoData.camaraAroTamanho);
+        setCamaraTipoValvula(filhoData.camaraTipoValvula);
+        setCanoteTipo(filhoData.canoteTipo);
+        setCanoteTamanho(filhoData.canoteTamanho);
+        setCoroaDentes(filhoData.coroaDentes);
+        setCoroaProtetor(filhoData.coroaProtetor);
+        setCoroaAdaptador(filhoData.coroaAdaptador);
+        setCorrenteTipoElo(filhoData.correnteTipoElo);
+        setCuboDianteiroFuros(filhoData.cuboDianteiroFuros);
+        setCuboDianteiroTipoEixo(filhoData.cuboDianteiroTipoEixo);
+        setCuboDianteiroMaterialEixo(filhoData.cuboDianteiroMaterialEixo);
+        setCuboDianteiroMaterialParafusos(filhoData.cuboDianteiroMaterialParafusos);
+        setCuboDianteiroProtetor(filhoData.cuboDianteiroProtetor);
+        setTipoCubo(filhoData.tipoCubo);
+        setFreecoaster(filhoData.freecoaster);
+        setCuboTraseiroTracao(filhoData.cuboTraseiroTracao);
+        setCuboTraseiroCog(filhoData.cuboTraseiroCog);
+        setCuboTraseiroTravas(filhoData.cuboTraseiroTravas);
+        setCuboTraseiroFuros(filhoData.cuboTraseiroFuros);
+        setCuboTraseiroTipoEixo(filhoData.cuboTraseiroTipoEixo);
+        setCuboTraseiroMaterialEixo(filhoData.cuboTraseiroMaterialEixo);
+        setCuboTraseiroMaterialParafusos(filhoData.cuboTraseiroMaterialParafusos);
+        setCuboTraseiroProtetor(filhoData.cuboTraseiroProtetor);
+        setEixoCentralEstrias(filhoData.eixoCentralEstrias);
+        setEixoCentralTamanho(filhoData.eixoCentralTamanho);
+        setFreioPeca(filhoData.freioPeca);
+        setGarfoOffset(filhoData.garfoOffset);
+        setGarfoTampa(filhoData.garfoTampa);
+        setGuidaoTamanho(filhoData.guidaoTamanho);
+        setGuidaoLargura(filhoData.guidaoLargura);
+        setGuidaoAngulo(filhoData.guidaoAngulo);
+        setGuidaoTipo(filhoData.guidaoTipo);
+        setManoplaTamanho(filhoData.manoplaTamanho);
+        setManoplaBarEnds(filhoData.manoplaBarEnds);
+        setMesaTamanho(filhoData.mesaTamanho);
+        setMesaAltura(filhoData.mesaAltura);
+        setMesaTipo(filhoData.mesaTipo);
+        setMesaFabricacao(filhoData.mesaFabricacao);
+        setMovimentoCentralTipo(filhoData.movimentoCentralTipo);
+        setMovimentoCentralRolamento(filhoData.movimentoCentralRolamento);
+        setMovimentoCentralAcompanha(filhoData.movimentoCentralAcompanha);
+        setMovimentoDirecaoTipo(filhoData.movimentoDirecaoTipo);
+        setMovimentoDirecaoTampa(filhoData.movimentoDirecaoTampa);
+        setMovimentoDirecaoAcompanha(filhoData.movimentoDirecaoAcompanha);
+        setPedalRosca(filhoData.pedalRosca);
+        setPedalConstrucao(filhoData.pedalConstrucao);
+        setPedaleiraQuantidade(filhoData.pedaleiraQuantidade);
+        setPedaleiraEncaixe(filhoData.pedaleiraEncaixe);
+        setPedaleiraTamanho(filhoData.pedaleiraTamanho);
+        setPedivelaTracao(filhoData.pedivelaTracao);
+        setPedivelaTamanho(filhoData.pedivelaTamanho);
+        setPedivelaRolamento(filhoData.pedivelaRolamento);
+        setPedivelaEstrias(filhoData.pedivelaEstrias);
+        setPedivelaAcompanha(filhoData.pedivelaAcompanha);
+        setPedivelaConstrucao(filhoData.pedivelaConstrucao);
+        setPneuAro(filhoData.pneuAro);
+        setPneuBandaLateral(filhoData.pneuBandaLateral);
+        setPneuIndicacao(filhoData.pneuIndicacao);
+        setPneuTamanho(filhoData.pneuTamanho);
+        setQuadroAbracadeira(filhoData.quadroAbracadeira);
+        setQuadroCentral(filhoData.quadroCentral);
+        setQuadroDirecao(filhoData.quadroDirecao);
+        setQuadroEsticador(filhoData.quadroEsticador);
+        setQuadroMedida(filhoData.quadroMedida);
+        setQuadroModalidade(filhoData.quadroModalidade);
+        setQuadroPinos(filhoData.quadroPinos);
+        setQuadroTamanhoAro(filhoData.quadroTamanhoAro);
+        setQuadroTolerancia(filhoData.quadroTolerancia);
+        setProtetorLado(filhoData.protetorLado);
+        setRaioTipo(filhoData.raioTipo);
+        setRaioTamanho(filhoData.raioTamanho);
+    };
+    
 
     useEffect(() => {
-        updateFilho({abracadeira: abracadeira})
-    })
-
+        updateFilho({
+            abracadeiraDiametro: abracadeiraDiametro,
+            aroTipoFolha: aroTipoFolha,
+            aroFuros: aroFuros,
+            aroGrossura: aroGrossura,
+            bancoTipo: bancoTipo,
+            bancoCanoteTamanho: bancoCanoteTamanho,
+            bikeCompletaModalidade: bikeCompletaModalidade,
+            camaraAroTamanho: camaraAroTamanho,
+            camaraTipoValvula: camaraTipoValvula,
+            canoteTipo: canoteTipo,
+            canoteTamanho: canoteTamanho,
+            coroaDentes: coroaDentes,
+            coroaProtetor: coroaProtetor,
+            coroaAdaptador: coroaAdaptador,
+            correnteTipoElo: correnteTipoElo,
+            cuboDianteiroFuros: cuboDianteiroFuros,
+            cuboDianteiroTipoEixo: cuboDianteiroTipoEixo,
+            cuboDianteiroMaterialEixo: cuboDianteiroMaterialEixo,
+            cuboDianteiroMaterialParafusos: cuboDianteiroMaterialParafusos,
+            cuboDianteiroProtetor: cuboDianteiroProtetor,
+            tipoCubo: tipoCubo,
+            freecoaster: freecoaster,
+            cuboTraseiroTracao: cuboTraseiroTracao,
+            cuboTraseiroCog: cuboTraseiroCog,
+            cuboTraseiroTravas: cuboTraseiroTravas,
+            cuboTraseiroFuros: cuboTraseiroFuros,
+            cuboTraseiroTipoEixo: cuboTraseiroTipoEixo,
+            cuboTraseiroMaterialEixo: cuboTraseiroMaterialEixo,
+            cuboTraseiroMaterialParafusos: cuboTraseiroMaterialParafusos,
+            cuboTraseiroProtetor: cuboTraseiroProtetor,
+            eixoCentralEstrias: eixoCentralEstrias,
+            eixoCentralTamanho: eixoCentralTamanho,
+            freioPeca: freioPeca,
+            garfoOffset: garfoOffset,
+            garfoTampa: garfoTampa,
+            guidaoTamanho: guidaoTamanho,
+            guidaoLargura: guidaoLargura,
+            guidaoAngulo: guidaoAngulo,
+            guidaoTipo: guidaoTipo,
+            manoplaTamanho: manoplaTamanho,
+            manoplaBarEnds: manoplaBarEnds,
+            mesaTamanho: mesaTamanho,
+            mesaAltura: mesaAltura,
+            mesaTipo: mesaTipo,
+            mesaFabricacao: mesaFabricacao,
+            movimentoCentralTipo: movimentoCentralTipo,
+            movimentoCentralRolamento: movimentoCentralRolamento,
+            movimentoCentralAcompanha: movimentoCentralAcompanha,
+            movimentoDirecaoTipo: movimentoDirecaoTipo,
+            movimentoDirecaoTampa: movimentoDirecaoTampa,
+            movimentoDirecaoAcompanha: movimentoDirecaoAcompanha,
+            pedalRosca: pedalRosca,
+            pedalConstrucao: pedalConstrucao,
+            pedaleiraQuantidade: pedaleiraQuantidade,
+            pedaleiraEncaixe: pedaleiraEncaixe,
+            pedaleiraTamanho: pedaleiraTamanho,
+            pedivelaTracao: pedivelaTracao,
+            pedivelaTamanho: pedivelaTamanho,
+            pedivelaRolamento: pedivelaRolamento,
+            pedivelaEstrias: pedivelaEstrias,
+            pedivelaAcompanha: pedivelaAcompanha,
+            pedivelaConstrucao: pedivelaConstrucao,
+            pneuAro: pneuAro,
+            pneuBandaLateral: pneuBandaLateral,
+            pneuIndicacao: pneuIndicacao,
+            pneuTamanho: pneuTamanho,
+            quadroAbracadeira: quadroAbracadeira,
+            quadroCentral: quadroCentral,
+            quadroDirecao: quadroDirecao,
+            quadroEsticador: quadroEsticador,
+            quadroMedida: quadroMedida,
+            quadroModalidade: quadroModalidade,
+            quadroPinos: quadroPinos,
+            quadroTamanhoAro: quadroTamanhoAro,
+            quadroTolerancia: quadroTolerancia,
+            protetorLado: protetorLado,
+            raioTipo: raioTipo,
+            raioTamanho: raioTamanho
+        });
+    });
+    
+    
     const [categoria, setCategory] = useState();
+    useEffect(() => {
+        updateFilho({
+            abracadeiraDiametro: abracadeiraDiametro,
+            aroTipoFolha: aroTipoFolha,
+            aroFuros: aroFuros,
+            aroGrossura: aroGrossura,
+            bancoTipo: bancoTipo,
+            bancoCanoteTamanho: bancoCanoteTamanho,
+            bikeCompletaModalidade: bikeCompletaModalidade,
+            camaraAroTamanho: camaraAroTamanho,
+            camaraTipoValvula: camaraTipoValvula,
+            canoteTipo: canoteTipo,
+            canoteTamanho: canoteTamanho,
+            coroaDentes: coroaDentes,
+            coroaProtetor: coroaProtetor,
+            coroaAdaptador: coroaAdaptador,
+            correnteTipoElo: correnteTipoElo,
+            cuboDianteiroFuros: cuboDianteiroFuros,
+            cuboDianteiroTipoEixo: cuboDianteiroTipoEixo,
+            cuboDianteiroMaterialEixo: cuboDianteiroMaterialEixo,
+            cuboDianteiroMaterialParafusos: cuboDianteiroMaterialParafusos,
+            cuboDianteiroProtetor: cuboDianteiroProtetor,
+            tipoCubo: tipoCubo,
+            freecoaster: freecoaster,
+            cuboTraseiroTracao: cuboTraseiroTracao,
+            cuboTraseiroCog: cuboTraseiroCog,
+            cuboTraseiroTravas: cuboTraseiroTravas,
+            cuboTraseiroFuros: cuboTraseiroFuros,
+            cuboTraseiroTipoEixo: cuboTraseiroTipoEixo,
+            cuboTraseiroMaterialEixo: cuboTraseiroMaterialEixo,
+            cuboTraseiroMaterialParafusos: cuboTraseiroMaterialParafusos,
+            cuboTraseiroProtetor: cuboTraseiroProtetor,
+            eixoCentralEstrias: eixoCentralEstrias,
+            eixoCentralTamanho: eixoCentralTamanho,
+            freioPeca: freioPeca,
+            garfoOffset: garfoOffset,
+            garfoTampa: garfoTampa,
+            guidaoTamanho: guidaoTamanho,
+            guidaoLargura: guidaoLargura,
+            guidaoAngulo: guidaoAngulo,
+            guidaoTipo: guidaoTipo,
+            manoplaTamanho: manoplaTamanho,
+            manoplaBarEnds: manoplaBarEnds,
+            mesaTamanho: mesaTamanho,
+            mesaAltura: mesaAltura,
+            mesaTipo: mesaTipo,
+            mesaFabricacao: mesaFabricacao,
+            movimentoCentralTipo: movimentoCentralTipo,
+            movimentoCentralRolamento: movimentoCentralRolamento,
+            movimentoCentralAcompanha: movimentoCentralAcompanha,
+            movimentoDirecaoTipo: movimentoDirecaoTipo,
+            movimentoDirecaoTampa: movimentoDirecaoTampa,
+            movimentoDirecaoAcompanha: movimentoDirecaoAcompanha,
+            pedalRosca: pedalRosca,
+            pedalConstrucao: pedalConstrucao,
+            pedaleiraQuantidade: pedaleiraQuantidade,
+            pedaleiraEncaixe: pedaleiraEncaixe,
+            pedaleiraTamanho: pedaleiraTamanho,
+            pedivelaTracao: pedivelaTracao,
+            pedivelaTamanho: pedivelaTamanho,
+            pedivelaRolamento: pedivelaRolamento,
+            pedivelaEstrias: pedivelaEstrias,
+            pedivelaAcompanha: pedivelaAcompanha,
+            pedivelaConstrucao: pedivelaConstrucao,
+            pneuAro: pneuAro,
+            pneuBandaLateral: pneuBandaLateral,
+            pneuIndicacao: pneuIndicacao,
+            pneuTamanho: pneuTamanho,
+            quadroAbracadeira: quadroAbracadeira,
+            quadroCentral: quadroCentral,
+            quadroDirecao: quadroDirecao,
+            quadroEsticador: quadroEsticador,
+            quadroMedida: quadroMedida,
+            quadroModalidade: quadroModalidade,
+            quadroPinos: quadroPinos,
+            quadroTamanhoAro: quadroTamanhoAro,
+            quadroTolerancia: quadroTolerancia,
+            protetorLado: protetorLado,
+            raioTipo: raioTipo,
+            raioTamanho: raioTamanho
+        });
+    }, [categoria]);
+
     const [marca, setMarca] = useState();
     const [modelo, setModelo] = useState();
     const [preco, setPreco] = useState();
@@ -52,9 +372,87 @@ export default function FormAdScreen(){
         peso: peso,
         descricao: descricao,
         whatsapp: whatsapp,
-        // Especificos abaixo
-        abracadeira: abracadeira
-    }
+        // ESPECIFICOS ABAIXO
+        abracadeiraDiametro: abracadeiraDiametro,
+        aroTipoFolha: aroTipoFolha,
+        aroFuros: aroFuros,
+        aroGrossura: aroGrossura,
+        bancoTipo: bancoTipo,
+        bancoCanoteTamanho: bancoCanoteTamanho,
+        bikeCompletaModalidade: bikeCompletaModalidade,
+        camaraAroTamanho: camaraAroTamanho,
+        camaraTipoValvula: camaraTipoValvula,
+        canoteTipo: canoteTipo,
+        canoteTamanho: canoteTamanho,
+        coroaDentes: coroaDentes,
+        coroaProtetor: coroaProtetor,
+        coroaAdaptador: coroaAdaptador,
+        correnteTipoElo: correnteTipoElo,
+        cuboDianteiroFuros: cuboDianteiroFuros,
+        cuboDianteiroTipoEixo: cuboDianteiroTipoEixo,
+        cuboDianteiroMaterialEixo: cuboDianteiroMaterialEixo,
+        cuboDianteiroMaterialParafusos: cuboDianteiroMaterialParafusos,
+        cuboDianteiroProtetor: cuboDianteiroProtetor,
+        tipoCubo: tipoCubo,
+        freecoaster: freecoaster,
+        cuboTraseiroTracao: cuboTraseiroTracao,
+        cuboTraseiroCog: cuboTraseiroCog,
+        cuboTraseiroTravas: cuboTraseiroTravas,
+        cuboTraseiroFuros: cuboTraseiroFuros,
+        cuboTraseiroTipoEixo: cuboTraseiroTipoEixo,
+        cuboTraseiroMaterialEixo: cuboTraseiroMaterialEixo,
+        cuboTraseiroMaterialParafusos: cuboTraseiroMaterialParafusos,
+        cuboTraseiroProtetor: cuboTraseiroProtetor,
+        eixoCentralEstrias: eixoCentralEstrias,
+        eixoCentralTamanho: eixoCentralTamanho,
+        freioPeca: freioPeca,
+        garfoOffset: garfoOffset,
+        garfoTampa: garfoTampa,
+        guidaoTamanho: guidaoTamanho,
+        guidaoLargura: guidaoLargura,
+        guidaoAngulo: guidaoAngulo,
+        guidaoTipo: guidaoTipo,
+        manoplaTamanho: manoplaTamanho,
+        manoplaBarEnds: manoplaBarEnds,
+        mesaTamanho: mesaTamanho,
+        mesaAltura: mesaAltura,
+        mesaTipo: mesaTipo,
+        mesaFabricacao: mesaFabricacao,
+        movimentoCentralTipo: movimentoCentralTipo,
+        movimentoCentralRolamento: movimentoCentralRolamento,
+        movimentoCentralAcompanha: movimentoCentralAcompanha,
+        movimentoDirecaoTipo: movimentoDirecaoTipo,
+        movimentoDirecaoTampa: movimentoDirecaoTampa,
+        movimentoDirecaoAcompanha: movimentoDirecaoAcompanha,
+        pedalRosca: pedalRosca,
+        pedalConstrucao: pedalConstrucao,
+        pedaleiraQuantidade: pedaleiraQuantidade,
+        pedaleiraEncaixe: pedaleiraEncaixe,
+        pedaleiraTamanho: pedaleiraTamanho,
+        pedivelaTracao: pedivelaTracao,
+        pedivelaTamanho: pedivelaTamanho,
+        pedivelaRolamento: pedivelaRolamento,
+        pedivelaEstrias: pedivelaEstrias,
+        pedivelaAcompanha: pedivelaAcompanha,
+        pedivelaConstrucao: pedivelaConstrucao,
+        pneuAro: pneuAro,
+        pneuBandaLateral: pneuBandaLateral,
+        pneuIndicacao: pneuIndicacao,
+        pneuTamanho: pneuTamanho,
+        quadroAbracadeira: quadroAbracadeira,
+        quadroCentral: quadroCentral,
+        quadroDirecao: quadroDirecao,
+        quadroEsticador: quadroEsticador,
+        quadroMedida: quadroMedida,
+        quadroModalidade: quadroModalidade,
+        quadroPinos: quadroPinos,
+        quadroTamanhoAro: quadroTamanhoAro,
+        quadroTolerancia: quadroTolerancia,
+        protetorLado: protetorLado,
+        raioTipo: raioTipo,
+        raioTamanho: raioTamanho
+    };
+    
 
     const submitForm = () => {
         axiosInstance.post("/advertisement", formRequestData)
@@ -85,23 +483,101 @@ export default function FormAdScreen(){
     const [subCategory, setSubCategory] = useState(false);
 
     const testar = () => {
-        console.log(categoria);
-        console.log(marca);
-        console.log(modelo);
-        console.log(preco);
-        console.log(localidade);
-        console.log(dataPostagem);
-        console.log(imagem);
-        console.log(estadoDaPeca);
-        console.log(grauDeDesgaste);
-        console.log(cor);
-        console.log(material);
-        console.log(peso);
-        console.log(descricao);
-        console.log(whatsapp);
-        // Especificos abaixo
-        console.log(abracadeira);
+        console.log("Categoria: " + categoria);
+        console.log("Marca: " + marca);
+        console.log("Modelo: " + modelo);
+        console.log("Preço: " + preco);
+        console.log("Localidade: " + localidade);
+        console.log("Data de Postagem: " + dataPostagem);
+        console.log("Imagem: " + imagem);
+        console.log("Estado da Peça: " + estadoDaPeca);
+        console.log("Grau de Desgaste: " + grauDeDesgaste);
+        console.log("Cor: " + cor);
+        console.log("Material: " + material);
+        console.log("Peso: " + peso);
+        console.log("Descrição: " + descricao);
+        console.log("WhatsApp: " + whatsapp);
+        console.log("ESPECIFICOS ABAIXO-------------------------");
+        console.log("Abraçadeira: " + abracadeiraDiametro);
+        console.log("Aro Tipo Folha: " + aroTipoFolha);
+        console.log("Aro Furos: " + aroFuros);
+        console.log("Aro Grossura: " + aroGrossura);
+        console.log("Banco Tipo: " + bancoTipo);
+        console.log("Banco Canote Tamanho: " + bancoCanoteTamanho);
+        console.log("Bike Completa Modalidade: " + bikeCompletaModalidade);
+        console.log("Câmara Aro Tamanho: " + camaraAroTamanho);
+        console.log("Câmara Tipo Válvula: " + camaraTipoValvula);
+        console.log("Canote Tipo: " + canoteTipo);
+        console.log("Canote Tamanho: " + canoteTamanho);
+        console.log("Coroa Dentes: " + coroaDentes);
+        console.log("Coroa Protetor: " + coroaProtetor);
+        console.log("Coroa Adaptador: " + coroaAdaptador);
+        console.log("Corrente Tipo Elo: " + correnteTipoElo);
+        console.log("Cubo Dianteiro Furos: " + cuboDianteiroFuros);
+        console.log("Cubo Dianteiro Tipo Eixo: " + cuboDianteiroTipoEixo);
+        console.log("Cubo Dianteiro Material Eixo: " + cuboDianteiroMaterialEixo);
+        console.log("Cubo Dianteiro Material Parafusos: " + cuboDianteiroMaterialParafusos);
+        console.log("Cubo Dianteiro Protetor: " + cuboDianteiroProtetor);
+        console.log("Tipo Cubo: " + tipoCubo);
+        console.log("Freecoaster: " + freecoaster);
+        console.log("Cubo Traseiro Tração: " + cuboTraseiroTracao);
+        console.log("Cubo Traseiro Cog: " + cuboTraseiroCog);
+        console.log("Cubo Traseiro Travas: " + cuboTraseiroTravas);
+        console.log("Cubo Traseiro Furos: " + cuboTraseiroFuros);
+        console.log("Cubo Traseiro Tipo Eixo: " + cuboTraseiroTipoEixo);
+        console.log("Cubo Traseiro Material Eixo: " + cuboTraseiroMaterialEixo);
+        console.log("Cubo Traseiro Material Parafusos: " + cuboTraseiroMaterialParafusos);
+        console.log("Cubo Traseiro Protetor: " + cuboTraseiroProtetor);
+        console.log("Eixo Central Estrias: " + eixoCentralEstrias);
+        console.log("Eixo Central Tamanho: " + eixoCentralTamanho);
+        console.log("Freio Peça: " + freioPeca);
+        console.log("Garfo Offset: " + garfoOffset);
+        console.log("Garfo Tampa: " + garfoTampa);
+        console.log("Guidão Tamanho: " + guidaoTamanho);
+        console.log("Guidão Largura: " + guidaoLargura);
+        console.log("Guidão Ângulo: " + guidaoAngulo);
+        console.log("Guidão Tipo: " + guidaoTipo);
+        console.log("Manopla Tamanho: " + manoplaTamanho);
+        console.log("Manopla Bar Ends: " + manoplaBarEnds);
+        console.log("Mesa Tamanho: " + mesaTamanho);
+        console.log("Mesa Altura: " + mesaAltura);
+        console.log("Mesa Tipo: " + mesaTipo);
+        console.log("Mesa Fabricação: " + mesaFabricacao);
+        console.log("Movimento Central Tipo: " + movimentoCentralTipo);
+        console.log("Movimento Central Rolamento: " + movimentoCentralRolamento);
+        console.log("Movimento Central Acompanha: " + movimentoCentralAcompanha);
+        console.log("Movimento Direção Tipo: " + movimentoDirecaoTipo);
+        console.log("Movimento Direção Tampa: " + movimentoDirecaoTampa);
+        console.log("Movimento Direção Acompanha: " + movimentoDirecaoAcompanha);
+        console.log("Pedal Rosca: " + pedalRosca);
+        console.log("Pedal Construção: " + pedalConstrucao);
+        console.log("Pedaleira Quantidade: " + pedaleiraQuantidade);
+        console.log("Pedaleira Encaixe: " + pedaleiraEncaixe);
+        console.log("Pedaleira Tamanho: " + pedaleiraTamanho);
+        console.log("Pedivela Tração: " + pedivelaTracao);
+        console.log("Pedivela Tamanho: " + pedivelaTamanho);
+        console.log("Pedivela Rolamento: " + pedivelaRolamento);
+        console.log("Pedivela Estrias: " + pedivelaEstrias);
+        console.log("Pedivela Acompanha: " + pedivelaAcompanha);
+        console.log("Pedivela Construção: " + pedivelaConstrucao);
+        console.log("Pneu Aro: " + pneuAro);
+        console.log("Pneu Banda Lateral: " + pneuBandaLateral);
+        console.log("Pneu Indicação: " + pneuIndicacao);
+        console.log("Pneu Tamanho: " + pneuTamanho);
+        console.log("Quadro Abraçadeira: " + quadroAbracadeira);
+        console.log("Quadro Central: " + quadroCentral);
+        console.log("Quadro Direção: " + quadroDirecao);
+        console.log("Quadro Esticador: " + quadroEsticador);
+        console.log("Quadro Medida: " + quadroMedida);
+        console.log("Quadro Modalidade: " + quadroModalidade);
+        console.log("Quadro Pinos: " + quadroPinos);
+        console.log("Quadro Tamanho Aro: " + quadroTamanhoAro);
+        console.log("Quadro Tolerância: " + quadroTolerancia);
+        console.log("Protetor Lado: " + protetorLado);
+        console.log("Raio Tipo: " + raioTipo);
+        console.log("Raio Tamanho: " + raioTamanho);
     }
+    
 
 
     const pickImage = async () => {
@@ -276,11 +752,39 @@ export default function FormAdScreen(){
                             </View>
                         <Text>Marca <Text className="text-red-600">*</Text></Text>
                         <View className="border-2 border-black rounded-lg">
-                            <Picker selectedValue={marca} onValueChange={setMarca}>
-                                <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
-                                <Picker.Item label="Animal" value="Animal"></Picker.Item>
-                                <Picker.Item label="Odyssey" value="Odyssey"></Picker.Item>
-                            </Picker>
+                        <Picker selectedValue={marca} onValueChange={setMarca}>
+                        <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
+                            <Picker.Item label="OUTRA MARCA" value="OUTRA MARCA" />
+                            <Picker.Item label="Animal" value="Animal" />
+                            <Picker.Item label="BSD" value="BSD" />
+                            <Picker.Item label="Cinema" value="Cinema" />
+                            <Picker.Item label="Colony" value="Colony" />
+                            <Picker.Item label="Cult" value="Cult" />
+                            <Picker.Item label="Demolition" value="Demolition" />
+                            <Picker.Item label="Division" value="Division" />
+                            <Picker.Item label="Drb" value="Drb" />
+                            <Picker.Item label="Eclat" value="Eclat" />
+                            <Picker.Item label="Federal" value="Federal" />
+                            <Picker.Item label="Fiend" value="Fiend" />
+                            <Picker.Item label="FitBikeCo" value="FitBikeCo" />
+                            <Picker.Item label="Fly" value="Fly" />
+                            <Picker.Item label="G-Sport" value="G-Sport" />
+                            <Picker.Item label="Gios" value="Gios" />
+                            <Picker.Item label="Haro" value="Haro" />
+                            <Picker.Item label="Kink" value="Kink" />
+                            <Picker.Item label="Magic Flute" value="Magic Flute" />
+                            <Picker.Item label="Master Bikes" value="Master Bikes" />
+                            <Picker.Item label="Merrit" value="Merrit" />
+                            <Picker.Item label="Mob" value="Mob" />
+                            <Picker.Item label="Odyssey" value="Odyssey" />
+                            <Picker.Item label="Polso" value="Polso" />
+                            <Picker.Item label="Primo" value="Primo" />
+                            <Picker.Item label="Profile" value="Profile" />
+                            <Picker.Item label="Pro-X" value="Pro-X" />
+                            <Picker.Item label="Sunday" value="Sunday" />
+                            <Picker.Item label="United" value="United" />
+                            <Picker.Item label="Volume" value="Volume" />
+                        </Picker>
                         </View>
                         <Text>Modelo da peça</Text>
                         <TextInput value={modelo} onChangeText={setModelo} className="border-2 border-black rounded-lg p-3" placeholder="Thunderbolt"></TextInput>

@@ -29,7 +29,7 @@ export default function HomeAd({id} : {id: string}){
                 })
             }}>
                 <Image style={{resizeMode:"contain"}} className="w-full h-40" source={{uri:adData.imagem}}></Image>
-                <Text className="text-center">{adData.categoria} {adData.marca} {adData.modelo}</Text>
+                {adData.marca == "OUTRA MARCA" ? <Text className="text-center">{adData.categoria} {adData.modelo}</Text> : <Text>{adData.categoria} {adData.marca} {adData.modelo}</Text>}
                 <Text className="text-center">R${adData.preco}</Text>
                 <View className="flex flex-row gap-4">
                     <Text className="text-cente">{adData.localidade}</Text>
