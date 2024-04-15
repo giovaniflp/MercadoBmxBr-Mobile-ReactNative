@@ -1,26 +1,32 @@
 import { View, Text, ScrollView } from "react-native";
 import { useEffect, useState } from "react";
-import BottomBar from "./components/BottomBar";
-import HomeAd from "./components/HomeAd";
-import VerifiedStores from "./components/VerifiedStores";
-import axiosInstance from "./server/axios";
+import BottomBar from "../components/BottomBar";
+import HomeAd from "../components/HomeAd";
+import VerifiedStores from "../components/VerifiedStores";
+import axiosInstance from "../server/axios";
+import * as SecureStore from 'expo-secure-store';
 
 export default function HomeScreen() {
 
   const [adData, setAdData] = useState([])
 
+  const getAds = async () => {
+    const token = await SecureStore.getItemAsync('session');
+    const config = {
+      headers: {
+        Authorization: "Bearer " + token
+      }
+    }
+    const response = await axiosInstance.get("/api/advertisements/all", config)
+    setAdData(response.data)
+}
+
   useEffect(() => {
-    axiosInstance.get("/advertisement")
-    .then((res) => {
-      setAdData(res.data)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  }, [])
+    getAds();
+  })
 
   return (
-    <View className="flex h-full">
+    <View className="flex h-full pt-8">
       <View>
         <ScrollView className="flex">
           <View>

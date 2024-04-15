@@ -118,8 +118,8 @@ const images = [
 export default function Category(){
     return(
         <View>
-            <ScrollView className="mb-12" showsVerticalScrollIndicator={false}>
-                <View className="flex flex-row flex-wrap justify-center">
+            <ScrollView className="mb-12 pt-8" showsVerticalScrollIndicator={false}>
+                <View className="flex flex-row flex-wrap justify-center pb-8">
                     {images.map((item, index) => (
                         <TouchableOpacity className="p-4" key={index}>
                             <View className="bg-blue-600 rounded-lg p-2 w-40 h-48 flex items-center justify-center">

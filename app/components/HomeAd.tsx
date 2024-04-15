@@ -3,19 +3,25 @@ import { useState, useEffect } from "react";
 import { Link } from "expo-router"
 import { router } from "expo-router";
 import axiosInstance from "../server/axios";
+import * as SecureStore from 'expo-secure-store';
 
 export default function HomeAd({id} : {id: string}){
 
     const [adData, setAdData] = useState([])
+    
+    const getAdData = async () => {
+        const token = await SecureStore.getItemAsync('session');
+        const config = {
+        headers: {
+            Authorization: "Bearer " + token
+        }
+        }
+        const response = await axiosInstance.get("/api/advertisements/" + id, config)
+        setAdData(response.data)
+    }
 
     useEffect(() => {
-        axiosInstance.get("/advertisement/" + id)
-        .then((res) => {
-            setAdData(res.data)
-        })
-        .catch((err) => {
-            console.log(err)
-        })
+        getAdData();
     }
     , [])
     
