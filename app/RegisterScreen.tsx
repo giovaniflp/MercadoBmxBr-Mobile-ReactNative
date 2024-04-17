@@ -1,7 +1,7 @@
-import { View, Text, TextInput, TouchableOpacity, ImageBackground } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, ImageBackground, Image } from "react-native";
 import Button from "./components/Button";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { router } from "expo-router";
 
 export default function RegisterScreen(){
@@ -9,6 +9,10 @@ export default function RegisterScreen(){
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+
+    const [seePassword, setSeePassword] = useState(true);
+    const [seeConfirmPassword, setSeeConfirmPassword] = useState(true);
 
     const requestData = {
         name: name,
@@ -17,10 +21,31 @@ export default function RegisterScreen(){
     }
 
     //WIFI 5G IP
-    const registerApi = () => axios.post("http://192.168.16.5:8080/api/users/register", requestData).then((response) => {
-        alert("Usuário cadastrado com sucesso!");
-        router.push("/LoginScreen");
-    });
+    const registerApi = async() => {
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{6,16}$/;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if(password != confirmPassword){
+            alert("As senhas não são iguais!");
+        }
+        else if(!password.match(passwordRegex)){
+            alert("A senha deve conter o mínimo de 6 caracteres, máximo de 16 e ao menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial! Exemplo: #Pedro123");
+        }
+        else if(name == "" || email == "" || password == "" || confirmPassword == ""){
+            alert("Preencha todos os campos!");
+        }
+        else if(!email.match(emailRegex)){
+            alert("Insira um email valido! Formatação: email@email.com");
+        }
+        else{
+                const response = await axios.post("http://192.168.16.5:8080/api/users/register", requestData)
+                console.log(response.data);
+                if(response.data == "Email já cadastrado! Insira outro email."){
+                    alert("Email já cadastrado! Insira outro email.");
+                } else{
+                    alert("Usuário cadastrado com sucesso!");
+                    router.push("/LoginScreen");
+                }
+}};
 
     
     return(
@@ -40,11 +65,18 @@ export default function RegisterScreen(){
                     </View>
                     <View className="mb-4">
                         <Text className="text-white">Senha</Text>
-                        <TextInput value={password} onChangeText={setPassword} className="text-white border-2 border-white rounded-lg p-1" placeholder="Insira aqui sua senha" secureTextEntry={true}></TextInput>
+                        <TextInput value={password} onChangeText={setPassword} className="text-white border-2 border-white rounded-lg p-1" placeholder="Insira aqui sua senha" secureTextEntry={seePassword}></TextInput>
+                        <TouchableOpacity onPress={()=>setSeePassword(!seePassword)} className="absolute top-7 left-56">
+                            <Image source={seePassword ? require("../public/icons/hidePng.png") : require("../public/icons/visibilityPng.png")}></Image>
+                        </TouchableOpacity>
                     </View>
                     <View className="mb-4">
-                        <Text className="text-white">Confirme sua senha *NAO IMPLEMENTADO AINDA</Text>
-                        <TextInput className="text-white border-2 border-white rounded-lg p-1" placeholder="Insira aqui sua senha novamente" secureTextEntry={true}></TextInput>
+                        <Text className="text-white">Confirme sua senha</Text>
+                        <TextInput value={confirmPassword} onChangeText={setConfirmPassword} className="text-white border-2 border-white rounded-lg p-1 w-64" placeholder="Insira aqui sua senha novamente" secureTextEntry={seeConfirmPassword}>
+                        </TextInput>
+                        <TouchableOpacity onPress={()=>setSeeConfirmPassword(!seeConfirmPassword)} className="absolute top-7 left-56">
+                            <Image source={seeConfirmPassword ? require("../public/icons/hidePng.png") : require("../public/icons/visibilityPng.png")}></Image>
+                        </TouchableOpacity>
                     </View>
                     <View className="flex items-center gap-4">
                         <View>

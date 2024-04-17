@@ -4,20 +4,26 @@ import axios from "axios"
 import BottomBar from "../components/BottomBar";
 import SearchAd from "../components/SearchAd";
 import axiosInstance from "../server/axios";
+import * as SecureStore from 'expo-secure-store';
 
 export default function SearchScreen(){
 
     const [adData, setAdData] = useState([])
 
-  useEffect(() => {
-    axiosInstance.get("/advertisement")
-    .then((res) => {
-      setAdData(res.data)
+    const getAds = async () => {
+      const token = await SecureStore.getItemAsync('session');
+      const config = {
+        headers: {
+          Authorization: "Bearer " + token
+        }
+      }
+      const response = await axiosInstance.get("/api/advertisements/all", config)
+      setAdData(response.data)
+  }
+  
+    useEffect(() => {
+      getAds();
     })
-    .catch((err) => {
-      console.log(err)
-    })
-  }, [])
 
     return(
         <View className="flex h-full p-4 pt-10">

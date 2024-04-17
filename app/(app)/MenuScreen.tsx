@@ -5,6 +5,7 @@ import * as SecureStore from 'expo-secure-store';
 import { useSession } from "../../auth/ctx";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "expo-router";
 
 export default function MenuScreen(){
     const { signOut } = useSession();
@@ -45,7 +46,15 @@ export default function MenuScreen(){
                 <Button route="/" text="Termos de Uso" color="blue"></Button>
             </View>
             <View className="mt-4">
-                <Button route="/" text="Meus anúncios" color="green"></Button>
+                <Button route="/" text="Sobre nós" color="blue"></Button>
+            </View>
+            <Link className="mt-4" href="/MyAds" asChild>
+                <TouchableOpacity className="flex bg-blue-500 p-3 rounded-lg w-40">
+                    <Text className="text-center">Meus anúncios</Text>
+                </TouchableOpacity>
+            </Link>
+            <View className="mt-4">
+                <Button route="/" text="Meus favoritos" color="red"></Button>
             </View>
             <View className="my-4">
                 <TouchableOpacity onPress={signOut}>

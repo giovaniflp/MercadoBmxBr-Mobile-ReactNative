@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, ImageBackground } from "react-native";
+import React, { useEffect, useState, } from "react";
+import { View, Text, TextInput, TouchableOpacity, ImageBackground, Image } from "react-native";
 import Button from "./components/Button";
 import axios from "axios";
 import { router } from "expo-router";
@@ -12,6 +12,8 @@ export default function LoginScreen(){
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const [seePassword, setSeePassword] = useState(true);
 
     const requestData = {
         email: email,
@@ -41,7 +43,10 @@ export default function LoginScreen(){
                     </View>
                     <View className="flex w-60 mt-4">
                         <Text className="text-white">Senha</Text>
-                        <TextInput value={password} onChangeText={setPassword} className="border-2 border-white p-1 rounded-lg text-white" placeholder="Insira aqui sua senha" secureTextEntry={true}></TextInput>
+                        <TextInput value={password} onChangeText={setPassword} className="border-2 border-white p-1 rounded-lg text-white w-60" placeholder="Insira aqui sua senha" secureTextEntry={seePassword}></TextInput>
+                        <TouchableOpacity onPress={()=>setSeePassword(!seePassword)} className="absolute top-7 left-52">
+                            <Image source={seePassword ? require("../public/icons/hidePng.png") : require("../public/icons/visibilityPng.png")}></Image>
+                        </TouchableOpacity>
                     </View>
                     <View className="py-4">
                         <TouchableOpacity>
