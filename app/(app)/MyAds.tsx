@@ -2,7 +2,7 @@ import { View, Text } from "react-native";
 import BottomBar from "../components/BottomBar";
 import * as SecureStore from 'expo-secure-store';
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axiosInstance from "../server/axios";
 
 export default function MyAds(){
 
@@ -18,7 +18,7 @@ export default function MyAds(){
                     Authorization: "Bearer " + token
                 }
             }
-            const response = await axios.get("http://192.168.16.5:8080/api/token/jwtDecode", config)
+            const response = await axiosInstance.get("/api/token/jwtDecode", config)
             console.log(response.data);
             setDecodeJwt(response.data.jti);
         } catch (error) {
@@ -34,7 +34,7 @@ export default function MyAds(){
                     Authorization: "Bearer " + token
                 }
             }
-            const response = await axios.get("http://192.168.16.5:8080/api/advertisements/user/" + decodeJwt, config)
+            const response = await axiosInstance.get("/api/advertisements/user/" + decodeJwt, config)
             console.log(response.data);
             setAds(response.data);
         } catch (error) {

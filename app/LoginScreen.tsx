@@ -4,6 +4,7 @@ import Button from "./components/Button";
 import axios from "axios";
 import { router } from "expo-router";
 import * as SecureStore from 'expo-secure-store';
+import axiosInstance from "./server/axios";
 
 import { useSession } from "../auth/ctx";
 
@@ -20,7 +21,7 @@ export default function LoginScreen(){
         password: password,
     }
 
-    const loginApi  = () => axios.post("http://192.168.16.5:8080/api/token/login", requestData).then(async(response) => {
+    const loginApi  = () => axiosInstance.post("/api/token/login", requestData).then(async(response) => {
         alert("Usuário logado com sucesso!")
         console.log(response.data.acessToken)
         signIn(response.data.acessToken)

@@ -3,6 +3,7 @@ import Button from "./components/Button";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { router } from "expo-router";
+import axiosInstance from "./server/axios";
 
 export default function RegisterScreen(){
 
@@ -37,7 +38,7 @@ export default function RegisterScreen(){
             alert("Insira um email valido! Formatação: email@email.com");
         }
         else{
-                const response = await axios.post("http://192.168.16.5:8080/api/users/register", requestData)
+                const response = await axiosInstance.post("/api/users/register", requestData)
                 console.log(response.data);
                 if(response.data == "Email já cadastrado! Insira outro email."){
                     alert("Email já cadastrado! Insira outro email.");

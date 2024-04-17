@@ -4,8 +4,8 @@ import Button from "../components/Button";
 import * as SecureStore from 'expo-secure-store';
 import { useSession } from "../../auth/ctx";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { Link } from "expo-router";
+import axiosInstance from "../server/axios";
 
 export default function MenuScreen(){
     const { signOut } = useSession();
@@ -18,7 +18,7 @@ export default function MenuScreen(){
                 Authorization: "Bearer " + token
             }
         }
-        const response = await axios.get("http://192.168.16.5:8080/api/token/jwtDecode", config)
+        const response = await axiosInstance.get("/api/token/jwtDecode", config)
         console.log(response.data);
         setNome(response.data.name);
     }
