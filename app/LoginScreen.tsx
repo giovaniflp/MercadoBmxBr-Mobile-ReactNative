@@ -1,11 +1,8 @@
-import React, { useEffect, useState, } from "react";
+import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, ImageBackground, Image } from "react-native";
 import Button from "./components/Button";
-import axios from "axios";
 import { router } from "expo-router";
-import * as SecureStore from 'expo-secure-store';
 import axiosInstance from "./server/axios";
-
 import { useSession } from "../auth/ctx";
 
 export default function LoginScreen(){
@@ -23,11 +20,10 @@ export default function LoginScreen(){
 
     const loginApi  = () => axiosInstance.post("/api/token/login", requestData).then(async(response) => {
         alert("Usuário logado com sucesso!")
-        console.log(response.data.acessToken)
         signIn(response.data.acessToken)
-
         router.push("/HomeScreen");
     }).catch((error) => {
+        console.log(error)
         alert("Usuário ou senha incorretos!")
     });
 

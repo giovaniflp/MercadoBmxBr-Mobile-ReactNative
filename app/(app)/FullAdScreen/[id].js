@@ -8,7 +8,6 @@ import axiosInstance from "../../server/axios";
 import * as SecureStore from 'expo-secure-store';
 
 export default function FullAdScreen(){
-
     const { id } = useLocalSearchParams()
 
     const getAdData = async () => {
@@ -24,11 +23,11 @@ export default function FullAdScreen(){
 
     useEffect(()=>{
         getAdData()
-    })
+    },[])
 
     const [adData, setAdData] = useState([])
 
-
+    
     return(
         <View className="flex h-full bg-white">
             <TopBar></TopBar>
@@ -39,7 +38,7 @@ export default function FullAdScreen(){
                     {adData.marca == "OUTRA MARCA" ? <Text>{adData.categoria} {adData.modelo}</Text> : <Text>{adData.categoria} {adData.marca} {adData.modelo}</Text>}
                         <Text>Preço: R${adData.preco}</Text>
                         <Text>{adData.localidade}</Text>
-                        <Text>{adData.dataPostagem}PRECISA IMPLEMENTAR dataPostagem</Text>             
+                        <Text>{adData.dataPostagem}</Text>             
                     </View>
                     <View className="mt-4">
                         <Text className="mb-4">Características Gerais</Text>

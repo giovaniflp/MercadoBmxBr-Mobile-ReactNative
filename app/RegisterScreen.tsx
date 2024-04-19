@@ -1,7 +1,6 @@
 import { View, Text, TextInput, TouchableOpacity, ImageBackground, Image } from "react-native";
 import Button from "./components/Button";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { router } from "expo-router";
 import axiosInstance from "./server/axios";
 
@@ -9,6 +8,7 @@ export default function RegisterScreen(){
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
+
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -21,7 +21,6 @@ export default function RegisterScreen(){
         password: password,
     }
 
-    //WIFI 5G IP
     const registerApi = async() => {
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{6,16}$/;
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -48,7 +47,6 @@ export default function RegisterScreen(){
                 }
 }};
 
-    
     return(
         <ImageBackground source={require('../public/images/brandWPP.jpg')}>
             <View className="flex justify-center items-center h-full">

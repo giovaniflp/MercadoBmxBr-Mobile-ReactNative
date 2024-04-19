@@ -1,15 +1,12 @@
 import { View, Text, TouchableOpacity, Image, ScrollView, TextInput } from "react-native";
 import BottomBar from "../components/BottomBar";
-import Button from "../components/Button";
 import SpecialAspects from "../components/SpecialAspects";
-
 import React, {useEffect, useState} from "react";
 import {Picker} from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
 import axiosInstance from "../server/axios";
 import { router } from "expo-router";
 import * as SecureStore from 'expo-secure-store';
-
 
 export default function FormAdScreen(){
     
@@ -93,14 +90,13 @@ export default function FormAdScreen(){
     const [protetorLado, setProtetorLado] = useState(null)
     const [raioTipo, setRaioTipo] = useState(null)
     const [raioTamanho, setRaioTamanho] = useState(null)
-
     //Obrigatorios
     const [marca, setMarca] = useState("");
     const [modelo, setModelo] = useState("");
     const [preco, setPreco] = useState("");
     const [localidade, setLocalidade] = useState("");
-    const [dataPostagem, setDataPostagem] = useState("");  
-    const [imagem, setImagem] = useState("");
+    const [dataPostagem, setDataPostagem] = useState(""); 
+
     const [estadoDaPeca, setEstadoDaPeca] = useState("");
     const [grauDeDesgaste, setGrauDeDesgaste] = useState("");
     const [cor, setCor] = useState("");
@@ -108,10 +104,13 @@ export default function FormAdScreen(){
     const [peso, setPeso] = useState("");
     const [descricao, setDescricao] = useState("");
     const [whatsapp, setWhatsapp] = useState("");
-    
     const [nomeUsuario, setNomeUsuario] = useState("")
     const [idUsuario, setIdUsuario] = useState("")
-
+    
+    const [subCategory, setSubCategory] = useState(false);
+    const [categoria, setCategory] = useState(null);
+    
+    
     const updateFilho = (filhoData) => {
         setAbracadeiraDiametro(filhoData.abracadeiraDiametro);
         setAroTipoFolha(filhoData.aroTipoFolha);
@@ -193,7 +192,6 @@ export default function FormAdScreen(){
         setRaioTamanho(filhoData.raioTamanho);
     };
     
-
     useEffect(() => {
         updateFilho({
             abracadeiraDiametro: abracadeiraDiametro,
@@ -277,7 +275,6 @@ export default function FormAdScreen(){
         });
     });
     
-    const [categoria, setCategory] = useState(null);
     useEffect(() => {
         updateFilho({
             abracadeiraDiametro: abracadeiraDiametro,
@@ -360,8 +357,7 @@ export default function FormAdScreen(){
             raioTamanho: raioTamanho
         });
     }, [categoria]);
-
-
+    
     const getDataJwt = async() => {
         const token = await SecureStore.getItemAsync('session');
         const config = {
@@ -372,156 +368,16 @@ export default function FormAdScreen(){
         const response = await axiosInstance.get("/api/token/jwtDecode", config)
         setNomeUsuario(response.data.name);
         setIdUsuario(response.data.jti);
-        console.log(response.data)
     }
-
+    
     useEffect(()=>{
         getDataJwt()   
     }, [])
     
-    const formRequestData = {
-        categoria: categoria,
-        marca: marca,
-        modelo: modelo,
-        preco: preco,
-        localidade: localidade,
-        dataPostagem: dataPostagem,
-        imagem: imagem,
-        estadoDaPeca: estadoDaPeca,
-        grauDeDesgaste: grauDeDesgaste,
-        cor: cor,
-        material: material,
-        peso: peso,
-        descricao: descricao,
-        whatsapp: whatsapp,
-        // ESPECIFICOS ABAIXO
-        abracadeiraDiametro: abracadeiraDiametro,
-        aroTipoFolha: aroTipoFolha,
-        aroFuros: aroFuros,
-        aroGrossura: aroGrossura,
-        bancoTipo: bancoTipo,
-        bancoCanoteTamanho: bancoCanoteTamanho,
-        bikeCompletaModalidade: bikeCompletaModalidade,
-        camaraAroTamanho: camaraAroTamanho,
-        camaraTipoValvula: camaraTipoValvula,
-        canoteTipo: canoteTipo,
-        canoteTamanho: canoteTamanho,
-        coroaDentes: coroaDentes,
-        coroaProtetor: coroaProtetor,
-        coroaAdaptador: coroaAdaptador,
-        correnteTipoElo: correnteTipoElo,
-        cuboDianteiroFuros: cuboDianteiroFuros,
-        cuboDianteiroTipoEixo: cuboDianteiroTipoEixo,
-        cuboDianteiroMaterialEixo: cuboDianteiroMaterialEixo,
-        cuboDianteiroMaterialParafusos: cuboDianteiroMaterialParafusos,
-        cuboDianteiroProtetor: cuboDianteiroProtetor,
-        tipoCubo: tipoCubo,
-        freecoaster: freecoaster,
-        cuboTraseiroTracao: cuboTraseiroTracao,
-        cuboTraseiroCog: cuboTraseiroCog,
-        cuboTraseiroTravas: cuboTraseiroTravas,
-        cuboTraseiroFuros: cuboTraseiroFuros,
-        cuboTraseiroTipoEixo: cuboTraseiroTipoEixo,
-        cuboTraseiroMaterialEixo: cuboTraseiroMaterialEixo,
-        cuboTraseiroMaterialParafusos: cuboTraseiroMaterialParafusos,
-        cuboTraseiroProtetor: cuboTraseiroProtetor,
-        eixoCentralEstrias: eixoCentralEstrias,
-        eixoCentralTamanho: eixoCentralTamanho,
-        freioPeca: freioPeca,
-        garfoOffset: garfoOffset,
-        garfoTampa: garfoTampa,
-        guidaoTamanho: guidaoTamanho,
-        guidaoLargura: guidaoLargura,
-        guidaoAngulo: guidaoAngulo,
-        guidaoTipo: guidaoTipo,
-        manoplaTamanho: manoplaTamanho,
-        manoplaBarEnds: manoplaBarEnds,
-        mesaTamanho: mesaTamanho,
-        mesaAltura: mesaAltura,
-        mesaTipo: mesaTipo,
-        mesaFabricacao: mesaFabricacao,
-        movimentoCentralTipo: movimentoCentralTipo,
-        movimentoCentralRolamento: movimentoCentralRolamento,
-        movimentoCentralAcompanha: movimentoCentralAcompanha,
-        movimentoDirecaoTipo: movimentoDirecaoTipo,
-        movimentoDirecaoTampa: movimentoDirecaoTampa,
-        movimentoDirecaoAcompanha: movimentoDirecaoAcompanha,
-        pedalRosca: pedalRosca,
-        pedalConstrucao: pedalConstrucao,
-        pedaleiraQuantidade: pedaleiraQuantidade,
-        pedaleiraEncaixe: pedaleiraEncaixe,
-        pedaleiraTamanho: pedaleiraTamanho,
-        pedivelaTracao: pedivelaTracao,
-        pedivelaTamanho: pedivelaTamanho,
-        pedivelaRolamento: pedivelaRolamento,
-        pedivelaEstrias: pedivelaEstrias,
-        pedivelaAcompanha: pedivelaAcompanha,
-        pedivelaConstrucao: pedivelaConstrucao,
-        pneuAro: pneuAro,
-        pneuBandaLateral: pneuBandaLateral,
-        pneuIndicacao: pneuIndicacao,
-        pneuTamanho: pneuTamanho,
-        quadroAbracadeira: quadroAbracadeira,
-        quadroCentral: quadroCentral,
-        quadroDirecao: quadroDirecao,
-        quadroEsticador: quadroEsticador,
-        quadroMedida: quadroMedida,
-        quadroModalidade: quadroModalidade,
-        quadroPinos: quadroPinos,
-        quadroTamanhoAro: quadroTamanhoAro,
-        quadroTolerancia: quadroTolerancia,
-        protetorLado: protetorLado,
-        raioTipo: raioTipo,
-        raioTamanho: raioTamanho,
-        nomeUsuario: nomeUsuario,
-        idUsuario: idUsuario,
-    };
-    
-    const filterRequestData = Object.fromEntries(
-        Object.entries(formRequestData).filter(([key, value]) => value !== null)
-    )
-    
-    
-    const submitForm = async () => {
-        const token = await SecureStore.getItemAsync('session');
-        const config = {
-            headers: {
-                Authorization: "Bearer " + token
-            }
-        }
-        const response = await axiosInstance.get("/api/token/jwtDecode", config)
-        setNomeUsuario(response.data.name);
-        setIdUsuario(response.data.jti);
-
-        axiosInstance.post("/api/advertisements/register", filterRequestData, {headers: config.headers})
-        .then((res) => {
-            alert("Anúncio criado com sucesso")
-            router.push({
-                pathname:"/FullAdScreen/[id]",
-                params: {
-                    id: res.data.id
-                }
-            })
-            console.log(res.data)
-        })
-        .catch((err) => {
-            console.log(err)
-        })
-    }
-
-    const validateForm = ()=>{
-        // Adicionar data pelo back end
-        if(categoria && marca && preco && localidade && imagem && estadoDaPeca && grauDeDesgaste && cor && material && peso && whatsapp){
-            submitForm()
-        } else {
-            alert("Preencha todos os campos obrigatórios")
-        }
-    }
-
-    const [subCategory, setSubCategory] = useState(false);
+    const [imagem, setImagem] = useState(null);
+    const [uploadImagem, setUploadImagem] = useState(null);
 
     const pickImage = async () => {
- 
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             aspect: [4,3],
@@ -531,7 +387,150 @@ export default function FormAdScreen(){
 
         if (!result.canceled) {
             setImagem(result.assets[0].uri);
-          }
+        }
+    }
+    
+    const submitForm = async () => {
+        const formRequestData = {
+            categoria: categoria,
+            marca: marca,
+            modelo: modelo,
+            preco: preco,
+            localidade: localidade,
+            estadoDaPeca: estadoDaPeca,
+            grauDeDesgaste: grauDeDesgaste,
+            cor: cor,
+            material: material,
+            peso: peso,
+            descricao: descricao,
+            whatsapp: whatsapp,
+            // ESPECIFICOS ABAIXO
+            abracadeiraDiametro: abracadeiraDiametro,
+            aroTipoFolha: aroTipoFolha,
+            aroFuros: aroFuros,
+            aroGrossura: aroGrossura,
+            bancoTipo: bancoTipo,
+            bancoCanoteTamanho: bancoCanoteTamanho,
+            bikeCompletaModalidade: bikeCompletaModalidade,
+            camaraAroTamanho: camaraAroTamanho,
+            camaraTipoValvula: camaraTipoValvula,
+            canoteTipo: canoteTipo,
+            canoteTamanho: canoteTamanho,
+            coroaDentes: coroaDentes,
+            coroaProtetor: coroaProtetor,
+            coroaAdaptador: coroaAdaptador,
+            correnteTipoElo: correnteTipoElo,
+            cuboDianteiroFuros: cuboDianteiroFuros,
+            cuboDianteiroTipoEixo: cuboDianteiroTipoEixo,
+            cuboDianteiroMaterialEixo: cuboDianteiroMaterialEixo,
+            cuboDianteiroMaterialParafusos: cuboDianteiroMaterialParafusos,
+            cuboDianteiroProtetor: cuboDianteiroProtetor,
+            tipoCubo: tipoCubo,
+            freecoaster: freecoaster,
+            cuboTraseiroTracao: cuboTraseiroTracao,
+            cuboTraseiroCog: cuboTraseiroCog,
+            cuboTraseiroTravas: cuboTraseiroTravas,
+            cuboTraseiroFuros: cuboTraseiroFuros,
+            cuboTraseiroTipoEixo: cuboTraseiroTipoEixo,
+            cuboTraseiroMaterialEixo: cuboTraseiroMaterialEixo,
+            cuboTraseiroMaterialParafusos: cuboTraseiroMaterialParafusos,
+            cuboTraseiroProtetor: cuboTraseiroProtetor,
+            eixoCentralEstrias: eixoCentralEstrias,
+            eixoCentralTamanho: eixoCentralTamanho,
+            freioPeca: freioPeca,
+            garfoOffset: garfoOffset,
+            garfoTampa: garfoTampa,
+            guidaoTamanho: guidaoTamanho,
+            guidaoLargura: guidaoLargura,
+            guidaoAngulo: guidaoAngulo,
+            guidaoTipo: guidaoTipo,
+            manoplaTamanho: manoplaTamanho,
+            manoplaBarEnds: manoplaBarEnds,
+            mesaTamanho: mesaTamanho,
+            mesaAltura: mesaAltura,
+            mesaTipo: mesaTipo,
+            mesaFabricacao: mesaFabricacao,
+            movimentoCentralTipo: movimentoCentralTipo,
+            movimentoCentralRolamento: movimentoCentralRolamento,
+            movimentoCentralAcompanha: movimentoCentralAcompanha,
+            movimentoDirecaoTipo: movimentoDirecaoTipo,
+            movimentoDirecaoTampa: movimentoDirecaoTampa,
+            movimentoDirecaoAcompanha: movimentoDirecaoAcompanha,
+            pedalRosca: pedalRosca,
+            pedalConstrucao: pedalConstrucao,
+            pedaleiraQuantidade: pedaleiraQuantidade,
+            pedaleiraEncaixe: pedaleiraEncaixe,
+            pedaleiraTamanho: pedaleiraTamanho,
+            pedivelaTracao: pedivelaTracao,
+            pedivelaTamanho: pedivelaTamanho,
+            pedivelaRolamento: pedivelaRolamento,
+            pedivelaEstrias: pedivelaEstrias,
+            pedivelaAcompanha: pedivelaAcompanha,
+            pedivelaConstrucao: pedivelaConstrucao,
+            pneuAro: pneuAro,
+            pneuBandaLateral: pneuBandaLateral,
+            pneuIndicacao: pneuIndicacao,
+            pneuTamanho: pneuTamanho,
+            quadroAbracadeira: quadroAbracadeira,
+            quadroCentral: quadroCentral,
+            quadroDirecao: quadroDirecao,
+            quadroEsticador: quadroEsticador,
+            quadroMedida: quadroMedida,
+            quadroModalidade: quadroModalidade,
+            quadroPinos: quadroPinos,
+            quadroTamanhoAro: quadroTamanhoAro,
+            quadroTolerancia: quadroTolerancia,
+            protetorLado: protetorLado,
+            raioTipo: raioTipo,
+            raioTamanho: raioTamanho,
+            nomeUsuario: nomeUsuario,
+            idUsuario: idUsuario,
+            imagem: uploadImagem
+        };
+        try {
+            const token = await SecureStore.getItemAsync('session');
+            const formData = new FormData();
+            formData.append("file", {
+                name: Date.now() + ".png",
+                type: "image/png",
+                uri: imagem
+            });
+            const response = await axiosInstance.post("/api/advertisements/upload", formData, {
+                headers: {
+                    "Authorization": "Bearer " + token,
+                    "Content-Type": "multipart/form-data"
+                }
+            })
+            if(response.status === 200){
+                formRequestData.imagem = response.data;
+                try{
+                    const response2 = await axiosInstance.post("/api/advertisements/register", formRequestData, { headers: { "Authorization": "Bearer " + token } });
+                    alert("Anúncio enviado com sucesso");
+                    router.push({
+                    pathname: "/FullAdScreen/[id]",
+                    params: {
+                        id: response2.data.id
+                    }
+                });
+                } catch (error) {
+                    alert("Erro ao enviar formulário, tente novamente");
+                }
+            } else {
+                alert("Erro ao enviar imagem, tente novamente");
+            }
+                
+        } catch (error) {
+            alert("Erro ao enviar imagem, tente novamente");
+        }
+    }
+    
+    const validateForm = () => {
+        // Adicionar data pelo back end
+        if (categoria && marca && preco && localidade && imagem && estadoDaPeca && grauDeDesgaste && cor && material && peso && whatsapp) {
+            submitForm();
+        } else {
+            alert("Preencha todos os campos obrigatórios");
+        }
     }
 
     return(
@@ -744,4 +743,8 @@ export default function FormAdScreen(){
             <BottomBar></BottomBar>
         </View>
     )
+}
+
+function async(res: any): (value: void) => void | PromiseLike<void> {
+    throw new Error("Function not implemented.");
 }
