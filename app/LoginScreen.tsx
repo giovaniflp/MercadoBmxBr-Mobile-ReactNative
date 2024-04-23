@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, ImageBackground, Image } from "react-native";
 import Button from "./components/Button";
 import { router } from "expo-router";
+import { Link } from "expo-router";
 import axiosInstance from "./server/axios";
 import { useSession } from "../auth/ctx";
 
@@ -23,8 +24,8 @@ export default function LoginScreen(){
         signIn(response.data.acessToken)
         router.push("/HomeScreen");
     }).catch((error) => {
+        alert("Informações incorretas!")
         console.log(error)
-        alert("Usuário ou senha incorretos!")
     });
 
     return(
@@ -46,13 +47,22 @@ export default function LoginScreen(){
                         </TouchableOpacity>
                     </View>
                     <View className="py-4">
-                        <TouchableOpacity>
-                            <Text className="text-blue-400">Esqueceu a senha?</Text>
-                        </TouchableOpacity>
+                        <Link href="/LostPassword" asChild>
+                            <TouchableOpacity>
+                                <Text className="text-blue-400">Esqueceu a senha?</Text>
+                            </TouchableOpacity>
+                        </Link>
                     </View>
                     <View className="flex gap-4 items-center">
                         <View>
                             <TouchableOpacity className="bg-green-400 p-3 rounded-lg w-40" onPress={loginApi}><Text className="text-white text-center">Login</Text></TouchableOpacity>
+                        </View>
+                        <View>
+                            <Link href="/EmailCodeActivation" asChild>
+                                <TouchableOpacity className="bg-blue-400 p-3 rounded-lg w-40">
+                                    <Text className="text-white text-center">Ativar conta</Text>
+                                </TouchableOpacity>
+                            </Link>
                         </View>
                         <View>
                             <Button text="Tela Principal" route="/" color=""></Button>
