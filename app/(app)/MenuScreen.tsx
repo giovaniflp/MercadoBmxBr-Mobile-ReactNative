@@ -37,28 +37,28 @@ export default function MenuScreen(){
             </TouchableOpacity>
             <Text className="text-4xl mt-4">{nome}</Text>
             <View className="my-4">
-                <Button route="/" text="Alterar Nome" color="blue"></Button>
+                <TouchableOpacity className="bg-blue-500 p-3 rounded-lg w-60">
+                    <Text className="text-center">Alterar Dados de Cadastro</Text>
+                </TouchableOpacity>
             </View>
             <View>
-                <Button route="/" text="Alterar Senha" color="blue"></Button>
-            </View>
-            <View className="mt-4">
-                <Button route="/" text="Termos de Uso" color="blue"></Button>
-            </View>
-            <View className="mt-4">
-                <Button route="/" text="Sobre nós" color="blue"></Button>
+                <TouchableOpacity className="bg-blue-500 p-3 rounded-lg w-60">
+                    <Text className="text-center">Termos de Uso e Sobre Nós</Text>
+                </TouchableOpacity>
             </View>
             <Link className="mt-4" href="/MyAds" asChild>
-                <TouchableOpacity className="flex bg-blue-500 p-3 rounded-lg w-40">
+                <TouchableOpacity className="flex bg-blue-500 p-3 rounded-lg w-60">
                     <Text className="text-center">Meus anúncios</Text>
                 </TouchableOpacity>
             </Link>
             <View className="mt-4">
-                <Button route="/" text="Meus favoritos" color="red"></Button>
+            <TouchableOpacity className="bg-red-500 p-3 rounded-lg w-60">
+                    <Text className="text-center">Meus favoritos</Text>
+                </TouchableOpacity>
             </View>
             <View className="my-4">
-                <TouchableOpacity onPress={signOut}>
-                    <Text>Sair</Text>
+                <TouchableOpacity onPress={signOut} className="bg-gray-500 p-3 rounded-lg w-60">
+                    <Text className="text-center">Sair</Text>
                 </TouchableOpacity>
             </View>
 

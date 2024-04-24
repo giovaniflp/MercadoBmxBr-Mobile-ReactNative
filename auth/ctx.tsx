@@ -1,9 +1,5 @@
 import React from 'react';
 import { useStorageState } from './useStorageState';
-import axios from 'axios';
-import { router } from 'expo-router';
-import { useState, useEffect } from 'react';
-import * as SecureStore from 'expo-secure-store';
 
 const AuthContext = React.createContext<{
   signIn: (acessToken) => void;

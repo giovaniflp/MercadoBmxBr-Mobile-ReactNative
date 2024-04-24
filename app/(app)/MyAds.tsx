@@ -3,7 +3,8 @@ import BottomBar from "../components/BottomBar";
 import * as SecureStore from 'expo-secure-store';
 import { useState, useEffect } from "react";
 import axiosInstance from "../server/axios";
-import {router} from "expo-router";
+import {router, useNavigation } from "expo-router";
+
 
 export default function MyAds(){
 
@@ -95,7 +96,12 @@ export default function MyAds(){
                                     </View>
                                     <View>
                                         <TouchableOpacity onPress={()=>deleteAd(ad.id)}><Image className="w-10 h-10" source={require('../../public/icons/deletePng.png')}></Image></TouchableOpacity>
-                                        <TouchableOpacity><Image className="w-10 h-10" source={require('../../public/icons/editPng.png')}></Image></TouchableOpacity>
+                                        <TouchableOpacity onPress={()=>{router.push({
+                                            pathname: "/EditAdScreen/[id]",
+                                            params: {
+                                                ad: ad.id
+                                            }
+                                        })}} ><Image className="w-10 h-10" source={require('../../public/icons/editPng.png')}></Image></TouchableOpacity>
                                     </View>
                                 </View>
                             </TouchableOpacity>

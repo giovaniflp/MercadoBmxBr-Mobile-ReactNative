@@ -24,8 +24,13 @@ export default function LoginScreen(){
         signIn(response.data.acessToken)
         router.push("/HomeScreen");
     }).catch((error) => {
-        alert("Informações incorretas!")
-        console.log(error)
+        if(error.response.status == 400){
+            alert("Conta não ativada!")
+            router.push("/EmailCodeActivation");
+        } else {
+            alert("Informações incorretas!")
+            console.log(error)
+        }
     });
 
     return(
@@ -57,13 +62,7 @@ export default function LoginScreen(){
                         <View>
                             <TouchableOpacity className="bg-green-400 p-3 rounded-lg w-40" onPress={loginApi}><Text className="text-white text-center">Login</Text></TouchableOpacity>
                         </View>
-                        <View>
-                            <Link href="/EmailCodeActivation" asChild>
-                                <TouchableOpacity className="bg-blue-400 p-3 rounded-lg w-40">
-                                    <Text className="text-white text-center">Ativar conta</Text>
-                                </TouchableOpacity>
-                            </Link>
-                        </View>
+                        
                         <View>
                             <Button text="Tela Principal" route="/" color=""></Button>
                         </View>
