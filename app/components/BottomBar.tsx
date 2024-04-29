@@ -19,13 +19,6 @@ export default function BottomBar(){
             </View>
           </TouchableOpacity>
         </Link>
-        <Link href="/SearchScreen" asChild>
-          <TouchableOpacity className="flex items-center mx-4">
-            <View className="flex items-center">
-              <Image source={require('../../public/icons/searchPNG.png')}></Image>
-            </View>
-          </TouchableOpacity>
-        </Link>
         <Link href="/FormAdScreen" asChild>
           <TouchableOpacity className="flex items-center mx-4">
             <View className="flex items-center">
