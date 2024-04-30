@@ -8,32 +8,63 @@ import BottomBar from "../components/BottomBar";
 import { Picker } from "@react-native-picker/picker";
 
 export default function CategorySearchList(){
+    
     const { category } = useLocalSearchParams()
 
-    const [adData, setAdData] = useState([])
-
-    const getAds = async () => {
-    const token = await SecureStore.getItemAsync('session');
-    const config = {
-        headers: {
-        Authorization: "Bearer " + token
-        }
-    }
-    const response = await axiosInstance.get("/api/advertisements/category/" + category , config)
-    setAdData(response.data)
-}
-
-    useEffect(() => {
-        getAds();
-    })
-
     const [modal, setModal] = useState(false)
-
     const toggleModal = () => {
         setModal(!modal)
     }
 
-    const [estado, setEstado] = useState(null)
+    const [localidade, setLocalidade] = useState(null)
+    const [estadoDaPeca, setEstadoDaPeca] = useState(null)
+
+    const [adData, setAdData] = useState([])
+
+    const getAds = async () => {
+        const token = await SecureStore.getItemAsync('session');
+        const config = {
+            headers: {
+            Authorization: "Bearer " + token
+            }
+        }
+        const response = await axiosInstance.get("/api/advertisements/category/" + category , config)
+        setAdData(response.data)
+    }
+
+    useEffect(() => {
+        getAds();
+    }, [])
+
+    useEffect(() => {
+        
+    },[adData])
+
+    const filter = async () => {
+        const token = await SecureStore.getItemAsync('session');
+        const config = {
+            headers: {
+            Authorization: "Bearer " + token
+            }
+        }
+        if(localidade != null && estadoDaPeca == null){
+            console.log(localidade)
+            const response = await axiosInstance.get("/api/advertisements/category/" + category + "/localidade/" + localidade, config)
+            setAdData(response.data)
+            console.log(response.data)
+        } else if (localidade == null && estadoDaPeca != null){
+            const response = await axiosInstance.get("/api/advertisements/category/" + category + "/estadoDaPeca/" + estadoDaPeca, config)
+            console.log(response.data)
+            setAdData(response.data)
+        } else if (localidade != null && estadoDaPeca != null){
+            const response = await axiosInstance.get("/api/advertisements/category/" + category + "/localidade/" + localidade + "/estadoDaPeca/" + estadoDaPeca, config)
+            console.log(response.data)
+            setAdData(response.data)
+        } else {
+            const response = await axiosInstance.get("/api/advertisements/category/" + category, config)
+            setAdData(response.data)
+        }
+    }
 
     return(
         <View className="pt-12 h-full">
@@ -42,24 +73,15 @@ export default function CategorySearchList(){
                 <Text className="text-center">Adicionar filtros</Text>
             </TouchableOpacity>
             {modal && <View className="flex flex-col items-center justify-center">
-                <View className="flex flex-row gap-2">
-                    <TouchableOpacity>
-                        <Text>Novo</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Text>Usado</Text>
-                    </TouchableOpacity>
-                </View>
-                <View className="flex flex-row gap-2">
-                    <TouchableOpacity>
-                        <Text>Maior preço</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Text>Menor preço</Text>
-                    </TouchableOpacity>
+                <View className="border-2 border-black rounded-lg w-60">
+                    <Picker selectedValue={estadoDaPeca} onValueChange={(value)=>setEstadoDaPeca(value)}>
+                        <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
+                        <Picker.Item label="Usado" value="Usado"></Picker.Item>
+                        <Picker.Item label="Novo" value="Novo"></Picker.Item>
+                    </Picker>
                 </View>
                 <View className="border-2 border-black rounded-lg w-60">
-                    <Picker selectedValue={estado} onValueChange={setEstado}>
+                    <Picker selectedValue={localidade} onValueChange={setLocalidade}>
                             <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                             <Picker.Item label="Acre" value="Acre"></Picker.Item>
                             <Picker.Item label="Alagoas" value="Alagoas"></Picker.Item>
@@ -90,7 +112,21 @@ export default function CategorySearchList(){
                             <Picker.Item label="Tocantins" value="Tocantins"></Picker.Item>
                         </Picker>
                 </View>
-                <TouchableOpacity className="bg-green-500 p-3 m-2 rounded-lg">
+                {/* <View className="border-2 border-black rounded-lg w-60">
+                    <Picker>
+                        <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
+                        <Picker.Item label="Maior Preço" value="Maior Preço"></Picker.Item>
+                        <Picker.Item label="Menor Preço" value="Menor Preço"></Picker.Item>
+                    </Picker>
+                </View>
+                <View className="border-2 border-black rounded-lg w-60">
+                    <Picker>
+                        <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
+                        <Picker.Item label="Postagem recente" value="Postagem Recente"></Picker.Item>
+                        <Picker.Item label="Postagem mais antiga" value="Postagem Mais Antiga"></Picker.Item>
+                    </Picker>
+                </View> */}
+                <TouchableOpacity onPress={filter} className="bg-green-500 p-3 m-2 rounded-lg">
                     <Text className="text-center">Pesquisar</Text>
                 </TouchableOpacity><TouchableOpacity onPress={toggleModal} className="bg-red-500 p-3 m-2 rounded-lg">
                     <Text className="text-center">Fechar</Text>
