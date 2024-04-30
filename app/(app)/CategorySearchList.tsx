@@ -10,16 +10,15 @@ import { Picker } from "@react-native-picker/picker";
 export default function CategorySearchList(){
     
     const { category } = useLocalSearchParams()
-
+    
+    const [adData, setAdData] = useState([])
     const [modal, setModal] = useState(false)
-    const toggleModal = () => {
-        setModal(!modal)
-    }
-
     const [localidade, setLocalidade] = useState(null)
     const [estadoDaPeca, setEstadoDaPeca] = useState(null)
 
-    const [adData, setAdData] = useState([])
+    const toggleModal = () => {
+        setModal(!modal)
+    }
 
     const getAds = async () => {
         const token = await SecureStore.getItemAsync('session');
@@ -37,7 +36,7 @@ export default function CategorySearchList(){
     }, [])
 
     useEffect(() => {
-        
+        console.log(adData) 
     },[adData])
 
     const filter = async () => {
@@ -51,7 +50,7 @@ export default function CategorySearchList(){
             console.log(localidade)
             const response = await axiosInstance.get("/api/advertisements/category/" + category + "/localidade/" + localidade, config)
             setAdData(response.data)
-            console.log(response.data)
+            console.log(adData)
         } else if (localidade == null && estadoDaPeca != null){
             const response = await axiosInstance.get("/api/advertisements/category/" + category + "/estadoDaPeca/" + estadoDaPeca, config)
             console.log(response.data)
@@ -61,8 +60,7 @@ export default function CategorySearchList(){
             console.log(response.data)
             setAdData(response.data)
         } else {
-            const response = await axiosInstance.get("/api/advertisements/category/" + category, config)
-            setAdData(response.data)
+            alert("Selecione pelo menos um filtro")
         }
     }
 
@@ -81,7 +79,7 @@ export default function CategorySearchList(){
                     </Picker>
                 </View>
                 <View className="border-2 border-black rounded-lg w-60">
-                    <Picker selectedValue={localidade} onValueChange={setLocalidade}>
+                    <Picker selectedValue={localidade} onValueChange={(value)=>setLocalidade(value)}>
                             <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                             <Picker.Item label="Acre" value="Acre"></Picker.Item>
                             <Picker.Item label="Alagoas" value="Alagoas"></Picker.Item>
@@ -128,14 +126,18 @@ export default function CategorySearchList(){
                 </View> */}
                 <TouchableOpacity onPress={filter} className="bg-green-500 p-3 m-2 rounded-lg">
                     <Text className="text-center">Pesquisar</Text>
-                </TouchableOpacity><TouchableOpacity onPress={toggleModal} className="bg-red-500 p-3 m-2 rounded-lg">
+                </TouchableOpacity>
+                <TouchableOpacity onPress={getAds} className="bg-blue-500 p-3 m-2 rounded-lg">
+                    <Text className="text-center">Remover Filtros</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={toggleModal} className="bg-red-500 p-3 m-2 rounded-lg">
                     <Text className="text-center">Fechar</Text>
                 </TouchableOpacity>
             </View>}
             <ScrollView>
                 <View className="flex flex-row flex-wrap">
                     {adData.map((ad, index) => {
-                        return <HomeAd id={ad.id} key={index}></HomeAd>
+                        return <HomeAd id={ad.id} key={ad.id}></HomeAd>
                     }
                     )}
                 </View>
