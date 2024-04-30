@@ -136,10 +136,16 @@ export default function CategorySearchList(){
             </View>}
             <ScrollView>
                 <View className="flex flex-row flex-wrap">
-                    {adData.map((ad, index) => {
-                        return <HomeAd id={ad.id} key={ad.id}></HomeAd>
+                    {
+                    adData.length > 0 ? (
+                        adData.map((ad) => {
+                            return <HomeAd id={ad.id} key={ad.id}></HomeAd>
+                        }
+                        )
+                    ) : (
+                        <Text>Não se encontrou nenhum anúncio.</Text>
+                    )
                     }
-                    )}
                 </View>
             </ScrollView>
             <BottomBar></BottomBar>

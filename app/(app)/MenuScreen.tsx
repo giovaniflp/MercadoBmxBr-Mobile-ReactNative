@@ -51,11 +51,11 @@ export default function MenuScreen(){
                     <Text className="text-center">Meus anúncios</Text>
                 </TouchableOpacity>
             </Link>
-            <View className="mt-4">
-            <TouchableOpacity className="bg-red-500 p-3 rounded-lg w-60">
+            <Link className="mt-4" href="/MyFavorites" asChild>
+                <TouchableOpacity className="flex bg-red-500 p-3 rounded-lg w-60">
                     <Text className="text-center">Meus favoritos</Text>
                 </TouchableOpacity>
-            </View>
+            </Link>
             <View className="my-4">
                 <TouchableOpacity onPress={signOut} className="bg-gray-500 p-3 rounded-lg w-60">
                     <Text className="text-center">Sair</Text>
