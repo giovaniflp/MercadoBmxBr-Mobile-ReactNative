@@ -9,13 +9,11 @@ export default function MyFavorites(){
 
     const [favorites, setFavorites] = useState([])
 
-    const [idUsuario, setIdUsuario] = useState("")
-
     useEffect(() => {
-        FetchFavorites();
+        JwtDecode()
     })
 
-    const FetchFavorites = async () => {
+    const JwtDecode = async () => {
         const token = await SecureStore.getItemAsync('session');
         const config = {
             headers: {
@@ -23,9 +21,19 @@ export default function MyFavorites(){
             }
         }
         await axiosInstance.get("/api/token/jwtDecode", config).then(async(response) => {
-            setIdUsuario(response.data.jti)
-            const response2 = await axiosInstance.get("/api/favorites/user/" + idUsuario , config)
-            setFavorites(response2.data)
+            FetchFavorites(response.data.jti)
+        })
+    }
+
+    const FetchFavorites = async (responseData) => {
+        const token = await SecureStore.getItemAsync('session');
+        const config = {
+            headers: {
+            Authorization: "Bearer " + token
+            }
+        }
+        await axiosInstance.get("/api/favorites/user/" + responseData, config).then(async(response) => {
+            setFavorites(response.data)
         })
     }
 
@@ -35,13 +43,13 @@ export default function MyFavorites(){
             <View>
                 <ScrollView>
                     <View>
-                        {
+                        {favorites.length > 0 ? (
                             favorites.map((favorite) => {
-                                return(
-                                    <HomeAd id={favorite.idAnuncio} key={favorite.id} ></HomeAd>
-                                )
+                                return <HomeAd id={favorite.idAnuncio} key={favorite.id} />;
                             })
-                        }
+                        ) : (
+                            <Text>Você não possui favoritos.</Text>
+                        )}
                     </View>
                 </ScrollView>
             </View>

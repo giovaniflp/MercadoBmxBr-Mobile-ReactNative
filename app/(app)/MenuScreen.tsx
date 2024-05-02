@@ -1,4 +1,4 @@
-import { View, Image, Text, TouchableOpacity } from "react-native";
+import { View, Image, Text, TouchableOpacity, Linking } from "react-native";
 import BottomBar from "../components/BottomBar";
 import Button from "../components/Button";
 import * as SecureStore from 'expo-secure-store';
@@ -42,7 +42,7 @@ export default function MenuScreen(){
                 </TouchableOpacity>
             </View>
             <View>
-                <TouchableOpacity className="bg-blue-500 p-3 rounded-lg w-60">
+                <TouchableOpacity onPress={()=>{Linking.openURL("https://docs.google.com/document/d/1xIGVn24An86dOONmL_HZsi9kBwutwcqpF7zfudxv-zw/edit?usp=sharing")}} className="bg-blue-500 p-3 rounded-lg w-60">
                     <Text className="text-center">Termos de Uso e Sobre Nós</Text>
                 </TouchableOpacity>
             </View>

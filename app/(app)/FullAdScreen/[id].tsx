@@ -13,12 +13,14 @@ export default function FullAdScreen(){
     const getAdData = async () => {
         const token = await SecureStore.getItemAsync('session');
         const config = {
-          headers: {
+        headers: {
             Authorization: "Bearer " + token
-          }
         }
-        const response = await axiosInstance.get("/api/advertisements/" + id, config)
-        setAdData(response.data)
+        }
+        const response = await axiosInstance.get("/api/advertisements/" + id, config).then(async(response) => {
+            setAdData(response.data)
+            JwtDecode()
+        })
     }
 
     useEffect(()=>{
@@ -26,11 +28,89 @@ export default function FullAdScreen(){
     },[])
 
     const [adData, setAdData] = useState([])
+    const [favorite, setFavorite] = useState(false)
+    const [idUsuario, setIdUsuario] = useState("")
+
+    const JwtDecode = async () => {
+        const token = await SecureStore.getItemAsync('session');
+        const config = {
+            headers: {
+            Authorization: "Bearer " + token
+            }
+        }
+        await axiosInstance.get("/api/token/jwtDecode", config).then(async(response) => {
+            setIdUsuario(response.data.jti)
+            verifyFavorite(response.data.jti)
+        })
+    }
+
+    const verifyFavorite = async (idUsuario: string) => {
+        const token = await SecureStore.getItemAsync('session');
+        const config = {
+        headers: {
+            Authorization: "Bearer " + token
+        }
+        }
+        await axiosInstance.get("/api/favorites/verify/" + idUsuario + "/" + id, config).then(async(response) => {
+            if(response.data == true){
+                setFavorite(true)
+            } else {
+                setFavorite(false)
+            }
+            console.log(response.data)
+        })
+    }
+
+    const addFavorite = async () => {
+        const token = await SecureStore.getItemAsync('session');
+        const config = {
+        headers: {
+            Authorization: "Bearer " + token
+        }
+        }
+        const dataRequest = {
+            idAnuncio: id,
+            idUsuario: idUsuario
+        }
+        await axiosInstance.post("/api/favorites/save", dataRequest ,config).then(async(response) => {
+            setFavorite(true)
+            alert("Anúncio adicionado aos favoritos!")
+        })
+    }
+
+    const removeFavorite = async () => {
+        const token = await SecureStore.getItemAsync('session');
+        const config = {
+        headers: {
+            Authorization: "Bearer " + token
+        }
+        }
+        await axiosInstance.delete("/api/favorites/delete/" + id, config).then(async(response) => {
+            setFavorite(false)
+            alert("Anúncio removido dos favoritos!")
+        })
+    }
 
     
     return(
         <View className="flex h-full bg-white">
-            <TopBar></TopBar>
+            <View className="bg-blue-600 p-4 flex flex-row items-center justify-between pt-12">
+            <Link href="/HomeScreen" asChild>
+                <TouchableOpacity>
+                    <Image source={require('../../../public/icons/arrowBackPNG.png')}></Image>
+                </TouchableOpacity>
+            </Link>
+            {
+                favorite ? 
+                <TouchableOpacity onPress={removeFavorite}>
+                    <Image source={require('../../../public/icons/favoriteFullPNG.png')}></Image>
+                </TouchableOpacity>
+                :
+                <TouchableOpacity onPress={addFavorite}>
+                    <Image source={require('../../../public/icons/favoritePNG.png')}></Image>
+                </TouchableOpacity>
+            }
+        </View>
             <ScrollView className="mb-12">
                 <View>
                     <Image style={{resizeMode:"contain"}} className="w-full h-60" source={{uri:adData.imagem}}></Image>
