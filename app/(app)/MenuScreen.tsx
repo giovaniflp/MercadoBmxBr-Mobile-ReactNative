@@ -36,11 +36,11 @@ export default function MenuScreen(){
                 <Image className="w-40 h-40 mt-2" source={require('../../public/icons/accCircle.png')}></Image>
             </TouchableOpacity>
             <Text className="text-4xl mt-4">{nome}</Text>
-            <View className="my-4">
+            <Link className="my-4" href="/ChangeRegisterData" asChild>
                 <TouchableOpacity className="bg-blue-500 p-3 rounded-lg w-60">
                     <Text className="text-center">Alterar Dados de Cadastro</Text>
                 </TouchableOpacity>
-            </View>
+            </Link>
             <View>
                 <TouchableOpacity onPress={()=>{Linking.openURL("https://docs.google.com/document/d/1xIGVn24An86dOONmL_HZsi9kBwutwcqpF7zfudxv-zw/edit?usp=sharing")}} className="bg-blue-500 p-3 rounded-lg w-60">
                     <Text className="text-center">Termos de Uso e Sobre Nós</Text>
