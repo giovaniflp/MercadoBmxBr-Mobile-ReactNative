@@ -541,7 +541,6 @@ export default function FormAdScreen(){
     return(
         <View className="h-full pt-8">
             <ScrollView className="mb-12">
-
             <View className="border-2 border-black rounded-lg m-4">
                 <Picker selectedValue={categoria} 
                 onValueChange={(itemValue)=> {setCategory(itemValue); if(itemValue !== null){setSubCategory(true)} else{setSubCategory(false)}}}>
