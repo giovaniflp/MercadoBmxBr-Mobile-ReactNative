@@ -250,14 +250,13 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
     };
 
     useEffect(() => {
-        
         onChange()
     })
 
+
     useEffect(() => {
-        setNull()
         dataFunction()
-    }, [categoria])
+    }, [data])
 
     const [abracadeiraDiametro, setAbracadeiraDiametro] = useState(null)
     const [aroTipoFolha, setAroTipoFolha] = useState(null)

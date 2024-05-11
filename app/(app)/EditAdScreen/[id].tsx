@@ -382,90 +382,9 @@ export default function EditAdScreen(){
             raioTipo: raioTipo,
             raioTamanho: raioTamanho
         });
+
+        console.log(bikeCompletaModalidade)
     });
-    
-    useEffect(() => {
-        updateFilho({
-            abracadeiraDiametro: abracadeiraDiametro,
-            aroTipoFolha: aroTipoFolha,
-            aroFuros: aroFuros,
-            aroGrossura: aroGrossura,
-            bancoTipo: bancoTipo,
-            bancoCanoteTamanho: bancoCanoteTamanho,
-            bikeCompletaModalidade: bikeCompletaModalidade,
-            camaraAroTamanho: camaraAroTamanho,
-            camaraTipoValvula: camaraTipoValvula,
-            canoteTipo: canoteTipo,
-            canoteTamanho: canoteTamanho,
-            coroaDentes: coroaDentes,
-            coroaProtetor: coroaProtetor,
-            coroaAdaptador: coroaAdaptador,
-            correnteTipoElo: correnteTipoElo,
-            cuboDianteiroFuros: cuboDianteiroFuros,
-            cuboDianteiroTipoEixo: cuboDianteiroTipoEixo,
-            cuboDianteiroMaterialEixo: cuboDianteiroMaterialEixo,
-            cuboDianteiroMaterialParafusos: cuboDianteiroMaterialParafusos,
-            cuboDianteiroProtetor: cuboDianteiroProtetor,
-            tipoCubo: tipoCubo,
-            freecoaster: freecoaster,
-            cuboTraseiroTracao: cuboTraseiroTracao,
-            cuboTraseiroCog: cuboTraseiroCog,
-            cuboTraseiroTravas: cuboTraseiroTravas,
-            cuboTraseiroFuros: cuboTraseiroFuros,
-            cuboTraseiroTipoEixo: cuboTraseiroTipoEixo,
-            cuboTraseiroMaterialEixo: cuboTraseiroMaterialEixo,
-            cuboTraseiroMaterialParafusos: cuboTraseiroMaterialParafusos,
-            cuboTraseiroProtetor: cuboTraseiroProtetor,
-            eixoCentralEstrias: eixoCentralEstrias,
-            eixoCentralTamanho: eixoCentralTamanho,
-            freioPeca: freioPeca,
-            garfoOffset: garfoOffset,
-            garfoTampa: garfoTampa,
-            guidaoTamanho: guidaoTamanho,
-            guidaoLargura: guidaoLargura,
-            guidaoAngulo: guidaoAngulo,
-            guidaoTipo: guidaoTipo,
-            manoplaTamanho: manoplaTamanho,
-            manoplaBarEnds: manoplaBarEnds,
-            mesaTamanho: mesaTamanho,
-            mesaAltura: mesaAltura,
-            mesaTipo: mesaTipo,
-            mesaFabricacao: mesaFabricacao,
-            movimentoCentralTipo: movimentoCentralTipo,
-            movimentoCentralRolamento: movimentoCentralRolamento,
-            movimentoCentralAcompanha: movimentoCentralAcompanha,
-            movimentoDirecaoTipo: movimentoDirecaoTipo,
-            movimentoDirecaoTampa: movimentoDirecaoTampa,
-            movimentoDirecaoAcompanha: movimentoDirecaoAcompanha,
-            pedalRosca: pedalRosca,
-            pedalConstrucao: pedalConstrucao,
-            pedaleiraQuantidade: pedaleiraQuantidade,
-            pedaleiraEncaixe: pedaleiraEncaixe,
-            pedaleiraTamanho: pedaleiraTamanho,
-            pedivelaTracao: pedivelaTracao,
-            pedivelaTamanho: pedivelaTamanho,
-            pedivelaRolamento: pedivelaRolamento,
-            pedivelaEstrias: pedivelaEstrias,
-            pedivelaAcompanha: pedivelaAcompanha,
-            pedivelaConstrucao: pedivelaConstrucao,
-            pneuAro: pneuAro,
-            pneuBandaLateral: pneuBandaLateral,
-            pneuIndicacao: pneuIndicacao,
-            pneuTamanho: pneuTamanho,
-            quadroAbracadeira: quadroAbracadeira,
-            quadroCentral: quadroCentral,
-            quadroDirecao: quadroDirecao,
-            quadroEsticador: quadroEsticador,
-            quadroMedida: quadroMedida,
-            quadroModalidade: quadroModalidade,
-            quadroPinos: quadroPinos,
-            quadroTamanhoAro: quadroTamanhoAro,
-            quadroTolerancia: quadroTolerancia,
-            protetorLado: protetorLado,
-            raioTipo: raioTipo,
-            raioTamanho: raioTamanho
-        });
-    }, [categoria]);
     
     const getDataJwt = async() => {
         const token = await SecureStore.getItemAsync('session');
@@ -601,24 +520,44 @@ export default function EditAdScreen(){
                 imagem: uploadImagem
             };
             try {
-                const token = await SecureStore.getItemAsync('session');
-                const formData = new FormData();
-                formData.append("file", {
-                    name: Date.now() + ".png",
-                    type: "image/png",
-                    uri: imagem
-                });
-                const response = await axiosInstance.post("/api/advertisements/upload", formData, {
-                    headers: {
-                        "Authorization": "Bearer " + token,
-                        "Content-Type": "multipart/form-data"
+                if(imagem){
+                    console.log(formRequestData)
+                    const token = await SecureStore.getItemAsync('session');
+                    const formData = new FormData();
+                    formData.append("file", {
+                        name: Date.now() + ".png",
+                        type: "image/png",
+                        uri: imagem
+                    });
+                    const response = await axiosInstance.post("/api/advertisements/upload", formData, {
+                        headers: {
+                            "Authorization": "Bearer " + token,
+                            "Content-Type": "multipart/form-data"
+                        }
+                    })
+                    if(response.status === 200){
+                        formRequestData.imagem = response.data;
+                        try{
+                            const response2 = await axiosInstance.patch("/api/advertisements/patch/" + ad, formRequestData, { headers: { "Authorization": "Bearer " + token } });
+                            alert("Anúncio criado com sucesso");
+                            router.push({
+                            pathname: "/FullAdScreen/[id]",
+                            params: {
+                                id: response2.data.id
+                            }
+                        });
+                        } catch (error) {
+                            alert("Erro ao enviar formulário, tente novamente");
+                        }
+                    } else {
+                        alert("Erro ao enviar imagem, tente novamente");
                     }
-                })
-                if(response.status === 200){
-                    formRequestData.imagem = response.data;
+                } else {
+                    console.log(formRequestData)
                     try{
-                        const response2 = await axiosInstance.post("/api/advertisements/register", formRequestData, { headers: { "Authorization": "Bearer " + token } });
-                        alert("Anúncio enviado com sucesso");
+                        const token = await SecureStore.getItemAsync('session');
+                        const response2 = await axiosInstance.patch("/api/advertisements/patch/" + ad, formRequestData, { headers: { "Authorization": "Bearer " + token } });
+                        alert("Anúncio editado com sucesso");
                         router.push({
                         pathname: "/FullAdScreen/[id]",
                         params: {
@@ -626,12 +565,9 @@ export default function EditAdScreen(){
                         }
                     });
                     } catch (error) {
-                        alert("Erro ao enviar formulário, tente novamente");
+                        console.log(error);
                     }
-                } else {
-                    alert("Erro ao enviar imagem, tente novamente");
-                }
-                    
+                }  
             } catch (error) {
                 alert("Erro ao enviar imagem, tente novamente");
             }
@@ -640,7 +576,7 @@ export default function EditAdScreen(){
     
     const validateForm = () => {
         // Adicionar data pelo back end
-        if (categoria && marca && preco && localidade && imagem && estadoDaPeca && grauDeDesgaste && cor && material && peso && whatsapp) {
+        if (categoria && marca && preco && localidade && estadoDaPeca && grauDeDesgaste && cor && material && peso && whatsapp) {
             submitForm();
         } else {
             alert("Preencha todos os campos obrigatórios");
