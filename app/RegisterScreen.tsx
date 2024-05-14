@@ -1,7 +1,8 @@
-import { View, Text, TextInput, TouchableOpacity, ImageBackground, Image } from "react-native";
-import Button from "./components/Button";
+import { View, Text, TouchableOpacity, ImageBackground, Image } from "react-native";
+import { Button } from "react-native-paper";
+import { TextInput } from "react-native-paper";
 import React, { useState } from "react";
-import { router } from "expo-router";
+import { router, Link } from "expo-router";
 import axiosInstance from "./server/axios";
 
 export default function RegisterScreen(){
@@ -50,39 +51,36 @@ export default function RegisterScreen(){
     return(
         <ImageBackground source={require('../public/images/brandWPP.jpg')}>
             <View className="flex justify-center items-center h-full">
-                <View className="bg-black p-12 rounded-lg">
-                    <Text className="text-white text-center text-3xl">
+                <View className="bg-white p-12 border-4 rounded-lg flex items-center">
+                    <Text className="text-black text-center text-3xl">
                         Faça seu cadastro!
                     </Text>
                     <View className="my-4">
-                        <Text className="text-white">Nome</Text>
-                        <TextInput value={name} onChangeText={setName} className="text-white border-2 border-white rounded-lg p-1" placeholder="Insira aqui seu nome"></TextInput>
+                        <TextInput label="Nome" mode="outlined" value={name} onChangeText={setName} className="text-black w-60" placeholder="Insira aqui seu nome"></TextInput>
                     </View>
                     <View className="mb-4">
-                        <Text className="text-white">Email</Text>
-                        <TextInput value={email} onChangeText={setEmail} className="text-white border-2 border-white rounded-lg p-1" placeholder="Insira aqui seu email" inputMode="email"></TextInput>
+                        <TextInput label="E-mail" mode="outlined" value={email} onChangeText={setEmail} className="text-black w-60" placeholder="Insira aqui seu email" inputMode="email"></TextInput>
                     </View>
                     <View className="mb-4">
-                        <Text className="text-white">Senha</Text>
-                        <TextInput value={password} onChangeText={setPassword} className="text-white border-2 border-white rounded-lg p-1" placeholder="Insira aqui sua senha" secureTextEntry={seePassword}></TextInput>
-                        <TouchableOpacity onPress={()=>setSeePassword(!seePassword)} className="absolute top-7 left-56">
-                            <Image source={seePassword ? require("../public/icons/hidePng.png") : require("../public/icons/visibilityPng.png")}></Image>
+                        <TextInput maxLength={16} label="Senha" mode="outlined" value={password} onChangeText={setPassword} className="text-black w-60" placeholder="Insira aqui sua senha" secureTextEntry={seePassword}></TextInput>
+                        <TouchableOpacity onPress={()=>setSeePassword(!seePassword)} className="absolute top-4 left-48">
+                            <Image className="w-8 h-8" source={seePassword ? require("../public/icons/hidePng.png") : require("../public/icons/visibilityPng.png")}></Image>
                         </TouchableOpacity>
                     </View>
                     <View className="mb-4">
-                        <Text className="text-white">Confirme sua senha</Text>
-                        <TextInput value={confirmPassword} onChangeText={setConfirmPassword} className="text-white border-2 border-white rounded-lg p-1 w-64" placeholder="Insira aqui sua senha novamente" secureTextEntry={seeConfirmPassword}>
-                        </TextInput>
-                        <TouchableOpacity onPress={()=>setSeeConfirmPassword(!seeConfirmPassword)} className="absolute top-7 left-56">
-                            <Image source={seeConfirmPassword ? require("../public/icons/hidePng.png") : require("../public/icons/visibilityPng.png")}></Image>
+                        <TextInput maxLength={16} label="Confirmar senha" mode="outlined" value={confirmPassword} onChangeText={setConfirmPassword} className="text-black w-60" placeholder="Confirme sua senha" secureTextEntry={seeConfirmPassword}></TextInput>
+                        <TouchableOpacity onPress={()=>setSeeConfirmPassword(!seeConfirmPassword)} className="absolute top-4 left-48">
+                            <Image className="w-8 h-8" source={seeConfirmPassword ? require("../public/icons/hidePng.png") : require("../public/icons/visibilityPng.png")}></Image>
                         </TouchableOpacity>
                     </View>
                     <View className="flex items-center gap-4">
                         <View>
-                            <TouchableOpacity className="bg-green-400 p-3 rounded-lg w-40" onPress={registerApi}><Text className="text-white text-center">Registrar</Text></TouchableOpacity>
+                            <Button mode='contained' onPress={registerApi} className='w-40 bg-green-500' textColor='black'>Registrar</Button>
                         </View>
                         <View>
-                            <Button text="Tela Principal" route="/" color=""></Button>
+                            <Link href="/" asChild>
+                                <Button mode='contained' className='w-40 bg-black' textColor='white'>Tela Inicial</Button>
+                            </Link>
                         </View>
                     </View>
                 </View>

@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { Text, View, ImageBackground } from 'react-native';
+import { Button, Text } from 'react-native-paper';
+import { View, ImageBackground } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import Button from './components/Button';
+import { Link } from 'expo-router';
 
 
 export default function HomePage() {
@@ -14,19 +14,22 @@ export default function HomePage() {
 
     return(
       <ImageBackground source={require('../public/images/wpp3.jpg')}>
-        <View className="flex h-full justify-end pb-32 items-center">
-          <Text className="text-2xl text-black">Bem-vindo ao Market Bmx Br</Text>
-          <Text className="mb-6 text-black">O lugar para achar suas próximas peças</Text>
-          <Text className="text-sm text-black">Faça login ou cadastre-se para continuar!</Text>
-          <View className="flex gap-4 my-4">
-            <View>
-              <Button text="Entrar" color="blue" route="LoginScreen"></Button>
-            </View>
-            <View>
-              <Button text="Cadastrar" color="blue" route="RegisterScreen"></Button>
+        <View className="flex h-full justify-end pb-28 items-center">
+          <View className='bg-white w-full absolute py-14 rounded-t-3xl'>
+            <Text className="text-2xl text-black text-center">Bem-vindo ao Mercado Bmx Br</Text>
+            <Text className="mb-6 text-purple-700 text-center">O lugar para achar suas próximas peças</Text>
+            <Text className="text-sm text-black text-center">Faça login ou cadastre-se para continuar!</Text>
+            <View className="flex gap-3 my-4 items-center">
+              <View>
+                <Link href="/LoginScreen" asChild>
+                  <Button mode='contained' className='w-60' textColor='white'>Entrar</Button>
+                </Link>
+              </View>
+              <Link href="/RegisterScreen" asChild>
+                  <Button mode='contained' className='w-60 bg-black' textColor='white'>Registrar</Button>
+                </Link>
             </View>
           </View>
-          <StatusBar style="auto" />
         </View>
       </ImageBackground>
     )

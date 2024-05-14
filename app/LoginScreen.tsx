@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, ImageBackground, Image } from "react-native";
-import Button from "./components/Button";
+import { View, Text, TouchableOpacity, ImageBackground, Image } from "react-native";
+import { TextInput, Button } from "react-native-paper";
 import { router } from "expo-router";
 import { Link } from "expo-router";
 import axiosInstance from "./server/axios";
@@ -36,35 +36,34 @@ export default function LoginScreen(){
     return(
         <ImageBackground source={require('../public/images/brandWPP.jpg')}>
             <View className="flex justify-center items-center h-full">
-                <View className="bg-black p-12 rounded-lg">
-                    <Text className="text-3xl text-white text-center">
+                <View className="bg-white p-12 rounded-lg border-4">
+                    <Text className="text-3xl text-black text-center">
                         Faça seu login!
                     </Text>
                     <View className="flex w-60 mt-4">
-                        <Text className="text-white">Email</Text>
-                        <TextInput value={email} onChangeText={setEmail} className="border-2 border-white p-1 rounded-lg text-white" placeholder="Insira aqui seu email"></TextInput>
+                        <TextInput className="text-sm" label="Email" mode="outlined" value={email} onChangeText={setEmail}  placeholder="Insira aqui seu email"></TextInput>
                     </View>
                     <View className="flex w-60 mt-4">
-                        <Text className="text-white">Senha</Text>
-                        <TextInput value={password} onChangeText={setPassword} className="border-2 border-white p-1 rounded-lg text-white w-60" placeholder="Insira aqui sua senha" secureTextEntry={seePassword}></TextInput>
-                        <TouchableOpacity onPress={()=>setSeePassword(!seePassword)} className="absolute top-7 left-52">
-                            <Image source={seePassword ? require("../public/icons/hidePng.png") : require("../public/icons/visibilityPng.png")}></Image>
+                        <TextInput maxLength={16} className="text-sm" label="Senha" mode="outlined" value={password} onChangeText={setPassword} placeholder="Insira aqui sua senha" secureTextEntry={seePassword}></TextInput>
+                        <TouchableOpacity onPress={()=>setSeePassword(!seePassword)} className="absolute top-4 left-48">
+                            <Image className="w-8 h-8" source={seePassword ? require("../public/icons/hidePng.png") : require("../public/icons/visibilityPng.png")}></Image>
                         </TouchableOpacity>
                     </View>
                     <View className="py-4">
                         <Link href="/LostPassword" asChild>
                             <TouchableOpacity>
-                                <Text className="text-blue-400">Esqueceu a senha?</Text>
+                                <Text className="text-purple-700">Esqueceu a senha?</Text>
                             </TouchableOpacity>
                         </Link>
                     </View>
                     <View className="flex gap-4 items-center">
                         <View>
-                            <TouchableOpacity className="bg-green-400 p-3 rounded-lg w-40" onPress={loginApi}><Text className="text-white text-center">Login</Text></TouchableOpacity>
+                            <Button mode='contained' onPress={loginApi} className='w-40 bg-green-500' textColor='black'>Login</Button>
                         </View>
-                        
                         <View>
-                            <Button text="Tela Principal" route="/" color=""></Button>
+                            <Link href="/" asChild>
+                                <Button mode='contained' className='w-40 bg-black' textColor='white'>Tela Inicial</Button>
+                            </Link>
                         </View>
                     </View>
                 </View>
