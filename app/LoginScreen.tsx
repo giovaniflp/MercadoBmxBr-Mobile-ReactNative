@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, ImageBackground, Image } from "react-native";
-import { TextInput, Button } from "react-native-paper";
+import { TextInput, Button, ActivityIndicator, MD2Colors } from "react-native-paper";
 import { router } from "expo-router";
 import { Link } from "expo-router";
 import axiosInstance from "./server/axios";
@@ -11,27 +11,35 @@ export default function LoginScreen(){
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
     const [seePassword, setSeePassword] = useState(true);
+
+    const [loading, setLoading] = useState(false);
 
     const requestData = {
         email: email,
         password: password,
     }
 
-    const loginApi  = () => axiosInstance.post("/api/token/login", requestData).then(async(response) => {
-        alert("Usuário logado com sucesso!")
-        signIn(response.data.acessToken)
-        router.push("/HomeScreen");
-    }).catch((error) => {
-        if(error.response.status == 400){
-            alert("Conta não ativada!")
+    const loginApi = async () => {
+        setLoading(true); // Exibe o indicador de carregamento
+      
+        try {
+          const response = await axiosInstance.post("/api/token/login", requestData);
+          alert("Usuário logado com sucesso!");
+          signIn(response.data.acessToken);
+          router.push("/HomeScreen");
+        } catch (error) {
+          if (error.response.status === 400) {
+            alert("Conta não ativada!");
             router.push("/EmailCodeActivation");
-        } else {
-            alert("Informações incorretas!")
-            console.log(error)
+          } else {
+            alert("Informações incorretas!");
+            console.log(error);
+          }
+        } finally {
+          setLoading(false); // Oculta o indicador de carregamento
         }
-    });
+      };
 
     return(
         <ImageBackground source={require('../public/images/brandWPP.jpg')}>
@@ -58,7 +66,8 @@ export default function LoginScreen(){
                     </View>
                     <View className="flex gap-4 items-center">
                         <View>
-                            <Button mode='contained' onPress={loginApi} className='w-40 bg-green-500' textColor='black'>Login</Button>
+                        {loading ? <ActivityIndicator animating={loading} color={MD2Colors.green500} size={40} className=""></ActivityIndicator> : <Button mode='contained' onPress={loginApi} className='w-40 bg-green-500' textColor='white'>Login</Button>}
+                            
                         </View>
                         <View>
                             <Link href="/" asChild>

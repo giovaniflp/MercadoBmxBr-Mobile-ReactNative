@@ -75,6 +75,9 @@ export default function ChangeRegisterData(){
             <TouchableOpacity onPress={changeRegisterData} className="bg-blue-500 p-3 rounded-lg w-60">
                 <Text className="text-center">Alterar dados</Text>
             </TouchableOpacity>
+            <TouchableOpacity className="bg-red-500 p-3 rounded-lg w-60">
+                <Text className="text-center">Excluir conta</Text>
+            </TouchableOpacity>
             <Text>Ao alterar o E-mail, use apenas E-mails que consigam ser acessados, para fazer uma nova verificação.</Text>
             <Text>Em caso de problemas, contate o suporte: mercadobmxbr@gmail.com</Text>
             <BottomBar></BottomBar>
