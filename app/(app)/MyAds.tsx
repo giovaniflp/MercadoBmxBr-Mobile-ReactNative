@@ -67,7 +67,7 @@ export default function MyAds(){
     }
 
     return(
-        <View className="flex h-full">
+        <View className="flex h-full bg-white">
             <View className="mt-12">
                 <Text>Meus anúncios</Text>
                 <View>

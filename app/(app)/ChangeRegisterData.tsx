@@ -61,7 +61,7 @@ export default function ChangeRegisterData(){
     }
 
     return(
-        <View className="pt-12 h-full">
+        <View className="pt-12 h-full bg-white">
             <Text>Nome: {nome}</Text>
             <TextInput className="border-2 border-gray-500 rounded-lg w-60 h-10" value={nomeNovo} onChangeText={setNomeNovo}></TextInput>
             <Text>Email: {email}</Text>

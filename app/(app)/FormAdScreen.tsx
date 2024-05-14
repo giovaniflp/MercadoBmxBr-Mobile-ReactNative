@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
-import { TextInput } from "react-native-paper";
+import { TextInput, Button } from "react-native-paper";
 import BottomBar from "../components/BottomBar";
 import SpecialAspects from "../components/SpecialAspects";
 import React, {useEffect, useState} from "react";
@@ -588,21 +588,23 @@ export default function FormAdScreen(){
                             </View>
                             <Text className="text-sm"><Text className="text-red-600">*</Text>Obrigatório</Text>
                             <View className="flex justify-center items-center">
-                            {imagem && <Image className="rounded-lg mt-8 bg-purple-100" source={{uri: imagem}} style={{width: 300, height: 300, resizeMode:"contain"}} />}
+                            {imagem && <Image className="rounded-lg mt-8 bg-gray-200" source={{uri: imagem}} style={{width: 300, height: 300, resizeMode:"contain"}} />}
                             </View>
                         </View>
-                        <Text className="mt-8">Preço em R$ <Text className="text-red-600">*</Text></Text>
-                        <TextInput mode="outlined" value={preco} onChangeText={setPreco} placeholder="R$ 40" className="bg-purple-100 " outlineColor="black" keyboardType="numeric"></TextInput>
-                        <Text>Estado da peça <Text className="text-red-600">*</Text></Text>
-                        <View className="border bg-purple-100 border-black rounded-md">
+                        <Text className="mt-8 text-lg">Preço em Reais (R$) <Text className="text-red-600">*</Text></Text>
+                        <TextInput maxLength={10} mode="outlined" value={preco} onChangeText={setPreco} placeholder="Ex: R$ 40" className="bg-purple-100 mb-6" outlineColor="black" keyboardType="numeric"></TextInput>
+                        <Text className="text-lg">Whatsapp (DDD e Número) para contato <Text className="text-red-600">*</Text></Text>
+                        <TextInput maxLength={16} value={whatsapp} onChangeText={setWhatsapp} mode="outlined" className="bg-purple-100 mb-6" outlineColor="black" placeholder="129XXXXXXXX" keyboardType="numeric"></TextInput>
+                        <Text className="text-lg">Estado da peça <Text className="text-red-600">*</Text></Text>
+                        <View className="border bg-purple-100 border-black rounded-md mb-6">
                             <Picker selectedValue={estadoDaPeca} onValueChange={setEstadoDaPeca}>
                                 <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                                 <Picker.Item label="Novo" value="Novo"></Picker.Item>
                                 <Picker.Item label="Usado" value="Usado"></Picker.Item>
                             </Picker>
                         </View>
-                        <Text>Grau de desgaste <Text className="text-red-600">*</Text></Text>
-                        <View className="border bg-purple-100 border-black rounded-md">
+                        <Text className="text-lg">Grau de desgaste <Text className="text-red-600">*</Text></Text>
+                        <View className="border bg-purple-100 border-black rounded-md mb-6">
                             <Picker selectedValue={grauDeDesgaste} onValueChange={setGrauDeDesgaste}>
                                 <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                                 <Picker.Item label="Nenhum" value="Nenhum"></Picker.Item>
@@ -612,8 +614,8 @@ export default function FormAdScreen(){
                                 <Picker.Item label="Quebrado" value="Quebrado"></Picker.Item>
                             </Picker>
                         </View>
-                        <Text>Localidade <Text className="text-red-600">*</Text></Text>
-                        <View className="border bg-purple-100 border-black rounded-md">
+                        <Text className="text-lg">Localidade <Text className="text-red-600">*</Text></Text>
+                        <View className="border bg-purple-100 border-black rounded-md mb-6">
                         <Picker selectedValue={localidade} onValueChange={setLocalidade}>
                             <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                             <Picker.Item label="Acre" value="Acre"></Picker.Item>
@@ -646,10 +648,8 @@ export default function FormAdScreen(){
                         </Picker>
 
                         </View>
-                        <Text>Digite seu whatsapp (DDD e Número) para contato <Text className="text-red-600">*</Text></Text>
-                        <TextInput value={whatsapp} onChangeText={setWhatsapp} mode="outlined" className="bg-purple-100 " outlineColor="black" placeholder="129XXXXXXXX" keyboardType="numeric"></TextInput>
-                        <Text>Cor <Text className="text-red-600">*</Text></Text>
-                        <View className="border bg-purple-100 border-black rounded-md">
+                        <Text className="text-lg">Cor <Text className="text-red-600">*</Text></Text>
+                        <View className="border bg-purple-100 border-black rounded-md mb-6">
                             <Picker selectedValue={cor} onValueChange={setCor}>
                                 <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                                 <Picker.Item label="Preto" value="Preto"></Picker.Item>
@@ -660,8 +660,8 @@ export default function FormAdScreen(){
                                 <Picker.Item label="Outra" value="Outra"></Picker.Item>
                             </Picker>
                         </View>
-                        <Text>Material <Text className="text-red-600">*</Text></Text>
-                        <View className="border bg-purple-100 border-black rounded-md">
+                        <Text className="text-lg">Material <Text className="text-red-600">*</Text></Text>
+                        <View className="border bg-purple-100 border-black rounded-md mb-6">
                             <Picker selectedValue={material} onValueChange={setMaterial}>
                                 <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                                 <Picker.Item label="Cromo" value="Cromo"></Picker.Item>
@@ -672,8 +672,8 @@ export default function FormAdScreen(){
                                 <Picker.Item label="Outro" value="Outro"></Picker.Item>
                             </Picker>
                         </View>
-                        <Text>Peso aproximado <Text className="text-red-600">*</Text></Text>
-                        <View className="border bg-purple-100 border-black rounded-md">
+                        <Text className="text-lg">Peso aproximado <Text className="text-red-600">*</Text></Text>
+                        <View className="border bg-purple-100 border-black rounded-md mb-6">
                             <Picker selectedValue={peso} onValueChange={setPeso}>
                                     <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                                     <Picker.Item label="50g" value="50g"></Picker.Item>
@@ -694,8 +694,8 @@ export default function FormAdScreen(){
                                     <Picker.Item label="+2,5kg" value="+2,5kg"></Picker.Item>
                                 </Picker>
                             </View>
-                        <Text>Marca <Text className="text-red-600">*</Text></Text>
-                        <View className="border bg-purple-100 border-black rounded-md">
+                        <Text className="text-lg">Marca <Text className="text-red-600">*</Text></Text>
+                        <View className="border bg-purple-100 border-black rounded-md mb-6">
                         <Picker selectedValue={marca} onValueChange={setMarca}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                             <Picker.Item label="OUTRA MARCA" value="OUTRA MARCA" />
@@ -730,17 +730,15 @@ export default function FormAdScreen(){
                             <Picker.Item label="Volume" value="Volume" />
                         </Picker>
                         </View>
-                        <Text>Modelo da peça</Text>
-                        <TextInput value={modelo} mode="outlined" className="bg-purple-100 " outlineColor="black" onChangeText={setModelo} placeholder="Thunderbolt"></TextInput>
-                        <Text>Descrição</Text>
-                        <TextInput value={descricao} mode="outlined" className="bg-purple-100 pt-4" outlineColor="black" onChangeText={setDescricao} numberOfLines={10} maxLength={500} multiline={true} textAlignVertical="top"></TextInput>
+                        <Text className="text-lg">Modelo da peça</Text>
+                        <TextInput value={modelo} mode="outlined" className="bg-purple-100 mb-6" outlineColor="black" onChangeText={setModelo} maxLength={32} placeholder="Ex: Thunderbolt"></TextInput>
+                        <Text className="text-lg">Descrição</Text>
+                        <TextInput value={descricao} mode="outlined" className="bg-purple-100 pt-4" outlineColor="black" onChangeText={setDescricao} numberOfLines={10} maxLength={500} multiline={true} right={<TextInput.Affix text="/500" />} textAlignVertical="top"></TextInput>
                         <View className="mt-8">
                             <SpecialAspects categoria={categoria} onChangeState={updateFilho}></SpecialAspects>
                         </View>
                         <View className="flex justify-center items-center">
-                            <TouchableOpacity className="bg-red-400 p-4" onPress={validateForm}>
-                                <Text>Anunciar</Text>
-                            </TouchableOpacity>
+                            <Button mode="contained" className="bg-green-500 w-40" onPress={validateForm}>Anunciar</Button>
                         </View>
                     </View>
                 )}

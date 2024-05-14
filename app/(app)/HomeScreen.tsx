@@ -26,7 +26,7 @@ export default function HomeScreen() {
   })
 
   return (
-    <View className="flex h-full pt-8">
+    <View className="flex h-full pt-8 bg-white">
       <View>
         <ScrollView className="flex">
           <View>

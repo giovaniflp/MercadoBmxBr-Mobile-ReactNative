@@ -34,7 +34,7 @@ export default function MenuScreen(){
 
     return(
         <View className="flex items-center justify-center h-full bg-white">
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>{alert("A imagem do usuário será implementada nas próximas versões!")}}>
                 <Image className="w-40 h-40 mt-2" source={require('../../public/icons/accCircle.png')}></Image>
             </TouchableOpacity>
             <Text className="text-4xl mt-4">{nome}</Text>

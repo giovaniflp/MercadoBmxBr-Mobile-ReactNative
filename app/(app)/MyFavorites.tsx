@@ -38,7 +38,7 @@ export default function MyFavorites(){
     }
 
     return(
-        <View className="h-full pt-12">
+        <View className="h-full pt-12 bg-white">
             <Text>Meus favoritos</Text>
             <View>
                 <ScrollView>

@@ -4,6 +4,7 @@ import { Link } from "expo-router"
 import { router } from "expo-router";
 import axiosInstance from "../server/axios";
 import * as SecureStore from 'expo-secure-store';
+import { Card } from "react-native-paper";
 
 export default function HomeAd({id} : {id: string}){
 
@@ -26,7 +27,7 @@ export default function HomeAd({id} : {id: string}){
     , [])
     
     return(
-            <TouchableOpacity className="border-2 border-black w-60 h-72 bg-white rounded-lg justify-center items-center mr-8" onPress={()=>{
+            <TouchableOpacity className="w-60 h-96 rounded-lg justify-center items-center mr-8" onPress={()=>{
                 router.push({
                     pathname: "/FullAdScreen/[id]",
                     params: {
@@ -34,13 +35,17 @@ export default function HomeAd({id} : {id: string}){
                     }
                 })
             }}>
-                <Image style={{resizeMode:"contain"}} className="w-full h-40" source={{uri:adData.imagem}}></Image>
-                {adData.marca == "OUTRA MARCA" ? <Text className="text-center">{adData.categoria} {adData.modelo}</Text> : <Text>{adData.categoria} {adData.marca} {adData.modelo}</Text>}
-                <Text className="text-center">R${adData.preco}</Text>
-                <View className="flex flex-row gap-4">
-                    <Text className="text-cente">{adData.localidade}</Text>
-                    <Text className="text-cente">{adData.dataPostagem}</Text>
-                </View>
+                <Card mode="elevated" className="w-60 h-96">
+                    <Image style={{resizeMode:"cover"}} className="w-full h-60 rounded-t-lg" source={{uri:adData.imagem}}></Image>
+                    <View className="flex m-9">
+                        <Text className="text-center text-purple-700 text-lg">R${adData.preco}</Text>
+                        {adData.marca == "OUTRA MARCA" ? <Text className="text-center text-lg">{adData.categoria} {adData.modelo}</Text> : <Text className="text-center text-lg">{adData.categoria} {adData.marca} {adData.modelo}</Text>}
+                        <View className="flex flex-row gap-4 justify-center mt-2">
+                            <Text className="text-center">{adData.localidade}</Text>
+                            <Text className="text-center">{adData.dataPostagem}</Text>
+                        </View>
+                    </View>
+                </Card>
             </TouchableOpacity>
     )
 }
