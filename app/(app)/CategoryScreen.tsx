@@ -5,7 +5,7 @@ import {router} from "expo-router";
 const images = [
     {
         image: require('../../public/images/categoryImages/abracadeira.png'),
-        name: "Abracadeiras",
+        name: "Abraçadeiras",
         bdName: "Abraçadeira"
     },
     {
@@ -147,10 +147,10 @@ const images = [
 
 export default function CategoryScreen(){
     return(
-        <View className="h-full">
+        <View className="h-full bg-white">
             <View>
-            <ScrollView className="mb-12 pt-8" showsVerticalScrollIndicator={false}>
-                <View className="flex flex-row flex-wrap justify-center pb-8">
+                <ScrollView className="mb-12 pt-8" showsVerticalScrollIndicator={false}>
+                    <View className="flex flex-row flex-wrap justify-center pb-8">
                     {images.map((item, index) => (
                         <TouchableOpacity className="p-4" key={index} onPress={()=>{
                             router.push({
@@ -161,15 +161,15 @@ export default function CategoryScreen(){
                                 }
                             })
                         }}>
-                            <View className="bg-blue-600 rounded-lg p-2 w-40 h-48 flex items-center justify-center">
-                                <Text className="text-black text-lg">{item.name}</Text>
+                            <View className="bg-purple-700 rounded-lg p-2 w-40 h-48 flex items-center justify-center">
+                                <Text className="text-white text-lg font-extrabold">{item.name}</Text>
                                 <Image style={{resizeMode:"contain"}} className="w-36 h-36" source={item.image} />
                             </View>
                         </TouchableOpacity>
                     ))}
-                </View>
-            </ScrollView>
-        </View>
+                    </View>
+                </ScrollView>
+            </View>
             <BottomBar></BottomBar>
         </View>
     )

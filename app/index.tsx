@@ -22,7 +22,7 @@ export default function HomePage() {
             <View className="flex gap-3 my-4 items-center">
               <View>
                 <Link href="/LoginScreen" asChild>
-                  <Button mode='contained' className='w-60' textColor='white'>Entrar</Button>
+                  <Button mode='contained' className='w-60 bg-purple-700' textColor='white'>Entrar</Button>
                 </Link>
               </View>
               <Link href="/RegisterScreen" asChild>

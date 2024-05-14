@@ -1,6 +1,6 @@
 import { View, Image, Text, TouchableOpacity, Linking } from "react-native";
 import BottomBar from "../components/BottomBar";
-import Button from "../components/Button";
+import { Button } from "react-native-paper";
 import * as SecureStore from 'expo-secure-store';
 import { useSession } from "../../auth/ctx";
 import { useEffect, useState } from "react";
@@ -21,6 +21,7 @@ export default function MenuScreen(){
         const response = await axiosInstance.get("/api/token/jwtDecode", config)
         console.log(response.data);
         setNome(response.data.name);
+        setEmail(response.data.sub);
     }
 
     useEffect(() => {
@@ -29,39 +30,30 @@ export default function MenuScreen(){
 
 
     const [nome, setNome] = useState("");
+    const [email, setEmail] = useState("");
 
     return(
-        <View className="flex items-center pt-10 h-full">
+        <View className="flex items-center justify-center h-full bg-white">
             <TouchableOpacity>
                 <Image className="w-40 h-40 mt-2" source={require('../../public/icons/accCircle.png')}></Image>
             </TouchableOpacity>
             <Text className="text-4xl mt-4">{nome}</Text>
+            <Text className="mt-2">{email}</Text>
             <Link className="my-4" href="/ChangeRegisterData" asChild>
-                <TouchableOpacity className="bg-blue-500 p-3 rounded-lg w-60">
-                    <Text className="text-center">Alterar Dados de Cadastro</Text>
-                </TouchableOpacity>
+                <Button mode='contained' className='w-60 bg-black' textColor='white'>Alterar Dados de Cadastro</Button>
             </Link>
-            <View>
-                <TouchableOpacity onPress={()=>{Linking.openURL("https://docs.google.com/document/d/1xIGVn24An86dOONmL_HZsi9kBwutwcqpF7zfudxv-zw/edit?usp=sharing")}} className="bg-blue-500 p-3 rounded-lg w-60">
-                    <Text className="text-center">Termos de Uso e Sobre Nós</Text>
-                </TouchableOpacity>
-            </View>
-            <Link className="mt-4" href="/MyAds" asChild>
-                <TouchableOpacity className="flex bg-blue-500 p-3 rounded-lg w-60">
-                    <Text className="text-center">Meus anúncios</Text>
-                </TouchableOpacity>
+            <Link className="" href="/MyAds" asChild>
+                <Button mode='contained' className='w-60 bg-purple-700' textColor='white'>Meus anúncios</Button>
             </Link>
             <Link className="mt-4" href="/MyFavorites" asChild>
-                <TouchableOpacity className="flex bg-red-500 p-3 rounded-lg w-60">
-                    <Text className="text-center">Meus favoritos</Text>
-                </TouchableOpacity>
+                <Button mode='contained' className='w-60 bg-red-500' textColor='white'>Meus favoritos</Button>
             </Link>
             <View className="my-4">
-                <TouchableOpacity onPress={signOut} className="bg-gray-500 p-3 rounded-lg w-60">
-                    <Text className="text-center">Sair</Text>
-                </TouchableOpacity>
+                <Button onPress={signOut} mode='elevated' className='w-60' textColor='black'>Sair</Button>
             </View>
-
+            <TouchableOpacity className="pt-40" onPress={()=>{Linking.openURL("https://docs.google.com/document/d/1xIGVn24An86dOONmL_HZsi9kBwutwcqpF7zfudxv-zw/edit?usp=sharing")}}>
+                <Text className="text-purple-700">Termos de Uso e Sobre Nós</Text>
+            </TouchableOpacity>
             <BottomBar></BottomBar>
         </View>
     )
