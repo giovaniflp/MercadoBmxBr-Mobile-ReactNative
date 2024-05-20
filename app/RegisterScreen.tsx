@@ -62,9 +62,9 @@ export default function RegisterScreen(){
 };
 
     return(
-        <ImageBackground source={require('../public/images/brandWPP.jpg')}>
+        <ImageBackground source={require('../public/images/brandWPP.jpeg')}>
             <View className="flex justify-center items-center h-full">
-                <View className="bg-white p-12 border-4 rounded-lg flex items-center">
+                <View className="bg-white p-12 rounded-lg flex items-center">
                     <Text className="text-black text-center text-3xl">
                         Faça seu cadastro!
                     </Text>

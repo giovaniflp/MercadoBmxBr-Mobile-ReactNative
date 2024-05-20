@@ -6,12 +6,17 @@ import { useSession } from "../../auth/ctx";
 import { useEffect, useState } from "react";
 import { Link } from "expo-router";
 import axiosInstance from "../server/axios";
+import { ActivityIndicator, MD2Colors  } from "react-native-paper";
 
 export default function MenuScreen(){
     const { signOut } = useSession();
 
+    const [loading, setLoading] = useState(false)
+
     const getName = async () => {
-        const token = await SecureStore.getItemAsync('session');
+        setLoading(true)
+        try{
+            const token = await SecureStore.getItemAsync('session');
         console.log(token);
         const config = {
             headers: {
@@ -22,11 +27,16 @@ export default function MenuScreen(){
         console.log(response.data);
         setNome(response.data.name);
         setEmail(response.data.sub);
+        } catch (error) {
+            console.log(error)
+        } finally{
+            setLoading(false)
+        }
     }
 
     useEffect(() => {
         getName();
-    })
+    }, [])
 
 
     const [nome, setNome] = useState("");
@@ -37,8 +47,12 @@ export default function MenuScreen(){
             <TouchableOpacity onPress={()=>{alert("A imagem do usuário será implementada nas próximas versões!")}}>
                 <Image className="w-40 h-40 mt-2" source={require('../../public/icons/accCircle.png')}></Image>
             </TouchableOpacity>
-            <Text className="text-4xl mt-4">{nome}</Text>
-            <Text className="mt-2">{email}</Text>
+            { loading ? 
+            <ActivityIndicator className="mt-4" animating={true} color={MD2Colors.black} size={50}></ActivityIndicator> : 
+            <View className="flex justify-center items-center">
+                <Text className="text-4xl mt-4">{nome}</Text>
+                <Text className="mt-2">{email}</Text>
+            </View>  }
             <Link className="my-4" href="/ChangeRegisterData" asChild>
                 <Button mode='contained' className='w-60 bg-black' textColor='white'>Alterar Dados de Cadastro</Button>
             </Link>
@@ -54,7 +68,7 @@ export default function MenuScreen(){
             <TouchableOpacity className="pt-40" onPress={()=>{Linking.openURL("https://docs.google.com/document/d/1xIGVn24An86dOONmL_HZsi9kBwutwcqpF7zfudxv-zw/edit?usp=sharing")}}>
                 <Text className="text-purple-700">Termos de Uso e Sobre Nós</Text>
             </TouchableOpacity>
-            <BottomBar></BottomBar>
+            <BottomBar screen="MenuScreen"></BottomBar>
         </View>
     )
 }

@@ -5,28 +5,40 @@ import HomeAd from "../components/HomeAd";
 import VerifiedStores from "../components/VerifiedStores";
 import axiosInstance from "../server/axios";
 import * as SecureStore from 'expo-secure-store';
+import { ActivityIndicator, MD2Colors  } from "react-native-paper";
 
 export default function HomeScreen() {
 
   const [adData, setAdData] = useState([])
 
+  const [loading, setLoading] = useState(false)
+
   const getAds = async () => {
-    const token = await SecureStore.getItemAsync('session');
-    const config = {
-      headers: {
-        Authorization: "Bearer " + token
+    setLoading(true)
+    try{
+        const token = await SecureStore.getItemAsync('session');
+      const config = {
+        headers: {
+          Authorization: "Bearer " + token
+        }
       }
+      const response = await axiosInstance.get("/api/advertisements/all", config)
+      setAdData(response.data)
+    } catch (error) {
+      console.log(error)
+    } finally{
+      setLoading(false)
     }
-    const response = await axiosInstance.get("/api/advertisements/all", config)
-    setAdData(response.data)
+    
 }
 
   useEffect(() => {
     getAds();
-  })
+  }, [])
 
   return (
     <View className="flex h-full pt-8 bg-white">
+      {loading && <ActivityIndicator className="absolute top-0 left-0 right-0 bottom-0" animating={true} color={MD2Colors.purpleA700} size={100}></ActivityIndicator>}
       <View>
         <ScrollView className="flex">
           <View>
@@ -46,17 +58,6 @@ export default function HomeScreen() {
           </View>
           <View className="mb-8">
             <Text className="text-3xl px-4">Peças Usadas</Text>
-            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            <View className="flex flex-row px-4 py-2">
-                {adData.map((ad, index) => {
-                  return <HomeAd id={ad.id} key={index}></HomeAd>
-                }
-                )}
-              </View>
-            </ScrollView>
-          </View>
-          <View className="mb-8">
-            <Text className="text-3xl px-4">Peças para Doação</Text>
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             <View className="flex flex-row px-4 py-2">
                 {adData.map((ad, index) => {
@@ -101,7 +102,7 @@ export default function HomeScreen() {
           </View>
         </ScrollView>
       </View>
-      <BottomBar></BottomBar>
+      <BottomBar screen="HomeScreen"></BottomBar>
     </View>
   );
 }

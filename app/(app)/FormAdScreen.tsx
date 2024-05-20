@@ -583,7 +583,7 @@ export default function FormAdScreen(){
                                 <Text className="text-2xl">Aspectos Gerais <Text className="text-red-600">*</Text></Text>
                                 <TouchableOpacity className="flex flex-row" onPress={pickImage}>
                                     <Text className="text-red-600">*</Text>
-                                    <Image source={require("../../public/icons/photoAdd.png")}></Image>
+                                    <Image className="w-8 h-8" source={require("../../public/icons/photoAdd.png")}></Image>
                                 </TouchableOpacity>
                             </View>
                             <Text className="text-sm"><Text className="text-red-600">*</Text>Obrigatório</Text>
@@ -743,7 +743,7 @@ export default function FormAdScreen(){
                     </View>
                 )}
             </ScrollView>
-            <BottomBar></BottomBar>
+            <BottomBar screen="FormAdScreen"></BottomBar>
         </View>
     )
 }

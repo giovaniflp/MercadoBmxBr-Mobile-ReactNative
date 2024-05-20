@@ -4,12 +4,15 @@ import * as SecureStore from 'expo-secure-store';
 import { useState, useEffect } from "react";
 import axiosInstance from "../server/axios";
 import {router, useNavigation } from "expo-router";
+import { ActivityIndicator, MD2Colors  } from "react-native-paper";
 
 
 export default function MyAds(){
 
     const [ads, setAds] = useState([]);
     const [decodeJwt, setDecodeJwt] = useState("");
+
+    const [loading, setLoading] = useState(false);
 
     const jwtDecode = async () => {
         try{
@@ -27,6 +30,7 @@ export default function MyAds(){
     }
 
     const getUserAds = async () => {
+        setLoading(true);
         try{
             const token = await SecureStore.getItemAsync('session');
             const config = {
@@ -39,6 +43,8 @@ export default function MyAds(){
             setAds(response.data);
         } catch (error) {
             console.log(error);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -68,8 +74,9 @@ export default function MyAds(){
 
     return(
         <View className="flex h-full bg-white">
+            {loading && <ActivityIndicator className="absolute top-0 left-0 right-0 bottom-0" animating={true} color={MD2Colors.purpleA700} size={50}></ActivityIndicator>}
             <View className="mt-12">
-                <Text>Meus anúncios</Text>
+                <Text className="text-3xl m-1">Meus anúncios</Text>
                 <View>
                     {ads.map((ad, index) => {
                         return (
@@ -81,18 +88,23 @@ export default function MyAds(){
                                     }
                                 })
                             }}>
-                                <View className="bg-blue-500 m-1 p-2 flex flex-row justify-between items-center">
+                                <View className="bg-purple-700 m-1 p-2 flex flex-row justify-between items-center rounded-lg">
                                     <View className="flex flex-row">
                                         <View>
-                                            <Image style={{resizeMode:"contain"}} source={{uri:ad.imagem}} className="w-20 h-20"></Image>
+                                            <Image style={{resizeMode:"cover"}} source={{uri:ad.imagem}} className="w-24 h-24 rounded-lg"></Image>
                                         </View>
-                                        <View>
-                                            <Text>{ad.categoria} {ad.marca}</Text>
-                                            <Text>R$ {ad.preco}</Text>
-                                            <Text>{ad.dataPostagem}</Text>
-                                            <Text>Número de contato: {ad.whatsapp}</Text>
-                                        </View>
-                                        
+                                        {ad.marca == "OUTRA MARCA" 
+                                        ? <View className="flex justify-center ml-2">
+                                        <Text className="text-white">{ad.categoria}</Text>
+                                        <Text className="text-white">Preço: R${ad.preco}</Text>
+                                        <Text className="text-white">Postagem: {ad.dataPostagem}</Text>
+                                        <Text className="text-white">Whatsapp: {ad.whatsapp}</Text>
+                                    </View> : <View className="flex justify-center ml-2">
+                                            <Text className="text-white">{ad.categoria} {ad.marca}</Text>
+                                            <Text className="text-white">R$ {ad.preco}</Text>
+                                            <Text className="text-white">Postagem: {ad.dataPostagem}</Text>
+                                            <Text className="text-white">Whatsapp: {ad.whatsapp}</Text>
+                                        </View>} 
                                     </View>
                                     <View>
                                         <TouchableOpacity onPress={()=>deleteAd(ad.id)}><Image className="w-10 h-10" source={require('../../public/icons/deletePng.png')}></Image></TouchableOpacity>

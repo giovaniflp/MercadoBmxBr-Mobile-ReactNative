@@ -97,17 +97,17 @@ export default function FullAdScreen(){
             <View className="bg-blue-600 p-4 flex flex-row items-center justify-between pt-12">
             <Link href="/HomeScreen" asChild>
                 <TouchableOpacity>
-                    <Image source={require('../../../public/icons/arrowBackPNG.png')}></Image>
+                    <Image className="w-8 h-8" source={require('../../../public/icons/arrowBackPNG.png')}></Image>
                 </TouchableOpacity>
             </Link>
             {
                 favorite ? 
                 <TouchableOpacity onPress={removeFavorite}>
-                    <Image source={require('../../../public/icons/favoriteFullPNG.png')}></Image>
+                    <Image className="w-8 h-8" source={require('../../../public/icons/favoriteFullPNG.png')}></Image>
                 </TouchableOpacity>
                 :
                 <TouchableOpacity onPress={addFavorite}>
-                    <Image source={require('../../../public/icons/favoritePNG.png')}></Image>
+                    <Image className="w-8 h-8" source={require('../../../public/icons/favoritePNG.png')}></Image>
                 </TouchableOpacity>
             }
         </View>

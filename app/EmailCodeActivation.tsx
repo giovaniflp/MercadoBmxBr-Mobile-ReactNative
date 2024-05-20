@@ -52,9 +52,9 @@ export default function EmailCodeActivation(){
     }
 
     return(
-        <ImageBackground source={require('../public/images/brandWPP.jpg')}>
+        <ImageBackground source={require('../public/images/brandWPP.jpeg')}>
             <View className="flex h-full justify-center items-center">
-                <View className="bg-white p-12 rounded-lg border-4 flex items-center">
+                <View className="bg-white p-12 rounded-lg flex items-center">
                     <Text className="text-sm text-black text-center">
                         Insira o seu Email e o código recebido nele para validar sua conta!
                     </Text>

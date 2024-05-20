@@ -29,9 +29,9 @@ export default function LostPassword(){
     }
 
     return(
-        <ImageBackground source={require('../public/images/brandWPP.jpg')}>
+        <ImageBackground source={require('../public/images/brandWPP.jpeg')}>
             <View className="flex justify-center items-center h-full ">
-                <View className="bg-white p-8 rounded-lg border-4 flex items-center">
+                <View className="bg-white p-8 rounded-lg flex items-center">
                     <Text className="text-sm text-black text-center">
                         Insira seu E-mail para recuperação de senha
                     </Text>

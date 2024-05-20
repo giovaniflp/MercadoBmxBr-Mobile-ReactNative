@@ -42,9 +42,9 @@ export default function LoginScreen(){
       };
 
     return(
-        <ImageBackground source={require('../public/images/brandWPP.jpg')}>
+        <ImageBackground source={require('../public/images/brandWPP.jpeg')}>
             <View className="flex justify-center items-center h-full">
-                <View className="bg-white p-12 rounded-lg border-4">
+                <View className="bg-white p-12 rounded-lg">
                     <Text className="text-3xl text-black text-center">
                         Faça seu login!
                     </Text>

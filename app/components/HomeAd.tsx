@@ -40,7 +40,7 @@ export default function HomeAd({id} : {id: string}){
                     <View className="flex m-9">
                         <Text className="text-center text-purple-700 text-lg">R${adData.preco}</Text>
                         {adData.marca == "OUTRA MARCA" ? <Text className="text-center text-lg">{adData.categoria} {adData.modelo}</Text> : <Text className="text-center text-lg">{adData.categoria} {adData.marca} {adData.modelo}</Text>}
-                        <View className="flex flex-row gap-4 justify-center mt-2">
+                        <View className="flex flex-row gap-4 justify-center">
                             <Text className="text-center">{adData.localidade}</Text>
                             <Text className="text-center">{adData.dataPostagem}</Text>
                         </View>

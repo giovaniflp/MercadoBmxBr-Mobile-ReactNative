@@ -170,7 +170,7 @@ export default function CategoryScreen(){
                     </View>
                 </ScrollView>
             </View>
-            <BottomBar></BottomBar>
+            <BottomBar screen="CategoryScreen"></BottomBar>
         </View>
     )
 }
