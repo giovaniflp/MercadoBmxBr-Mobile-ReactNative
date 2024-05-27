@@ -350,8 +350,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
-                <Text>Diâmetro</Text>
-                <View className="border-2 border-black rounded-lg mb-8">
+                <Text className="text-lg">Diâmetro</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-8">
                     <Picker selectedValue={abracadeiraDiametro} onValueChange={(value)=>{setAbracadeiraDiametro(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="25.4mm de Diâmetro" value="25.4mm de Diâmetro"></Picker.Item>
@@ -364,8 +364,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
-                <Text>Tipo de folha</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tipo de folha</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={aroTipoFolha} onValueChange={(value)=>{setAroTipoFolha(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Folha única" value="Folha única"></Picker.Item>
@@ -374,16 +374,16 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="Jante Aero" value="Jante Aero"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Furos</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Furos</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={aroFuros} onValueChange={(value)=>{setArosFuros(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="32 furos" value="32 furos"></Picker.Item>
                         <Picker.Item label="36 furos" value="36 furos"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Grossura dos raios</Text>
-                <View className="border-2 border-black rounded-lg mb-8">
+                <Text className="text-lg">Grossura dos raios</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-8">
                     <Picker selectedValue={aroGrossura} onValueChange={(value)=>{setAroGrossura(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Raio fino" value="Raio fino"></Picker.Item>
@@ -396,8 +396,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
-                <Text>Tipo de banco</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tipo de banco</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={bancoTipo} onValueChange={(value)=>{setBancoTipo(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Pivotal" value="Pivotal"></Picker.Item>
@@ -406,8 +406,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="Carrinho" value="Carrinho"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Tamanho do canote</Text>
-                <View className="border-2 border-black rounded-lg mb-8">
+                <Text className="text-lg">Tamanho do canote</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-8">
                     <Picker selectedValue={bancoCanoteTamanho} onValueChange={(value)=>{setBancoCanoteTamanho(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Não acompanha" value="Não Acompanha"></Picker.Item>
@@ -425,8 +425,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
-                <Text>Modalidade da Bike</Text>
-                <View className="border-2 border-black rounded-lg mb-8">
+                <Text className="text-lg">Modalidade da Bike</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-8">
                     <Picker selectedValue={bikeCompletaModalidade} onValueChange={(value)=>{setBikeCompletaModalidade(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Street" value="Street"></Picker.Item>
@@ -441,8 +441,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
-                <Text>Tamanho do aro</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tamanho do aro</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={camaraAroTamanho} onValueChange={(value)=>{setCamaraAroTamanho(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="aro 12" value="Aro 12"></Picker.Item>
@@ -451,8 +451,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="aro 20" value="Aro 20"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Tipo de válvula da Câmara</Text>
-                <View className="border-2 border-black rounded-lg mb-8">
+                <Text className="text-lg">Tipo de válvula da Câmara</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-8">
                     <Picker selectedValue={camaraTipoValvula} onValueChange={(value)=>{setCamaraTipoValvula(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Americana" value="Americana"></Picker.Item>
@@ -465,8 +465,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
-                <Text>Tipo</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tipo</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={canoteTipo} onValueChange={(value)=>{setCanoteTipo(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Pivotal" value="Pivotal"></Picker.Item>
@@ -474,8 +474,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="Carrinho" value="Carrinho"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Tamanho do canote</Text>
-                <View className="border-2 border-black rounded-lg mb-8">
+                <Text className="text-lg">Tamanho do canote</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-8">
                     <Picker selectedValue={canoteTamanho} onValueChange={(value)=>{setCanoteTamanho(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="50mm" value="50mm"></Picker.Item>
@@ -492,8 +492,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
-                <Text>Quantidade de dentes</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Quantidade de dentes</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={coroaDentes} onValueChange={(value)=>{setCoroaDentes(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="25D" value="25 dentes"></Picker.Item>
@@ -502,16 +502,16 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="Outra quantidade" value="Outra quantidade"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Possui protetor?</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Possui protetor?</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={coroaProtetor} onValueChange={(value)=>{setCoroaProtetor(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Sim" value="Sim"></Picker.Item>
                         <Picker.Item label="Não" value="Não"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Possui adaptador de eixo?</Text>
-                <View className="border-2 border-black rounded-lg mb-8">
+                <Text className="text-lg">Possui adaptador de eixo?</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-8">
                     <Picker selectedValue={coroaAdaptador} onValueChange={(value)=>{setCoroaAdaptador(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Sim" value="Sim"></Picker.Item>
@@ -524,8 +524,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
-                <Text>Tipo de elo</Text>
-                <View className="border-2 border-black rounded-lg mb-8">
+                <Text className="text-lg">Tipo de elo</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-8">
                     <Picker selectedValue={correnteTipoElo} onValueChange={(value)=>{setCorrenteTipoElo(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Normal" value="Normal"></Picker.Item>
@@ -538,8 +538,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
-                <Text>Quantidade de furos</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Quantidade de furos</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={cuboDianteiroFuros} onValueChange={(value)=>{setCuboDianteiroFuros(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="48 Furos" value="48 furos"></Picker.Item>
@@ -547,8 +547,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="32 Furos" value="32 furos"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Tipo de eixo</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tipo de eixo</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={cuboDianteiroTipoEixo} onValueChange={(value)=>{setCuboDianteiroTipoEixo(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Macho" value="Macho"></Picker.Item>
@@ -556,8 +556,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="Blocagem" value="Blocagem"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Material do eixo</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Material do eixo</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={cuboDianteiroMaterialEixo} onValueChange={(value)=>{setCuboDianteiroMaterialEixo(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Alumínio" value="Alumínio"></Picker.Item>
@@ -566,8 +566,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="Titânio" value="Titânio"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Material dos parafusos</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Material dos parafusos</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={cuboDianteiroMaterialParafusos} onValueChange={(value)=>{setCuboDianteiroMaterialParafusos(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Alumínio" value="Alumínio"></Picker.Item>
@@ -576,8 +576,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="Titânio" value="Titânio"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Acompanha protetor?</Text>
-                <View className="border-2 border-black rounded-lg mb-8">
+                <Text className="text-lg">Acompanha protetor?</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-8">
                     <Picker selectedValue={cuboDianteiroProtetor} onValueChange={(value)=>{setCuboDianteiroProtetor(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Sim" value="Sim"></Picker.Item>
@@ -590,16 +590,16 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
-                <Text>Tração</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tração</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={cuboTraseiroTracao} onValueChange={(value)=>{setCuboTraseiroTracao(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="RHD - Direita" value="RHD - Direita"></Picker.Item>
                         <Picker.Item label="LHD - Esquerda" value="LHD - Esquerda"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Tamanho do cog</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tamanho do cog</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={cuboTraseiroCog} onValueChange={(value)=>{setCuboTraseiroCog(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="9 dentes" value="9 dentes"></Picker.Item>
@@ -608,8 +608,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="12 dentes" value="12 dentes"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Tipo do cubo</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tipo do cubo</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={tipoCubo} onValueChange={(value) => {setTipoCubo(value); if(value == "freecoaster"){setFreecoaster(false)}else{setFreecoaster(true)}}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Catraca" value="Catraca"></Picker.Item>
@@ -619,8 +619,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                 </View>
                 {freecoaster && (
                     <View>
-                        <Text>Quantidade de travas</Text>
-                        <View className="border-2 border-black rounded-lg">
+                        <Text className="text-lg">Quantidade de travas</Text>
+                        <View className="border bg-purple-100 border-black rounded-md mb-6">
                             <Picker selectedValue={cuboTraseiroTravas} onValueChange={(value)=>{setCuboTraseiroTravas(value); onChange()}}>
                                 <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                                 <Picker.Item label="3 travas" value="3 travas"></Picker.Item>
@@ -631,8 +631,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         </View>
                     </View>
                 )}
-                <Text>Quantidade de furos</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Quantidade de furos</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={cuboTraseiroFuros} onValueChange={(value)=>{setCuboTraseiroFuros(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="48 Furos" value="48 furos"></Picker.Item>
@@ -640,8 +640,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="32 Furos" value="32 furos"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Tipo de eixo</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tipo de eixo</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={cuboTraseiroTipoEixo} onValueChange={(value)=>{setCuboTraseiroTipoEixo(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Macho" value="Macho"></Picker.Item>
@@ -649,8 +649,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="Blocagem" value="Blocagem"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Material do eixo</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Material do eixo</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={cuboTraseiroMaterialEixo} onValueChange={(value)=>{setCuboTraseiroMaterialEixo(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Alumínio" value="Alumínio"></Picker.Item>
@@ -659,8 +659,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="Titânio" value="Titânio"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Material dos parafusos</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Material dos parafusos</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={cuboTraseiroMaterialParafusos} onValueChange={(value)=>{setCuboTraseiroMaterialParafusos(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Alumínio" value="Alumínio"></Picker.Item>
@@ -669,8 +669,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="Titânio" value="Titânio"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Acompanha protetor?</Text>
-                <View className="border-2 border-black rounded-lg mb-8">
+                <Text className="text-lg">Acompanha protetor?</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-8">
                     <Picker selectedValue={cuboTraseiroProtetor} onValueChange={(value)=>{setCuboTraseiroProtetor(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Sim" value="Sim"></Picker.Item>
@@ -683,16 +683,16 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
-                <Text>Quantidade de estrias</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Quantidade de estrias</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={eixoCentralEstrias} onValueChange={(value)=>{setEixoCentralEstrias(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="8 estrias" value="8 estrias"></Picker.Item>
                         <Picker.Item label="48 estrias" value="48 estrias"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Tamanho do rolamento para o eixo</Text>
-                <View className="border-2 border-black rounded-lg mb-8">
+                <Text className="text-lg">Tamanho do rolamento para o eixo</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-8">
                     <Picker selectedValue={eixoCentralTamanho} onValueChange={(value)=>{setEixoCentralTamanho(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="19mm" value="19mm"></Picker.Item>
@@ -706,8 +706,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
-                <Text>Qual a peça?</Text>
-                <View className="border-2 border-black rounded-lg mb-8">
+                <Text className="text-lg">Qual a peça?</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-8">
                     <Picker selectedValue={freioPeca} onValueChange={(value)=>{setFreioPeca(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="U-brake" value="U-brake"></Picker.Item>
@@ -721,8 +721,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
-                <Text>Tamanho do Offset</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tamanho do Offset</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={garfoOffset} onValueChange={(value)=>{setGarfoOffset(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="15mm" value="15mm"></Picker.Item>
@@ -734,8 +734,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="32mm" value="32mm"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Tipo de tampa</Text>
-                <View className="border-2 border-black rounded-lg mb-8">
+                <Text className="text-lg">Tipo de tampa</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-8">
                     <Picker selectedValue={garfoTampa} onValueChange={(value)=>{setGarfoTampa(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Tampa comum" value="Tampa comum"></Picker.Item>
@@ -748,8 +748,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
-                <Text>Tamanho do Guidão (ou tamanho aproximado)</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tamanho do Guidão (ou tamanho aproximado)</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={guidaoTamanho} onValueChange={(value)=>{setGuidaoTamanho(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="10" value="10"></Picker.Item>
@@ -763,8 +763,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="8" value="8"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Largura (ou aproximado)</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Largura (ou aproximado)</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={guidaoLargura} onValueChange={(value)=>{setGuidaoLargura(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="30" value="30"></Picker.Item>
@@ -774,8 +774,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="29" value="29"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Ângulo do recuo (ou apromixado)</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Ângulo do recuo (ou apromixado)</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={guidaoAngulo} onValueChange={(value)=>{setGuidaoAngulo(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="13" value="13"></Picker.Item>
@@ -785,8 +785,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="9" value="9"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Ângulo da elevação (ou apromixado)</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Ângulo da elevação (ou apromixado)</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={guidaoAngulo} onValueChange={(value)=>{setGuidaoAngulo(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="3" value="3"></Picker.Item>
@@ -794,8 +794,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="1" value="1"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Tipo de guidão</Text>
-                <View className="border-2 border-black rounded-lg mb-8">
+                <Text className="text-lg">Tipo de guidão</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-8">
                     <Picker selectedValue={guidaoTipo} onValueChange={(value)=>{setGuidaoTipo(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="2 Peças" value="2 peças"></Picker.Item>
@@ -808,8 +808,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
-                <Text>Tamanho (ou aproximado)</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tamanho (ou aproximado)</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={manoplaTamanho} onValueChange={(value)=>{setManoplaTamanho(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="180mm" value="180mm"></Picker.Item>
@@ -825,8 +825,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="130mm" value="130mm"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Acompanha bar ends?</Text>
-                <View className="border-2 border-black rounded-lg mb-8">
+                <Text className="text-lg">Acompanha bar ends?</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-8">
                     <Picker selectedValue={manoplaBarEnds} onValueChange={(value)=>{setManoplaBarEnds(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Sim" value="Sim"></Picker.Item>
@@ -839,8 +839,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
-                <Text>Tamanho (ou aproximado)</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tamanho (ou aproximado)</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={mesaTamanho} onValueChange={(value)=>{setMesaTamanho(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="60mm" value="60mm"></Picker.Item>
@@ -853,8 +853,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="45mm" value="45mm"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Altura (ou aproximada)</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Altura (ou aproximada)</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={mesaAltura} onValueChange={(value)=>{setMesaAltura(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="35mm" value="35mm"></Picker.Item>
@@ -865,16 +865,16 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="10mm" value="10mm"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Tipo</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tipo</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={mesaTipo} onValueChange={(value)=>{setMesaTipo(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Topload" value="Topload"></Picker.Item>
                         <Picker.Item label="Frontload" value="Frontload"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Estilo de fabricação</Text>
-                <View className="border-2 border-black rounded-lg mb-8">
+                <Text className="text-lg">Estilo de fabricação</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-8">
                     <Picker selectedValue={mesaFabricacao} onValueChange={(value)=>{setMesaFabricacao(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Forjada" value="Forjada"></Picker.Item>
@@ -887,8 +887,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
-                <Text>Tipo de central</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tipo de central</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={movimentoCentralTipo} onValueChange={(value)=>{setMovimentoCentralTipo(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Euro" value="Euro"></Picker.Item>
@@ -896,8 +896,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="Mid" value="Mid"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Tamanho do rolamento</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tamanho do rolamento</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={movimentoCentralRolamento} onValueChange={(value)=>{setMovimentoCentralRolamento(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="19mm" value="19mm"></Picker.Item>
@@ -905,8 +905,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="24mm" value="24mm"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Acompanha espaçadores e cones?</Text>
-                <View className="border-2 border-black rounded-lg mb-8">
+                <Text className="text-lg">Acompanha espaçadores e cones?</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-8">
                     <Picker selectedValue={movimentoCentralAcompanha} onValueChange={(value)=>{setMovimentoCentralAcompanha(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Sim" value="Sim"></Picker.Item>
@@ -919,16 +919,16 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
-                <Text>Tipo de caixa</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tipo de caixa</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={movimentoDirecaoTipo} onValueChange={(value)=>{setMovimentoDirecaoTipo(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Rolamento" value="Rolamento"></Picker.Item>
                         <Picker.Item label="Esfera" value="Esfera"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Tamanho da tampa (ou aproximado)</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tamanho da tampa (ou aproximado)</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={movimentoDirecaoTampa} onValueChange={(value)=>{setMovimentoDirecaoTampa(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="15mm" value="15mm"></Picker.Item>
@@ -936,8 +936,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="5mm" value="5mm"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Acompanha espaçadores ou anel de compressão?</Text>
-                <View className="border-2 border-black rounded-lg mb-8">
+                <Text className="text-lg">Acompanha espaçadores ou anel de compressão?</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-8">
                     <Picker selectedValue={movimentoDirecaoAcompanha} onValueChange={(value)=>{setMovimentoDirecaoAcompanha(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Sim" value="Sim"></Picker.Item>
@@ -950,16 +950,16 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
-                <Text>Tamanho da rosca</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tamanho da rosca</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={pedalRosca} onValueChange={(value)=>{setPedalRosca(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Rosca fina" value="Rosca fina"></Picker.Item>
                         <Picker.Item label="Rosca grossa" value="Rosca grossa"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Construção interna</Text>
-                <View className="border-2 border-black rounded-lg mb-8">
+                <Text className="text-lg">Construção interna</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-8">
                     <Picker selectedValue={pedalConstrucao} onValueChange={(value)=>{setPedalConstrucao(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Rolamento" value="Rolamento"></Picker.Item>
@@ -972,16 +972,16 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
-                <Text>Vendido unidade ou par</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Vendido unidade ou par</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={pedaleiraQuantidade} onValueChange={(value)=>{setPedaleiraQuantidade(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Unidade" value="Unidade"></Picker.Item>
                         <Picker.Item label="Par" value="Par"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Encaixe</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Encaixe</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={pedaleiraEncaixe} onValueChange={(value)=>{setPedaleiraEncaixe(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Dianteiro" value="Dianteiro"></Picker.Item>
@@ -989,8 +989,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="Ambos" value="Ambos"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Tamanho (ou aproximado)</Text>
-                <View className="border-2 border-black rounded-lg mb-8">
+                <Text className="text-lg">Tamanho (ou aproximado)</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-8">
                     <Picker selectedValue={pedaleiraTamanho} onValueChange={(value)=>{setPedaleiraTamanho(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="130mm" value="130mm"></Picker.Item>
@@ -1008,8 +1008,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
-                <Text>Tipo de tração</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tipo de tração</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={pedivelaTracao} onValueChange={(value)=>{setPedivelaTracao(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="RHD - Direito" value="RHD - Direito"></Picker.Item>
@@ -1017,8 +1017,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="Ambos" value="Ambos"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Tamanho do rolamento</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tamanho do rolamento</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={pedivelaRolamento} onValueChange={(value)=>{setPedivelaRolamento(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="19mm" value="19mm"></Picker.Item>
@@ -1026,16 +1026,16 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="24mm" value="24mm"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Tipo de construção</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tipo de construção</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={pedivelaConstrucao} onValueChange={(value)=>{setPedivelaConstrucao(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="3 Peças" value="3 peças"></Picker.Item>
                         <Picker.Item label="2 Peças" value="2 peças"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Tamanho dos braços</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tamanho dos braços</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={pedivelaTamanho} onValueChange={(value)=>{setPedivelaTamanho(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="185mm" value="185mm"></Picker.Item>
@@ -1048,16 +1048,16 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="Tamanhos Diferentes" value="Tamanhos diferentes"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Quantidade de estrias</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Quantidade de estrias</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={pedivelaEstrias} onValueChange={(value)=>{setPedivelaEstrias(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="8 Estrias" value="8 estrias"></Picker.Item>
                         <Picker.Item label="48 Estrias" value="48 estrias"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Acompanha eixo?</Text>
-                <View className="border-2 border-black rounded-lg mb-8">
+                <Text className="text-lg">Acompanha eixo?</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-8">
                     <Picker selectedValue={pedivelaAcompanha} onValueChange={(value)=>{setPedivelaAcompanha(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Sim" value="Sim"></Picker.Item>
@@ -1070,8 +1070,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
-                <Text>Tamanho do aro</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tamanho do aro</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={pneuAro} onValueChange={(value)=>{setPneuAro(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Aro 12" value="Aro 12"></Picker.Item>
@@ -1081,8 +1081,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="Aro 20" value="Aro 20"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Indicação do pneu</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Indicação do pneu</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={pneuIndicacao} onValueChange={(value)=>{setPneuIndicacao(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Modalidade Street" value="Modalidade Street"></Picker.Item>
@@ -1091,8 +1091,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="Modalidade Flatland" value="Modalidade Flatland"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Tamanho do pneu</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tamanho do pneu</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={pneuTamanho} onValueChange={(value)=>{setPneuTamanho(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="1.75" value="1.75"></Picker.Item>
@@ -1110,8 +1110,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="2.50" value="2.50"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Construção da banda lateral</Text>
-                <View className="border-2 border-black rounded-lg mb-8">
+                <Text className="text-lg">Construção da banda lateral</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-8">
                     <Picker selectedValue={pneuBandaLateral} onValueChange={(value)=>{setPneuBandaLateral(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Arame" value="Arame"></Picker.Item>
@@ -1124,8 +1124,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
-                <Text>Tamanho do aro</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tamanho do aro</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={quadroTamanhoAro} onValueChange={(value)=>{setQuadroTamanhoAro(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Aro 12" value="Aro 12"></Picker.Item>
@@ -1135,8 +1135,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="Aro 20" value="Aro 20"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Medida do quadro (ou aproximado)</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Medida do quadro (ou aproximado)</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={quadroMedida} onValueChange={(value)=>{setQuadroMedida(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="20.0" value="20.0"></Picker.Item>
@@ -1150,8 +1150,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="21.25" value="21.25"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Modalidade indicada</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Modalidade indicada</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={quadroModalidade} onValueChange={(value)=>{setQuadroModalidade(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Street" value="Street"></Picker.Item>
@@ -1160,8 +1160,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="Flatland" value="Flatland"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Tipo de central</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tipo de central</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={quadroCentral} onValueChange={(value)=>{setQuadroCentral(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Rosca" value="Rosca"></Picker.Item>
@@ -1169,24 +1169,24 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="Mid" value="Mid"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Tipo de direção</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tipo de direção</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={quadroDirecao} onValueChange={(value)=>{setQuadroDirecao(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Integrada" value="Integrada"></Picker.Item>
                         <Picker.Item label="Esfera" value="Esfera"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Possui esticador de corrente?</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Possui esticador de corrente?</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={quadroEsticador} onValueChange={(value)=>{setQuadroEsticador(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Sim" value="Sim"></Picker.Item>
                         <Picker.Item label="Não" value="Não"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Tolerância máxima de pneu</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tolerância máxima de pneu</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={quadroTolerancia} onValueChange={(value)=>{setQuadroTolerancia(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="2.0" value="2.0"></Picker.Item>
@@ -1200,8 +1200,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="2.50" value="2.50"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Possui pinos de freio?</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Possui pinos de freio?</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={quadroPinos} onValueChange={(value)=>{setQuadroPinos(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Sim" value="Sim"></Picker.Item>
@@ -1209,8 +1209,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
                         <Picker.Item label="Pinos removíveis" value="Pinos removíveis"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Tipo de abraçadeira</Text>
-                <View className="border-2 border-black rounded-lg mb-8">
+                <Text className="text-lg">Tipo de abraçadeira</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-8">
                     <Picker selectedValue={quadroAbracadeira} onValueChange={(value)=>{setQuadroAbracadeira(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Integrada" value="Integrada"></Picker.Item>
@@ -1223,8 +1223,8 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
-                <Text>Lado</Text>
-                <View className="border-2 border-black rounded-lg mb-8">
+                <Text className="text-lg">Lado</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-8">
                     <Picker selectedValue={protetorLado} onValueChange={(value)=>{setProtetorLado(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Lado do cog" value="Lado do cog"></Picker.Item>
@@ -1238,16 +1238,16 @@ export default function SpecialAspectsEdit({categoria, onChangeState, data} : {c
         return(
             <View>
                 <Text className="text-2xl mb-8">Aspectos Específicos</Text>
-                <Text>Tipo de raio</Text>
-                <View className="border-2 border-black rounded-lg">
+                <Text className="text-lg">Tipo de raio</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-6">
                     <Picker selectedValue={raioTipo} onValueChange={(value)=>{setRaioTipo(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="Grosso" value="Grosso"></Picker.Item>
                         <Picker.Item label="Fino" value="Fino"></Picker.Item>
                     </Picker>
                 </View>
-                <Text>Tamanho</Text>
-                <View className="border-2 border-black rounded-lg mb-8">
+                <Text className="text-lg">Tamanho</Text>
+                <View className="border bg-purple-100 border-black rounded-md mb-8">
                     <Picker selectedValue={raioTamanho} onValueChange={(value)=>{setRaioTamanho(value); onChange()}}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                         <Picker.Item label="175mm" value="175mm"></Picker.Item>

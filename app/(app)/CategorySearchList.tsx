@@ -93,20 +93,20 @@ export default function CategorySearchList(){
     return(
         <View className="pt-12 h-full">
             {loading && <ActivityIndicator className="absolute top-0 left-0 right-0 bottom-0" animating={true} color={MD2Colors.purpleA700} size={50}></ActivityIndicator>}
-            <Text className="text-2xl">Categoria - {category}</Text>
-            <TouchableOpacity onPress={toggleModal} className="bg-black p-3 m-2 rounded-lg">
+            <Text className="text-2xl mx-2 mb-4">Categoria - {category}</Text>
+            <TouchableOpacity onPress={toggleModal} className="bg-black p-3 m-1 rounded-lg">
                 <Text className="text-center text-white">Filtros</Text>
             </TouchableOpacity>
             {modal && <View className="flex flex-row items-center justify-center gap-4 p-4">
                 <View>
-                    <View className="border-2 border-black rounded-lg w-60 mb-2">
+                    <View className="border bg-purple-100 border-black rounded-md w-60 mb-2">
                         <Picker selectedValue={estadoDaPeca} onValueChange={(value)=>setEstadoDaPeca(value)}>
                             <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                             <Picker.Item label="Usado" value="Usado"></Picker.Item>
                             <Picker.Item label="Novo" value="Novo"></Picker.Item>
                         </Picker>
                     </View>
-                    <View className="border-2 border-black rounded-lg w-60 mt-2">
+                    <View className="border bg-purple-100 border-black rounded-md w-60 mt-2">
                         <Picker selectedValue={localidade} onValueChange={(value)=>setLocalidade(value)}>
                                 <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                                 <Picker.Item label="Acre" value="Acre"></Picker.Item>
@@ -183,12 +183,12 @@ export default function CategorySearchList(){
                                             </View>
                                             {ad.marca == "OUTRA MARCA" 
                                             ? <View className="flex justify-center ml-2">
-                                            <Text className="text-white">{ad.categoria}</Text>
+                                            <Text className="text-white text-lg mb-2">{ad.categoria}</Text>
                                             <Text className="text-white">Estado: {ad.localidade}</Text>
                                             <Text className="text-white">Postagem: {ad.dataPostagem}</Text>
                                             <Text className="text-yellow-300 mt-4 font-bold">Preço: R${ad.preco}</Text>
                                         </View> : <View className="flex justify-center ml-2">
-                                                <Text className="text-white">{ad.categoria} {ad.marca}</Text>
+                                                <Text className="text-white text-lg mb-2">{ad.categoria} {ad.marca}</Text>
                                                 <Text className="text-white">Estado: {ad.localidade}</Text>
                                                 <Text className="text-white">Postagem: {ad.dataPostagem}</Text>
                                                 <Text className="text-yellow-300 mt-4 font-bold">R$ {ad.preco}</Text>

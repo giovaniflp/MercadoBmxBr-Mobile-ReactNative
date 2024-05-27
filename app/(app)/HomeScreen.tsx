@@ -1,5 +1,5 @@
-import { View, Text, ScrollView } from "react-native";
-import { useEffect, useState } from "react";
+import { View, Text, ScrollView, RefreshControl } from "react-native";
+import { useCallback, useEffect, useState } from "react";
 import BottomBar from "../components/BottomBar";
 import HomeAd from "../components/HomeAd";
 import VerifiedStores from "../components/VerifiedStores";
@@ -12,6 +12,7 @@ export default function HomeScreen() {
   const [adData, setAdData] = useState([])
 
   const [loading, setLoading] = useState(false)
+  const [refreshing, setRefreshing] = useState(false);
 
   const getAds = async () => {
     setLoading(true)
@@ -29,8 +30,28 @@ export default function HomeScreen() {
     } finally{
       setLoading(false)
     }
-    
 }
+
+const refreshData = async () => {
+  setAdData([])
+  try{
+      const token = await SecureStore.getItemAsync('session');
+    const config = {
+      headers: {
+        Authorization: "Bearer " + token
+      }
+    }
+    const response = await axiosInstance.get("/api/advertisements/all", config)
+    setAdData(response.data)
+  } catch (error) {
+    console.log(error)
+  } 
+}
+
+const refreshScreen = useCallback(()=>{
+  setRefreshing(true);
+  refreshData().then(()=>setRefreshing(false))
+},[])
 
   useEffect(() => {
     getAds();
@@ -40,7 +61,7 @@ export default function HomeScreen() {
     <View className="flex h-full pt-8 bg-white">
       {loading && <ActivityIndicator className="absolute top-0 left-0 right-0 bottom-0" animating={true} color={MD2Colors.purpleA700} size={100}></ActivityIndicator>}
       <View>
-        <ScrollView className="flex">
+        <ScrollView className="flex" refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refreshScreen} />}>
           <View>
             <Text className="text-3xl px-4 pt-4">Lojas Verificadas</Text>
             <VerifiedStores></VerifiedStores>

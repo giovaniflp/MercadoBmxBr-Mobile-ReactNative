@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import BottomBar from "../components/BottomBar";
 import * as SecureStore from 'expo-secure-store';
 import { useState, useEffect } from "react";
@@ -77,49 +77,51 @@ export default function MyAds(){
             {loading && <ActivityIndicator className="absolute top-0 left-0 right-0 bottom-0" animating={true} color={MD2Colors.purpleA700} size={50}></ActivityIndicator>}
             <View className="mt-12">
                 <Text className="text-3xl m-1">Meus anúncios</Text>
-                <View>
-                    {ads.map((ad, index) => {
-                        return (
-                            <TouchableOpacity key={index} onPress={()=>{
-                                router.push({
-                                    pathname: "/FullAdScreen/[id]",
-                                    params: {
-                                        id: ad.id
-                                    }
-                                })
-                            }}>
-                                <View className="bg-purple-700 m-1 p-2 flex flex-row justify-between items-center rounded-lg">
-                                    <View className="flex flex-row">
-                                        <View>
-                                            <Image style={{resizeMode:"cover"}} source={{uri:ad.imagem}} className="w-24 h-24 rounded-lg"></Image>
-                                        </View>
-                                        {ad.marca == "OUTRA MARCA" 
-                                        ? <View className="flex justify-center ml-2">
-                                        <Text className="text-white">{ad.categoria}</Text>
-                                        <Text className="text-white">Preço: R${ad.preco}</Text>
-                                        <Text className="text-white">Postagem: {ad.dataPostagem}</Text>
-                                        <Text className="text-white">Whatsapp: {ad.whatsapp}</Text>
-                                    </View> : <View className="flex justify-center ml-2">
-                                            <Text className="text-white">{ad.categoria} {ad.marca}</Text>
-                                            <Text className="text-white">R$ {ad.preco}</Text>
+                <ScrollView className="mb-28" showsVerticalScrollIndicator={false}>
+                    <View>
+                        {ads.map((ad, index) => {
+                            return (
+                                <TouchableOpacity key={index} onPress={()=>{
+                                    router.push({
+                                        pathname: "/FullAdScreen/[id]",
+                                        params: {
+                                            id: ad.id
+                                        }
+                                    })
+                                }}>
+                                    <View className="bg-purple-700 m-1 p-2 flex flex-row justify-between items-center rounded-lg">
+                                        <View className="flex flex-row">
+                                            <View>
+                                                <Image style={{resizeMode:"cover"}} source={{uri:ad.imagem}} className="w-24 h-24 rounded-lg"></Image>
+                                            </View>
+                                            {ad.marca == "OUTRA MARCA" 
+                                            ? <View className="flex justify-center ml-2">
+                                            <Text className="text-white text-lg mb-2">{ad.categoria}</Text>
+                                            <Text className="text-yellow-300 font-bold mb-2">Preço: R${ad.preco}</Text>
                                             <Text className="text-white">Postagem: {ad.dataPostagem}</Text>
                                             <Text className="text-white">Whatsapp: {ad.whatsapp}</Text>
-                                        </View>} 
+                                        </View> : <View className="flex justify-center ml-2">
+                                                <Text className="text-white text-lg mb-2">{ad.categoria} {ad.marca}</Text>
+                                                <Text className="text-yellow-300 font-bold mb-2">R$ {ad.preco}</Text>
+                                                <Text className="text-white">Postagem: {ad.dataPostagem}</Text>
+                                                <Text className="text-white">Whatsapp: {ad.whatsapp}</Text>
+                                            </View>} 
+                                        </View>
+                                        <View>
+                                            <TouchableOpacity onPress={()=>deleteAd(ad.id)}><Image className="w-10 h-10" source={require('../../public/icons/deletePng.png')}></Image></TouchableOpacity>
+                                            <TouchableOpacity onPress={()=>{router.push({
+                                                pathname: "/EditAdScreen/[id]",
+                                                params: {
+                                                    ad: ad.id
+                                                }
+                                            })}} ><Image className="w-10 h-10" source={require('../../public/icons/editPng.png')}></Image></TouchableOpacity>
+                                        </View>
                                     </View>
-                                    <View>
-                                        <TouchableOpacity onPress={()=>deleteAd(ad.id)}><Image className="w-10 h-10" source={require('../../public/icons/deletePng.png')}></Image></TouchableOpacity>
-                                        <TouchableOpacity onPress={()=>{router.push({
-                                            pathname: "/EditAdScreen/[id]",
-                                            params: {
-                                                ad: ad.id
-                                            }
-                                        })}} ><Image className="w-10 h-10" source={require('../../public/icons/editPng.png')}></Image></TouchableOpacity>
-                                    </View>
-                                </View>
-                            </TouchableOpacity>
-                    )
-                    })}
-                </View>
+                                </TouchableOpacity>
+                        )
+                        })}
+                    </View>
+                </ScrollView>
             </View>
             <BottomBar></BottomBar>
         </View>

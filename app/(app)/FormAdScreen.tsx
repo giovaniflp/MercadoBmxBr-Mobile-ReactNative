@@ -737,7 +737,7 @@ export default function FormAdScreen(){
                         <View className="mt-8">
                             <SpecialAspects categoria={categoria} onChangeState={updateFilho}></SpecialAspects>
                         </View>
-                        <View className="flex justify-center items-center">
+                        <View className="flex justify-center items-center mb-8">
                             <Button mode="contained" className="bg-green-500 w-40" onPress={validateForm}>Anunciar</Button>
                         </View>
                     </View>

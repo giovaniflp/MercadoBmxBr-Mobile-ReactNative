@@ -1,5 +1,5 @@
 import { router, useLocalSearchParams } from "expo-router";
-import { View, Text, Image, TextInput, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import { useState, useEffect } from "react";
 import axiosInstance from "../../server/axios";
 import * as SecureStore from 'expo-secure-store';
@@ -7,111 +7,124 @@ import { Picker } from "@react-native-picker/picker";
 import SpecialAspectsEdit from "../../components/SpecialAspectEdit";
 import BottomBar from "../../components/BottomBar";
 import * as ImagePicker from 'expo-image-picker';
+import { TextInput, Button } from "react-native-paper";
+import { ActivityIndicator, MD2Colors  } from "react-native-paper";
 
 export default function EditAdScreen(){
+
+    const [loading, setLoading] = useState(false)
 
     const { ad } = useLocalSearchParams()
 
     const getAdData = async () => {
-        const token = await SecureStore.getItemAsync('session');
-        const config = {
-          headers: {
-            Authorization: "Bearer " + token
-          }
+        setLoading(true)
+        try{
+
+            const token = await SecureStore.getItemAsync('session');
+            const config = {
+              headers: {
+                Authorization: "Bearer " + token
+              }
+            }
+            const response = await axiosInstance.get("/api/advertisements/" + ad, config)
+            setAdData(response.data)
+            setCategory(response.data.categoria)
+            setMarca(response.data.marca)
+            setModelo(response.data.modelo)
+            setPreco(response.data.preco)
+            setLocalidade(response.data.localidade)
+            setEstadoDaPeca(response.data.estadoDaPeca)
+            setGrauDeDesgaste(response.data.grauDeDesgaste)
+            setCor(response.data.cor)
+            setMaterial(response.data.material)
+            setPeso(response.data.peso)
+            setDescricao(response.data.descricao)
+            setWhatsapp(response.data.whatsapp)
+            // ESPECIFICOS ABAIXO
+            setAbracadeiraDiametro(response.data.abracadeiraDiametro)
+            setAroTipoFolha(response.data.aroTipoFolha)
+            setArosFuros(response.data.aroFuros)
+            setAroGrossura(response.data.aroGrossura)
+            setBancoTipo(response.data.bancoTipo)
+            setBancoCanoteTamanho(response.data.bancoCanoteTamanho)
+            setBikeCompletaModalidade(response.data.bikeCompletaModalidade)
+            setCamaraAroTamanho(response.data.camaraAroTamanho)
+            setCamaraTipoValvula(response.data.camaraTipoValvula)
+            setCanoteTipo(response.data.canoteTipo)
+            setCanoteTamanho(response.data.canoteTamanho)
+            setCoroaDentes(response.data.coroaDentes)
+            setCoroaProtetor(response.data.coroaProtetor)
+            setCoroaAdaptador(response.data.coroaAdaptador)
+            setCorrenteTipoElo(response.data.correnteTipoElo)
+            setCuboDianteiroFuros(response.data.cuboDianteiroFuros)
+            setCuboDianteiroTipoEixo(response.data.cuboDianteiroTipoEixo)
+            setCuboDianteiroMaterialEixo(response.data.cuboDianteiroMaterialEixo)
+            setCuboDianteiroMaterialParafusos(response.data.cuboDianteiroMaterialParafusos)
+            setCuboDianteiroProtetor(response.data.cuboDianteiroProtetor)
+            setTipoCubo(response.data.tipoCubo)
+            setFreecoaster(response.data.freecoaster)
+            setCuboTraseiroTracao(response.data.cuboTraseiroTracao)
+            setCuboTraseiroCog(response.data.cuboTraseiroCog)
+            setCuboTraseiroTravas(response.data.cuboTraseiroTravas)
+            setCuboTraseiroFuros(response.data.cuboTraseiroFuros)
+            setCuboTraseiroTipoEixo(response.data.cuboTraseiroTipoEixo)
+            setCuboTraseiroMaterialEixo(response.data.cuboTraseiroMaterialEixo)
+            setCuboTraseiroMaterialParafusos(response.data.cuboTraseiroMaterialParafusos)
+            setCuboTraseiroProtetor(response.data.cuboTraseiroProtetor)
+            setEixoCentralEstrias(response.data.eixoCentralEstrias)
+            setEixoCentralTamanho(response.data.eixoCentralTamanho)
+            setFreioPeca(response.data.freioPeca)
+            setGarfoOffset(response.data.garfoOffset)
+            setGarfoTampa(response.data.garfoTampa)
+            setGuidaoTamanho(response.data.guidaoTamanho)
+            setGuidaoLargura(response.data.guidaoLargura)
+            setGuidaoAngulo(response.data.guidaoAngulo)
+            setGuidaoTipo(response.data.guidaoTipo)
+            setManoplaTamanho(response.data.manoplaTamanho)
+            setManoplaBarEnds(response.data.manoplaBarEnds)
+            setMesaTamanho(response.data.mesaTamanho)
+            setMesaAltura(response.data.mesaAltura)
+            setMesaTipo(response.data.mesaTipo)
+            setMesaFabricacao(response.data.mesaFabricacao)
+            setMovimentoCentralTipo(response.data.movimentoCentralTipo)
+            setMovimentoCentralRolamento(response.data.movimentoCentralRolamento)
+            setMovimentoCentralAcompanha(response.data.movimentoCentralAcompanha)
+            setMovimentoDirecaoTipo(response.data.movimentoDirecaoTipo)
+            setMovimentoDirecaoTampa(response.data.movimentoDirecaoTampa)
+            setMovimentoDirecaoAcompanha(response.data.movimentoDirecaoAcompanha)
+            setPedalRosca(response.data.pedalRosca)
+            setPedalConstrucao(response.data.pedalConstrucao)
+            setPedaleiraQuantidade(response.data.pedaleiraQuantidade)
+            setPedaleiraEncaixe(response.data.pedaleiraEncaixe)
+            setPedaleiraTamanho(response.data.pedaleiraTamanho)
+            setPedivelaTracao(response.data.pedivelaTracao)
+            setPedivelaTamanho(response.data.pedivelaTamanho)
+            setPedivelaRolamento(response.data.pedivelaRolamento)
+            setPedivelaEstrias(response.data.pedivelaEstrias)
+            setPedivelaAcompanha(response.data.pedivelaAcompanha)
+            setPedivelaConstrucao(response.data.pedivelaConstrucao)
+            setPneuAro(response.data.pneuAro)
+            setPneuBandaLateral(response.data.pneuBandaLateral)
+            setPneuIndicacao(response.data.pneuIndicacao)
+            setPneuTamanho(response.data.pneuTamanho)
+            setQuadroAbracadeira(response.data.quadroAbracadeira)
+            setQuadroCentral(response.data.quadroCentral)
+            setQuadroDirecao(response.data.quadroDirecao)
+            setQuadroEsticador(response.data.quadroEsticador)
+            setQuadroMedida(response.data.quadroMedida)
+            setQuadroModalidade(response.data.quadroModalidade)
+            setQuadroPinos(response.data.quadroPinos)
+            setQuadroTamanhoAro(response.data.quadroTamanhoAro)
+            setQuadroTolerancia(response.data.quadroTolerancia)
+            setProtetorLado(response.data.protetorLado)
+            setRaioTipo(response.data.raioTipo)
+            setRaioTamanho(response.data.raioTamanho)
+        } catch(e){
+            console.log(e)
+            alert("Erro ao carregar dados do anúncio.")
+        } finally {
+            setLoading(false)
         }
-        const response = await axiosInstance.get("/api/advertisements/" + ad, config)
-        setAdData(response.data)
-        setCategory(response.data.categoria)
-        setMarca(response.data.marca)
-        setModelo(response.data.modelo)
-        setPreco(response.data.preco)
-        setLocalidade(response.data.localidade)
-        setEstadoDaPeca(response.data.estadoDaPeca)
-        setGrauDeDesgaste(response.data.grauDeDesgaste)
-        setCor(response.data.cor)
-        setMaterial(response.data.material)
-        setPeso(response.data.peso)
-        setDescricao(response.data.descricao)
-        setWhatsapp(response.data.whatsapp)
-        // ESPECIFICOS ABAIXO
-        setAbracadeiraDiametro(response.data.abracadeiraDiametro)
-        setAroTipoFolha(response.data.aroTipoFolha)
-        setArosFuros(response.data.aroFuros)
-        setAroGrossura(response.data.aroGrossura)
-        setBancoTipo(response.data.bancoTipo)
-        setBancoCanoteTamanho(response.data.bancoCanoteTamanho)
-        setBikeCompletaModalidade(response.data.bikeCompletaModalidade)
-        setCamaraAroTamanho(response.data.camaraAroTamanho)
-        setCamaraTipoValvula(response.data.camaraTipoValvula)
-        setCanoteTipo(response.data.canoteTipo)
-        setCanoteTamanho(response.data.canoteTamanho)
-        setCoroaDentes(response.data.coroaDentes)
-        setCoroaProtetor(response.data.coroaProtetor)
-        setCoroaAdaptador(response.data.coroaAdaptador)
-        setCorrenteTipoElo(response.data.correnteTipoElo)
-        setCuboDianteiroFuros(response.data.cuboDianteiroFuros)
-        setCuboDianteiroTipoEixo(response.data.cuboDianteiroTipoEixo)
-        setCuboDianteiroMaterialEixo(response.data.cuboDianteiroMaterialEixo)
-        setCuboDianteiroMaterialParafusos(response.data.cuboDianteiroMaterialParafusos)
-        setCuboDianteiroProtetor(response.data.cuboDianteiroProtetor)
-        setTipoCubo(response.data.tipoCubo)
-        setFreecoaster(response.data.freecoaster)
-        setCuboTraseiroTracao(response.data.cuboTraseiroTracao)
-        setCuboTraseiroCog(response.data.cuboTraseiroCog)
-        setCuboTraseiroTravas(response.data.cuboTraseiroTravas)
-        setCuboTraseiroFuros(response.data.cuboTraseiroFuros)
-        setCuboTraseiroTipoEixo(response.data.cuboTraseiroTipoEixo)
-        setCuboTraseiroMaterialEixo(response.data.cuboTraseiroMaterialEixo)
-        setCuboTraseiroMaterialParafusos(response.data.cuboTraseiroMaterialParafusos)
-        setCuboTraseiroProtetor(response.data.cuboTraseiroProtetor)
-        setEixoCentralEstrias(response.data.eixoCentralEstrias)
-        setEixoCentralTamanho(response.data.eixoCentralTamanho)
-        setFreioPeca(response.data.freioPeca)
-        setGarfoOffset(response.data.garfoOffset)
-        setGarfoTampa(response.data.garfoTampa)
-        setGuidaoTamanho(response.data.guidaoTamanho)
-        setGuidaoLargura(response.data.guidaoLargura)
-        setGuidaoAngulo(response.data.guidaoAngulo)
-        setGuidaoTipo(response.data.guidaoTipo)
-        setManoplaTamanho(response.data.manoplaTamanho)
-        setManoplaBarEnds(response.data.manoplaBarEnds)
-        setMesaTamanho(response.data.mesaTamanho)
-        setMesaAltura(response.data.mesaAltura)
-        setMesaTipo(response.data.mesaTipo)
-        setMesaFabricacao(response.data.mesaFabricacao)
-        setMovimentoCentralTipo(response.data.movimentoCentralTipo)
-        setMovimentoCentralRolamento(response.data.movimentoCentralRolamento)
-        setMovimentoCentralAcompanha(response.data.movimentoCentralAcompanha)
-        setMovimentoDirecaoTipo(response.data.movimentoDirecaoTipo)
-        setMovimentoDirecaoTampa(response.data.movimentoDirecaoTampa)
-        setMovimentoDirecaoAcompanha(response.data.movimentoDirecaoAcompanha)
-        setPedalRosca(response.data.pedalRosca)
-        setPedalConstrucao(response.data.pedalConstrucao)
-        setPedaleiraQuantidade(response.data.pedaleiraQuantidade)
-        setPedaleiraEncaixe(response.data.pedaleiraEncaixe)
-        setPedaleiraTamanho(response.data.pedaleiraTamanho)
-        setPedivelaTracao(response.data.pedivelaTracao)
-        setPedivelaTamanho(response.data.pedivelaTamanho)
-        setPedivelaRolamento(response.data.pedivelaRolamento)
-        setPedivelaEstrias(response.data.pedivelaEstrias)
-        setPedivelaAcompanha(response.data.pedivelaAcompanha)
-        setPedivelaConstrucao(response.data.pedivelaConstrucao)
-        setPneuAro(response.data.pneuAro)
-        setPneuBandaLateral(response.data.pneuBandaLateral)
-        setPneuIndicacao(response.data.pneuIndicacao)
-        setPneuTamanho(response.data.pneuTamanho)
-        setQuadroAbracadeira(response.data.quadroAbracadeira)
-        setQuadroCentral(response.data.quadroCentral)
-        setQuadroDirecao(response.data.quadroDirecao)
-        setQuadroEsticador(response.data.quadroEsticador)
-        setQuadroMedida(response.data.quadroMedida)
-        setQuadroModalidade(response.data.quadroModalidade)
-        setQuadroPinos(response.data.quadroPinos)
-        setQuadroTamanhoAro(response.data.quadroTamanhoAro)
-        setQuadroTolerancia(response.data.quadroTolerancia)
-        setProtetorLado(response.data.protetorLado)
-        setRaioTipo(response.data.raioTipo)
-        setRaioTamanho(response.data.raioTamanho)
     }
 
     useEffect(()=>{
@@ -382,7 +395,6 @@ export default function EditAdScreen(){
             raioTipo: raioTipo,
             raioTamanho: raioTamanho
         });
-        console.log(bikeCompletaModalidade)
     }, [
         abracadeiraDiametro,
         aroTipoFolha,
@@ -664,9 +676,10 @@ export default function EditAdScreen(){
     }
 
     return(
-        <View className="h-full pt-8">
+        <View className="h-full pt-8 bg-white">
+            {loading && <ActivityIndicator className="absolute top-0 left-0 right-0 bottom-0 z-10" animating={true} color={MD2Colors.purpleA700} size={100}></ActivityIndicator>}
             <ScrollView className="mb-12">
-            <View className="border-2 border-black rounded-lg m-4">
+            <View className="border bg-purple-100 border-black rounded-md m-4">
                 <Picker selectedValue={categoria} 
                 onValueChange={(itemValue)=> {setCategory(itemValue); setSubCategory(true)}}>
                     <Picker.Item label="Abraçadeiras" value="Abraçadeira"></Picker.Item>
@@ -706,30 +719,32 @@ export default function EditAdScreen(){
                                 <Text className="text-2xl">Aspectos Gerais <Text className="text-red-600">*</Text></Text>
                                 <TouchableOpacity className="flex flex-row" onPress={pickImage}>
                                     <Text className="text-red-600">*</Text>
-                                    <Image source={require("../../../public/icons/photoAdd.png")}></Image>
+                                    <Image className="w-8 h-8" source={require("../../../public/icons/photoAdd.png")}></Image>
                                 </TouchableOpacity>
                             </View>
                             <Text className="text-sm"><Text className="text-red-600">*</Text>Obrigatório</Text>
                             <View className="flex justify-center items-center">
                             {imagem ? (
-                                <Image className="rounded-lg mt-8" source={{uri: imagem}} style={{width: 300, height: 300}} />
+                                <Image className="rounded-lg mt-8" source={{uri: imagem}} style={{width: 300, height: 300, resizeMode:"contain"}} />
                                 ) : (
-                                <Image className="rounded-lg mt-8" source={{uri: adData.imagem}} style={{width: 300, height: 300}} />
+                                <Image className="rounded-lg mt-8" source={{uri: adData.imagem}} style={{width: 300, height: 300, resizeMode:"contain"}} />
                             )}
                             </View>
                         </View>
-                        <Text className="mt-8">Preço em R$ <Text className="text-red-600">*</Text></Text>
-                        <TextInput value={preco} onChangeText={setPreco} className="border-2 border-black rounded-lg p-3" placeholder="R$ 40" keyboardType="numeric"></TextInput>
-                        <Text>Estado da peça <Text className="text-red-600">*</Text></Text>
-                        <View className="border-2 border-black rounded-lg">
+                        <Text className="mt-8 text-lg">Preço em R$ <Text className="text-red-600">*</Text></Text>
+                        <TextInput maxLength={10} mode="outlined" value={preco} onChangeText={setPreco} placeholder="Ex: R$ 40" className="bg-purple-100 mb-6" outlineColor="black" keyboardType="numeric"></TextInput>
+                        <Text className="text-lg">Whatsapp (DDD e Número) para contato <Text className="text-red-600">*</Text></Text>
+                        <TextInput maxLength={16} value={whatsapp} onChangeText={setWhatsapp} mode="outlined" className="bg-purple-100 mb-6" outlineColor="black" placeholder="129XXXXXXXX" keyboardType="numeric"></TextInput>
+                        <Text className="text-lg">Estado da peça <Text className="text-red-600">*</Text></Text>
+                        <View className="border bg-purple-100 border-black rounded-md mb-6">
                             <Picker selectedValue={estadoDaPeca} onValueChange={setEstadoDaPeca}>
                                 <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                                 <Picker.Item label="Novo" value="Novo"></Picker.Item>
                                 <Picker.Item label="Usado" value="Usado"></Picker.Item>
                             </Picker>
                         </View>
-                        <Text>Grau de desgaste <Text className="text-red-600">*</Text></Text>
-                        <View className="border-2 border-black rounded-lg">
+                        <Text className="text-lg">Grau de desgaste <Text className="text-red-600">*</Text></Text>
+                        <View className="border bg-purple-100 border-black rounded-md mb-6">
                             <Picker selectedValue={grauDeDesgaste} onValueChange={setGrauDeDesgaste}>
                                 <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                                 <Picker.Item label="Nenhum" value="Nenhum"></Picker.Item>
@@ -739,8 +754,8 @@ export default function EditAdScreen(){
                                 <Picker.Item label="Quebrado" value="Quebrado"></Picker.Item>
                             </Picker>
                         </View>
-                        <Text>Localidade <Text className="text-red-600">*</Text></Text>
-                        <View className="border-2 border-black rounded-lg">
+                        <Text className="text-lg">Localidade <Text className="text-red-600">*</Text></Text>
+                        <View className="border bg-purple-100 border-black rounded-md mb-6">
                         <Picker selectedValue={localidade} onValueChange={setLocalidade}>
                             <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                             <Picker.Item label="Acre" value="Acre"></Picker.Item>
@@ -773,10 +788,8 @@ export default function EditAdScreen(){
                         </Picker>
 
                         </View>
-                        <Text>Digite seu whatsapp (DDD e Número) para contato <Text className="text-red-600">*</Text></Text>
-                        <TextInput value={whatsapp} onChangeText={setWhatsapp} className="border-2 border-black rounded-lg p-3" placeholder="129XXXXXXXX" keyboardType="numeric"></TextInput>
-                        <Text>Cor <Text className="text-red-600">*</Text></Text>
-                        <View className="border-2 border-black rounded-lg">
+                        <Text className="text-lg">Cor <Text className="text-red-600">*</Text></Text>
+                        <View className="border bg-purple-100 border-black rounded-md mb-6">
                             <Picker selectedValue={cor} onValueChange={setCor}>
                                 <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                                 <Picker.Item label="Preto" value="Preto"></Picker.Item>
@@ -787,8 +800,8 @@ export default function EditAdScreen(){
                                 <Picker.Item label="Outra" value="Outra"></Picker.Item>
                             </Picker>
                         </View>
-                        <Text>Material <Text className="text-red-600">*</Text></Text>
-                        <View className="border-2 border-black rounded-lg">
+                        <Text className="text-lg">Material <Text className="text-red-600">*</Text></Text>
+                        <View className="border bg-purple-100 border-black rounded-md mb-6">
                             <Picker selectedValue={material} onValueChange={setMaterial}>
                                 <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                                 <Picker.Item label="Cromo" value="Cromo"></Picker.Item>
@@ -799,8 +812,8 @@ export default function EditAdScreen(){
                                 <Picker.Item label="Outro" value="Outro"></Picker.Item>
                             </Picker>
                         </View>
-                        <Text>Peso aproximado <Text className="text-red-600">*</Text></Text>
-                        <View className="border-2 border-black rounded-lg">
+                        <Text className="text-lg">Peso aproximado <Text className="text-red-600">*</Text></Text>
+                        <View className="border bg-purple-100 border-black rounded-md mb-6">
                             <Picker selectedValue={peso} onValueChange={setPeso}>
                                     <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                                     <Picker.Item label="50g" value="50g"></Picker.Item>
@@ -821,8 +834,8 @@ export default function EditAdScreen(){
                                     <Picker.Item label="+2,5kg" value="+2,5kg"></Picker.Item>
                                 </Picker>
                             </View>
-                        <Text>Marca <Text className="text-red-600">*</Text></Text>
-                        <View className="border-2 border-black rounded-lg">
+                        <Text className="text-lg">Marca <Text className="text-red-600">*</Text></Text>
+                        <View className="border bg-purple-100 border-black rounded-md mb-6">
                         <Picker selectedValue={marca} onValueChange={setMarca}>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                             <Picker.Item label="OUTRA MARCA" value="OUTRA MARCA" />
@@ -857,22 +870,20 @@ export default function EditAdScreen(){
                             <Picker.Item label="Volume" value="Volume" />
                         </Picker>
                         </View>
-                        <Text>Modelo da peça</Text>
-                        <TextInput value={modelo} onChangeText={setModelo} className="border-2 border-black rounded-lg p-3" placeholder="Thunderbolt"></TextInput>
-                        <Text>Descrição</Text>
-                        <TextInput value={descricao} onChangeText={setDescricao} numberOfLines={5} multiline={true} textAlignVertical="top" className="border-2 border-black rounded-lg pl-3 pt-3"></TextInput>
+                        <Text className="text-lg">Modelo da peça</Text>
+                        <TextInput value={modelo} mode="outlined" className="bg-purple-100 mb-6" outlineColor="black" onChangeText={setModelo} maxLength={32} placeholder="Ex: Thunderbolt"></TextInput>
+                        <Text className="text-lg">Descrição</Text>
+                        <TextInput value={descricao} mode="outlined" className="bg-purple-100 pt-4" outlineColor="black" onChangeText={setDescricao} numberOfLines={10} maxLength={500} multiline={true} right={<TextInput.Affix text="/500" />} textAlignVertical="top"></TextInput>
                         <View className="mt-8">
                             <SpecialAspectsEdit categoria={categoria} onChangeState={updateFilho} data={adData}></SpecialAspectsEdit>
                         </View>
-                        <View className="flex justify-center items-center">
-                            <TouchableOpacity className="bg-red-400 p-4" onPress={validateForm}>
-                                <Text>Anunciar</Text>
-                            </TouchableOpacity>
+                        <View className="flex justify-center items-center mb-8">
+                            <Button mode="contained" className="bg-green-500 w-40" onPress={validateForm}>Anunciar</Button>
                         </View>
                     </View>
                 )}
             </ScrollView>
-            <BottomBar></BottomBar>
+            <BottomBar screen="MenuScreen"></BottomBar>
         </View>
     )
 }
