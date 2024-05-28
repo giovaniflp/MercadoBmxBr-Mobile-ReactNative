@@ -1,10 +1,11 @@
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { Button } from "react-native-paper";
 import { useEffect, useState } from "react";
 import * as SecureStore from 'expo-secure-store';
 import axiosInstance from "../server/axios";
 import BottomBar from "../components/BottomBar";
 import { useSession } from "../../auth/ctx";
-import { sign } from "jsonwebtoken";
+import { router } from "expo-router";
 
 export default function ChangeRegisterData(){
     const { signOut } = useSession();
@@ -52,12 +53,41 @@ export default function ChangeRegisterData(){
             senhaAntiga: senhaAntiga,
             senhaNova: novaSenha,
         }
-            const response2 = await axiosInstance.patch("/api/users/patch/" + id, requestData, config)
-            console.log(response2.data);
-            alert("Dados alterados com sucesso!")
-            alert("Caso tenha alterado o E-mail, verifique esse novo E-mail para fazer a verificação de conta")
-            alert("Faça login novamente para ver as alterações")
-            signOut();
+        if(emailNovo || emailNovo != ""){
+            await axiosInstance.patch("/api/users/patch/" + id, requestData, config)
+            router.push({
+                pathname: "/EmailChangeVerification",
+                params: {
+                    newEmail: emailNovo
+                }
+            });
+        } else{
+            if(novaSenha != confirmarNovaSenha){
+                alert("As senhas não coincidem!")
+            } else{
+                if(nomeNovo){
+                await axiosInstance.patch("/api/users/patch/" + id, requestData, config).then((response) => {
+                    alert("Dados alterados com sucesso!")
+                    signOut()
+                }).catch((error) => {
+                    console.log(error)
+                })
+                } if(!nomeNovo){
+                    await axiosInstance.patch("/api/users/patch/" + id, requestData, config).then((response) => {
+                        if(response.status == 500){
+                            alert("Senha antiga incorreta!")
+                        } else{
+                            alert("Dados alterados com sucesso!")
+                            signOut()
+                        }
+                    }).catch((error) => {
+                        if(error.response.status == 500){
+                            alert("Senha antiga incorreta!")
+                        }
+                    })
+                }
+            }
+        }
     }
 
     return(
@@ -80,7 +110,7 @@ export default function ChangeRegisterData(){
             </TouchableOpacity>
             <Text>Ao alterar o E-mail, use apenas E-mails que consigam ser acessados, para fazer uma nova verificação.</Text>
             <Text>Em caso de problemas, contate o suporte: mercadobmxbr@gmail.com</Text>
-            <BottomBar></BottomBar>
+            <BottomBar screen="MenuScreen"></BottomBar>
         </View>
     )
 }
