@@ -6,7 +6,7 @@ import * as SecureStore from 'expo-secure-store';
 import HomeAd from "../components/HomeAd";
 import BottomBar from "../components/BottomBar";
 import { Picker } from "@react-native-picker/picker";
-import { ActivityIndicator, MD2Colors  } from "react-native-paper";
+import { ActivityIndicator, Button, MD2Colors  } from "react-native-paper";
 
 export default function CategorySearchList(){
     
@@ -17,7 +17,69 @@ export default function CategorySearchList(){
     const [localidade, setLocalidade] = useState(null)
     const [estadoDaPeca, setEstadoDaPeca] = useState(null)
 
+    const [valor, setValor] = useState(null)
+
     const [loading, setLoading] = useState(false)
+
+    const [page, setPage] = useState(0)
+
+const addPage = async () => {
+    const token = await SecureStore.getItemAsync('session');
+    const config = {
+        headers: {
+            Authorization: "Bearer " + token
+        }
+    }
+
+    const newPage = page + 1; // Calcular o novo valor de page
+    setPage(newPage) // Atualizar o estado
+
+    if(localidade == null && estadoDaPeca == null && valor == null){
+        const response = await axiosInstance.get(`/api/advertisements/category/${category}?page=${newPage}&size=10` , config)
+        if(response.data.content.length == 0){
+            alert("Não há mais páginas disponíveis")
+            setPage(page)
+        } else{
+            setAdData(response.data.content)
+        }
+    } else{
+        const response = await axiosInstance.get(`/api/advertisements/pagination?categoria=${category}&page=${newPage}&size=10&sortBy=preco&asc=false`, config)
+        if(response.data.content.length == 0){
+            alert("Não há mais páginas disponíveis")
+            setPage(page)
+        } else{
+            setAdData(response.data.content)
+        }
+    }
+
+}
+
+const subPage = async () => {
+    const token = await SecureStore.getItemAsync('session');
+    const config = {
+        headers: {
+            Authorization: "Bearer " + token
+        }
+    }
+
+    if (page == 0) {
+        alert("Não há mais páginas anteriores")
+        setPage(0)
+    } else {
+        const newPage = page - 1; // Calcular o novo valor de page
+        setPage(newPage) // Atualizar o estado
+
+        if(localidade == null && estadoDaPeca == null && valor == null){
+            const response = await axiosInstance.get(`/api/advertisements/category/${category}?page=${newPage}&size=10` , config)
+            setAdData(response.data.content)
+        } else{
+            const response = await axiosInstance.get(`/api/advertisements/pagination?categoria=${category}&page=${newPage}&size=10&sortBy=preco&asc=false`, config)
+            setAdData(response.data.content)
+        }
+
+    }
+}
+
 
     const toggleModal = () => {
         setModal(!modal)
@@ -32,8 +94,8 @@ export default function CategorySearchList(){
             Authorization: "Bearer " + token
             }
         }
-        const response = await axiosInstance.get("/api/advertisements/category/" + category , config)
-        setAdData(response.data)
+        const response = await axiosInstance.get(`/api/advertisements/category/${category}?page=0&size=10` , config)
+        setAdData(response.data.content)
         }
         catch (error) {
             console.log(error)
@@ -46,6 +108,7 @@ export default function CategorySearchList(){
     const removefilter = () => {
         setLocalidade(null)
         setEstadoDaPeca(null)
+        setModal(false)
         getAds();
     
     }
@@ -53,10 +116,6 @@ export default function CategorySearchList(){
     useEffect(() => {
         getAds();
     }, [])
-
-    useEffect(() => {
-        console.log(adData) 
-    },[adData])
 
     const filter = async () => {
         setLoading(true)
@@ -80,6 +139,15 @@ export default function CategorySearchList(){
                 const response = await axiosInstance.get("/api/advertisements/category/" + category + "/localidade/" + localidade + "/estadoDaPeca/" + estadoDaPeca, config)
                 console.log(response.data)
                 setAdData(response.data)
+            }
+            else if(valor != null){
+                if(valor == "Menor Valor"){
+                    const response = await axiosInstance.get("/api/advertisements/pagination?categoria=" + category + "&page=" + page + "&size=10&sortBy=preco&asc=true", config)
+                    setAdData(response.data.content)
+                } else if(valor == "Maior Valor"){
+                    const response = await axiosInstance.get("/api/advertisements/pagination?categoria=" + category + "&page=" + page + "&size=10&sortBy=preco&asc=false", config)
+                    setAdData(response.data.content)
+                }
             } else {
                 alert("Selecione um filtro")
             }
@@ -87,11 +155,12 @@ export default function CategorySearchList(){
             console.log(error)
         } finally{
             setLoading(false)
+            setModal(false)
         }
     }
 
     return(
-        <View className="pt-12 h-full">
+        <View className="pt-8 h-full">
             {loading && <ActivityIndicator className="absolute top-0 left-0 right-0 bottom-0" animating={true} color={MD2Colors.purpleA700} size={50}></ActivityIndicator>}
             <Text className="text-2xl mx-2 mb-4">Categoria - {category}</Text>
             <TouchableOpacity onPress={toggleModal} className="bg-black p-3 m-1 rounded-lg">
@@ -104,6 +173,13 @@ export default function CategorySearchList(){
                             <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                             <Picker.Item label="Usado" value="Usado"></Picker.Item>
                             <Picker.Item label="Novo" value="Novo"></Picker.Item>
+                        </Picker>
+                    </View>
+                    <View className="border bg-purple-100 border-black rounded-md w-60">
+                        <Picker selectedValue={valor} onValueChange={(value)=>setValor(value)}>
+                            <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
+                            <Picker.Item label="Menor Valor" value="Menor Valor"></Picker.Item>
+                            <Picker.Item label="Maior Valor" value="Maior Valor"></Picker.Item>
                         </Picker>
                     </View>
                     <View className="border bg-purple-100 border-black rounded-md w-60 mt-2">
@@ -162,7 +238,7 @@ export default function CategorySearchList(){
                     </TouchableOpacity>
                 </View>
             </View>}
-            <ScrollView>
+            <ScrollView className="mb-14" showsVerticalScrollIndicator={false}>
                 <View className="flex">
                     {
                     adData.length > 0 ? (
@@ -205,8 +281,17 @@ export default function CategorySearchList(){
                     )
                     }
                 </View>
+                <View className="flex flex-row justify-center items-center my-4">
+                    <TouchableOpacity className="bg-purple-700 rounded-full w-10 h-10 flex justify-center items-center" onPress={subPage}>
+                        <Text className="text-white font-extrabold">-</Text>
+                    </TouchableOpacity>
+                    <Text className="mx-5 text-xl">Página {page + 1}</Text>
+                    <TouchableOpacity className="bg-purple-700 rounded-full w-10 h-10 flex justify-center items-center" onPress={addPage}>
+                        <Text className="text-white font-extrabold">+</Text>
+                    </TouchableOpacity>
+                </View>
             </ScrollView>
-            <BottomBar></BottomBar>
+            <BottomBar screen="CategoryScreen"></BottomBar>
         </View>
     )
 }

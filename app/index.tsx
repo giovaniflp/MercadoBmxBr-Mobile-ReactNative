@@ -13,7 +13,7 @@ export default function HomePage() {
   }, [])
 
     return(
-      <ImageBackground source={require('../public/images/wpp3.jpg')}>
+      <ImageBackground source={require('../public/images/brandWPP.jpeg')}>
         <View className="flex h-full justify-end pb-28 items-center">
           <View className='bg-white w-full absolute py-14 rounded-t-3xl'>
             <Text className="text-2xl text-black text-center">Bem-vindo ao Mercado Bmx Br</Text>
