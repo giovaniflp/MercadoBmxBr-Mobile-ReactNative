@@ -868,6 +868,7 @@ export default function EditAdScreen(){
                             <Picker.Item label="Sunday" value="Sunday" />
                             <Picker.Item label="United" value="United" />
                             <Picker.Item label="Volume" value="Volume" />
+                            <Picker.Item label="We The People" value="We The People" />
                         </Picker>
                         </View>
                         <Text className="text-lg">Modelo da peça</Text>

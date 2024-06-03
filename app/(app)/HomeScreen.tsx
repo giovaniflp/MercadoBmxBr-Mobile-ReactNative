@@ -11,6 +11,9 @@ export default function HomeScreen() {
 
   const [adData, setAdData] = useState([])
 
+  const [newTodayAds, setNewTodayAds] = useState([])
+  const [usedTodayAds, setUsedTodayAds] = useState([])
+
   const [loading, setLoading] = useState(false)
   const [refreshing, setRefreshing] = useState(false);
 
@@ -32,8 +35,46 @@ export default function HomeScreen() {
     }
 }
 
+const getNewTodayAds = async () => {
+  setLoading(true)
+  try{
+    const token = await SecureStore.getItemAsync('session');
+    const config = {
+      headers: {
+        Authorization: "Bearer " + token
+      }
+    }
+    const response = await axiosInstance.post("/api/advertisements/dataPostagem/estadoDaPeca", {estadoDaPeca:"Novo"},  config)
+    setNewTodayAds(response.data.content)
+  } catch (error) {
+    console.log(error)
+  } finally{
+    setLoading(false)
+  }
+}
+
+const getNewUsedTodayAds = async () => {
+  setLoading(true)
+  try{
+    const token = await SecureStore.getItemAsync('session');
+    const config = {
+      headers: {
+        Authorization: "Bearer " + token
+      }
+    }
+    const response = await axiosInstance.post("/api/advertisements/dataPostagem/estadoDaPeca", {estadoDaPeca:"Usado"},  config)
+    setUsedTodayAds(response.data.content)
+  } catch (error) {
+    console.log(error)
+  } finally{
+    setLoading(false)
+  }
+}
+
 const refreshData = async () => {
   setAdData([])
+  setNewTodayAds([])
+  setUsedTodayAds([])
   try{
       const token = await SecureStore.getItemAsync('session');
     const config = {
@@ -43,6 +84,10 @@ const refreshData = async () => {
     }
     const response = await axiosInstance.get("/api/advertisements/all", config)
     setAdData(response.data)
+    const response2 = await axiosInstance.post("/api/advertisements/dataPostagem/estadoDaPeca", {estadoDaPeca:"Novo"},  config)
+    setNewTodayAds(response2.data.content)
+    const response3 = await axiosInstance.post("/api/advertisements/dataPostagem/estadoDaPeca", {estadoDaPeca:"Usado"},  config)
+    setUsedTodayAds(response3.data.content)
   } catch (error) {
     console.log(error)
   } 
@@ -55,6 +100,8 @@ const refreshScreen = useCallback(()=>{
 
   useEffect(() => {
     getAds();
+    getNewTodayAds();
+    getNewUsedTodayAds();
   }, [])
 
   return (
@@ -67,10 +114,10 @@ const refreshScreen = useCallback(()=>{
             <VerifiedStores></VerifiedStores>
           </View>
           <View className="mb-8">
-            <Text className="text-3xl px-4">Peças Novas</Text>
+            <Text className="text-xl px-4">Peças novas postadas recentemente</Text>
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
               <View className="flex flex-row px-4 py-2">
-                {adData.map((ad, index) => {
+                {newTodayAds.map((ad, index) => {
                   return <HomeAd id={ad.id} key={index}></HomeAd>
                 }
                 )}
@@ -78,10 +125,10 @@ const refreshScreen = useCallback(()=>{
             </ScrollView>
           </View>
           <View className="mb-8">
-            <Text className="text-3xl px-4">Peças Usadas</Text>
+            <Text className="text-xl px-4">Peças usadas postadas recentemente</Text>
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             <View className="flex flex-row px-4 py-2">
-                {adData.map((ad, index) => {
+                {usedTodayAds.map((ad, index) => {
                   return <HomeAd id={ad.id} key={index}></HomeAd>
                 }
                 )}

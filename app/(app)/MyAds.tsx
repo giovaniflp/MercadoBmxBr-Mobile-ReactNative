@@ -5,12 +5,16 @@ import { useState, useEffect } from "react";
 import axiosInstance from "../server/axios";
 import {router, useNavigation } from "expo-router";
 import { ActivityIndicator, MD2Colors  } from "react-native-paper";
+import { format } from 'date-fns';
 
 
 export default function MyAds(){
 
     const [ads, setAds] = useState([]);
     const [decodeJwt, setDecodeJwt] = useState("");
+
+    const[formatDate, setFormatDate] = useState("")
+    const[formatHour, setFormatHour] = useState("")
 
     const [loading, setLoading] = useState(false);
 
@@ -39,6 +43,10 @@ export default function MyAds(){
                 }
             }
             const response = await axiosInstance.get("/api/advertisements/user/" + decodeJwt, config)
+            ads.map((ad) => {
+                setFormatDate(format(new Date(ad.dataPostagem), 'dd/MM/yyyy'))
+                setFormatHour(format(new Date(ad.dataPostagem), 'HH:mm'))
+            })
             console.log(response.data);
             setAds(response.data);
         } catch (error) {
@@ -98,12 +106,12 @@ export default function MyAds(){
                                             ? <View className="flex justify-center ml-2">
                                             <Text className="text-white text-lg mb-2">{ad.categoria}</Text>
                                             <Text className="text-yellow-300 font-bold mb-2">Preço: R${ad.preco}</Text>
-                                            <Text className="text-white">Postagem: {ad.dataPostagem}</Text>
+                                            <Text className="text-white">Postagem: {formatDate}</Text>
                                             <Text className="text-white">Whatsapp: {ad.whatsapp}</Text>
                                         </View> : <View className="flex justify-center ml-2">
                                                 <Text className="text-white text-lg mb-2">{ad.categoria} {ad.marca}</Text>
                                                 <Text className="text-yellow-300 font-bold mb-2">R$ {ad.preco}</Text>
-                                                <Text className="text-white">Postagem: {ad.dataPostagem}</Text>
+                                                <Text className="text-white">Postagem: {formatDate}</Text>
                                                 <Text className="text-white">Whatsapp: {ad.whatsapp}</Text>
                                             </View>} 
                                         </View>

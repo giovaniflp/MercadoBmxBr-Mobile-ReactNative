@@ -6,11 +6,15 @@ import { useLocalSearchParams } from "expo-router";
 import axiosInstance from "../../server/axios";
 import * as SecureStore from 'expo-secure-store';
 import { ActivityIndicator, MD2Colors  } from "react-native-paper";
+import {format} from 'date-fns';
 
 export default function FullAdScreen(){
     const { id } = useLocalSearchParams()
 
     const [loading, setLoading] = useState(false)
+
+    const[formatDate, setFormatDate] = useState("")
+    const[formatHour, setFormatHour] = useState("")
 
     const getAdData = async () => {
         setLoading(true)
@@ -22,6 +26,8 @@ export default function FullAdScreen(){
             }
             }
             const response = await axiosInstance.get("/api/advertisements/" + id, config).then(async(response) => {
+                setFormatDate(format(new Date(response.data.dataPostagem), 'dd/MM/yyyy'))
+                setFormatHour(format(new Date(response.data.dataPostagem), 'HH:mm'))
                 setAdData(response.data)
                 JwtDecode()
             })
@@ -128,7 +134,7 @@ export default function FullAdScreen(){
                     <Text className="text-xs text-gray-400">Cód. anúncio - {adData.id}</Text>
                     {adData.marca == "OUTRA MARCA" ? <Text className="text-2xl">{adData.categoria} {adData.modelo}</Text> : <Text className="text-2xl">{adData.categoria} {adData.marca} {adData.modelo}</Text>}
                         <Text className="text-lg">Preço: <Text className="text-purple-700">R${adData.preco}</Text></Text>
-                        <Text>{adData.localidade} | {adData.dataPostagem}</Text>            
+                        <Text>{adData.localidade} | {formatDate} às {formatHour}</Text>            
                     </View>
                     <View className="mt-4 bg-gray-200 rounded-lg p-2">
                         <Text className="mb-4 text-purple-700">Características Gerais</Text>

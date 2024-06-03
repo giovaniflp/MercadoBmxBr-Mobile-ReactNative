@@ -1,12 +1,7 @@
-import axios from 'axios';
-import { useEnvironment } from 'react-native-dotenv';
+import axios from "axios";
 
-const { BACKEND_URL } = useEnvironment();
-
-const axiosInstance = axios.create(
-    {
-        baseURL: BACKEND_URL,
-    }
-);
-
+const axiosInstance = axios.create({
+    baseURL: process.env.EXPO_PUBLIC_BACKEND_URL,
+    });
+    
 export default axiosInstance;

@@ -5,10 +5,14 @@ import { router } from "expo-router";
 import axiosInstance from "../server/axios";
 import * as SecureStore from 'expo-secure-store';
 import { Card } from "react-native-paper";
+import { format } from 'date-fns';
 
 export default function HomeAd({id} : {id: string}){
 
     const [adData, setAdData] = useState([])
+
+    const[formatDate, setFormatDate] = useState("")
+    const[formatHour, setFormatHour] = useState("")
     
     const getAdData = async () => {
         const token = await SecureStore.getItemAsync('session');
@@ -18,6 +22,8 @@ export default function HomeAd({id} : {id: string}){
         }
         }
         const response = await axiosInstance.get("/api/advertisements/" + id, config)
+        setFormatDate(format(new Date(response.data.dataPostagem), 'dd/MM/yyyy'))
+        setFormatHour(format(new Date(response.data.dataPostagem), 'HH:mm'))
         setAdData(response.data)
     }
 
@@ -42,7 +48,7 @@ export default function HomeAd({id} : {id: string}){
                         {adData.marca == "OUTRA MARCA" ? <Text className="text-center text-lg">{adData.categoria}</Text> : <Text className="text-center text-lg">{adData.categoria} {adData.marca}</Text>}
                         <View className="flex flex-row gap-4 justify-center">
                             <Text className="text-center">{adData.localidade}</Text>
-                            <Text className="text-center">{adData.dataPostagem}</Text>
+                            <Text className="text-center">{formatDate} às {formatHour}</Text>
                         </View>
                     </View>
                 </Card>
