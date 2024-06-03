@@ -1,8 +1,12 @@
+import axios from 'axios';
+import { useEnvironment } from 'react-native-dotenv';
 
-import axios from "axios";
+const { BACKEND_URL } = useEnvironment();
 
-const axiosInstance = axios.create({
-    baseURL: "http://192.168.16.7:8080",
-    });
-    
+const axiosInstance = axios.create(
+    {
+        baseURL: BACKEND_URL,
+    }
+);
+
 export default axiosInstance;
