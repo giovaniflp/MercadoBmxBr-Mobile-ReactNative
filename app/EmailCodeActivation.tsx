@@ -1,4 +1,4 @@
-import { Link, router } from "expo-router";
+import { Link, router, useLocalSearchParams } from "expo-router";
 import { View, Text, ImageBackground, TouchableOpacity } from "react-native";
 import { Button, TextInput, ActivityIndicator, MD2Colors } from "react-native-paper";
 import { useState } from "react";
@@ -6,7 +6,9 @@ import axiosInstance from "./server/axios";
 
 export default function EmailCodeActivation(){
 
-    const[email, setEmail] = useState("")
+    const {emailParam} = useLocalSearchParams()
+
+    const[email, setEmail] = useState(emailParam)
     const[code, setCode] = useState("")
 
     const [loading, setLoading] = useState(false)
@@ -35,7 +37,10 @@ export default function EmailCodeActivation(){
             await axiosInstance.post("/api/users/activate", {email: email, code: code}).then((response) => {
                 if(response.status == 200){
                     alert("Conta ativada com sucesso!")
-                    router.push("/LoginScreen")
+                    router.push({
+                        pathname: "/LoginScreen",
+                        params: { emailLoginParam: email },
+                    })
                 } else {
                     alert("Erro ao validar conta!")
                 }

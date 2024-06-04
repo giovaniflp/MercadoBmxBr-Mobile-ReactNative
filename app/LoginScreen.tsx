@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, ImageBackground, Image } from "react-native";
 import { TextInput, Button, ActivityIndicator, MD2Colors } from "react-native-paper";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { Link } from "expo-router";
 import axiosInstance from "./server/axios";
 import { useSession } from "../auth/ctx";
@@ -9,7 +9,9 @@ import { useSession } from "../auth/ctx";
 export default function LoginScreen(){
     const { signIn } = useSession();
 
-    const [email, setEmail] = useState("");
+    const {emailLoginParam} = useLocalSearchParams();
+
+    const [email, setEmail] = useState(emailLoginParam);
     const [password, setPassword] = useState("");
     const [seePassword, setSeePassword] = useState(true);
 
@@ -31,7 +33,10 @@ export default function LoginScreen(){
         } catch (error) {
           if (error.response.status === 400) {
             alert("Conta não ativada!");
-            router.push("/EmailCodeActivation");
+            router.push({
+                pathname: "/EmailCodeActivation",
+                params: { emailParam: email },
+            });
           } else {
             alert("Informações incorretas!");
             console.log(error);

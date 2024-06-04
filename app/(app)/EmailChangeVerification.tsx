@@ -1,10 +1,11 @@
 import { router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
-import { Button, TextInput } from "react-native-paper";
+import { Button, TextInput, ActivityIndicator, MD2Colors } from "react-native-paper";
 import { View, Text } from "react-native";
 import axiosInstance from "../server/axios";
 import * as SecureStore from 'expo-secure-store';
 import { useSession } from "../../auth/ctx";
+import BottomBar from "../components/BottomBar";
 
 export default function EmailChangeVerification(){
     
@@ -67,13 +68,13 @@ export default function EmailChangeVerification(){
 
 
     return(
-        <View className="mt-12">
-            <Text>{newEmail}</Text>
-            <Text>Verificação de E-mail</Text>
-            <Text>Insira o código recebido no seu e-mail</Text>
-            <TextInput label="Código" value={code} onChangeText={setCode} />
-            <Button className="bg-purple-300" onPress={sendEmailCode}>Enviar código</Button>
-            <Button className="bg-green-300 mt-10" onPress={activateAccount}>Ativar conta</Button>
+        <View className="h-full bg-white flex justify-center items-center">
+            <Text>Verifique seu email: <Text className="text-purple-700">{newEmail}</Text></Text>
+            <Text className="mt-2">Insira o <Text className="text-green-500">código</Text> recebido abaixo</Text>
+            <TextInput className="w-60 my-4" maxLength={6} label="Código" mode="outlined" value={code} onChangeText={setCode} />
+            {loading ? <ActivityIndicator animating={true} color={MD2Colors.green500} size={40}/> : <Button mode='contained' className="bg-green-500 w-40" onPress={sendEmailCode}>Enviar código</Button>}
+            {loading2 ? <ActivityIndicator className="mt-2" animating={true} color={MD2Colors.purpleA700} size={40}/> : <Button mode='contained' className="bg-purple-500 w-40 mt-2" onPress={activateAccount}>Ativar conta</Button>}
+            <BottomBar screen="MenuScreen"></BottomBar>
         </View>
     )
 }

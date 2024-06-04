@@ -697,7 +697,7 @@ export default function FormAdScreen(){
                         <Text className="text-lg">Marca <Text className="text-red-600">*</Text></Text>
                         <View className="border bg-purple-100 border-black rounded-md mb-6">
                         <Picker selectedValue={marca} onValueChange={setMarca}>
-                        <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
+                            <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
                             <Picker.Item label="OUTRA MARCA" value="OUTRA MARCA" />
                             <Picker.Item label="Animal" value="Animal" />
                             <Picker.Item label="BSD" value="BSD" />

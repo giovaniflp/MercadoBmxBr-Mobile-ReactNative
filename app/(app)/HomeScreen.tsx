@@ -6,6 +6,7 @@ import VerifiedStores from "../components/VerifiedStores";
 import axiosInstance from "../server/axios";
 import * as SecureStore from 'expo-secure-store';
 import { ActivityIndicator, MD2Colors  } from "react-native-paper";
+import { Picker } from "@react-native-picker/picker";
 
 export default function HomeScreen() {
 
@@ -17,23 +18,7 @@ export default function HomeScreen() {
   const [loading, setLoading] = useState(false)
   const [refreshing, setRefreshing] = useState(false);
 
-  const getAds = async () => {
-    setLoading(true)
-    try{
-        const token = await SecureStore.getItemAsync('session');
-      const config = {
-        headers: {
-          Authorization: "Bearer " + token
-        }
-      }
-      const response = await axiosInstance.get("/api/advertisements/all", config)
-      setAdData(response.data)
-    } catch (error) {
-      console.log(error)
-    } finally{
-      setLoading(false)
-    }
-}
+  const [localidade, setLocalidade] = useState("São Paulo");
 
 const getNewTodayAds = async () => {
   setLoading(true)
@@ -71,6 +56,31 @@ const getNewUsedTodayAds = async () => {
   }
 }
 
+const getAdsByLocalidade = async () => {
+  setLoading(true)
+  try{
+    const token = await SecureStore.getItemAsync('session');
+    await SecureStore.setItemAsync('localidade', localidade)
+    console.log(localidade)
+    setAdData([])
+    const config = {
+      headers: {
+        Authorization: "Bearer " + token
+      }
+    }
+    const response = await axiosInstance.post("/api/advertisements/localidade", {localidade:localidade}, config)
+    setAdData(response.data.content)
+  } catch (error) {
+    console.log(error)
+  } finally{
+    setLoading(false)
+  }
+}
+
+useEffect(()=>{
+  getAdsByLocalidade()
+},[localidade])
+
 const refreshData = async () => {
   setAdData([])
   setNewTodayAds([])
@@ -82,8 +92,10 @@ const refreshData = async () => {
         Authorization: "Bearer " + token
       }
     }
-    const response = await axiosInstance.get("/api/advertisements/all", config)
-    setAdData(response.data)
+    const localidade = await SecureStore.getItemAsync('localidade');
+    const response = await axiosInstance.post("/api/advertisements/localidade", {localidade:localidade}, config)
+    await SecureStore.setItemAsync('localidade', localidade)
+    setAdData(response.data.content)
     const response2 = await axiosInstance.post("/api/advertisements/dataPostagem/estadoDaPeca", {estadoDaPeca:"Novo"},  config)
     setNewTodayAds(response2.data.content)
     const response3 = await axiosInstance.post("/api/advertisements/dataPostagem/estadoDaPeca", {estadoDaPeca:"Usado"},  config)
@@ -99,7 +111,6 @@ const refreshScreen = useCallback(()=>{
 },[])
 
   useEffect(() => {
-    getAds();
     getNewTodayAds();
     getNewUsedTodayAds();
   }, [])
@@ -135,32 +146,44 @@ const refreshScreen = useCallback(()=>{
               </View>
             </ScrollView>
           </View>
-          <View className="mb-8">
-            <Text className="text-3xl px-4">Peças para Street</Text>
-            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            <View className="flex flex-row px-4 py-2">
-                {adData.map((ad, index) => {
-                  return <HomeAd id={ad.id} key={index}></HomeAd>
-                }
-                )}
-              </View>
-            </ScrollView>
-          </View>
-          <View className="mb-8">
-            <Text className="text-3xl px-4">Peças para Park</Text>
-            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            <View className="flex flex-row px-4 py-2">
-                {adData.map((ad, index) => {
-                  return <HomeAd id={ad.id} key={index}></HomeAd>
-                }
-                )}
-              </View>
-            </ScrollView>
-          </View>
           <View className="mb-20">
-            <Text className="text-3xl px-4">Peças para Dirt</Text>
+            <View className="flex flex-row items-center mb-2">
+              <Text className="text-xl px-4">Peças em</Text>
+              <View className="w-60 border border-black rounded-md">
+                <Picker selectedValue={localidade} onValueChange={setLocalidade}>
+                  <Picker.Item label="Acre" value="Acre"></Picker.Item>
+                  <Picker.Item label="Alagoas" value="Alagoas"></Picker.Item>
+                  <Picker.Item label="Amapá" value="Amapá"></Picker.Item>
+                  <Picker.Item label="Amazonas" value="Amazonas"></Picker.Item>
+                  <Picker.Item label="Bahia" value="Bahia"></Picker.Item>
+                  <Picker.Item label="Ceará" value="Ceará"></Picker.Item>
+                  <Picker.Item label="Distrito Federal" value="Distrito Federal"></Picker.Item>
+                  <Picker.Item label="Espírito Santo" value="Espírito Santo"></Picker.Item>
+                  <Picker.Item label="Goiás" value="Goiás"></Picker.Item>
+                  <Picker.Item label="Maranhão" value="Maranhão"></Picker.Item>
+                  <Picker.Item label="Mato Grosso" value="Mato Grosso"></Picker.Item>
+                  <Picker.Item label="Mato Grosso do Sul" value="Mato Grosso do Sul"></Picker.Item>
+                  <Picker.Item label="Minas Gerais" value="Minas Gerais"></Picker.Item>
+                  <Picker.Item label="Pará" value="Pará"></Picker.Item>
+                  <Picker.Item label="Paraíba" value="Paraíba"></Picker.Item>
+                  <Picker.Item label="Paraná" value="Paraná"></Picker.Item>
+                  <Picker.Item label="Pernambuco" value="Pernambuco"></Picker.Item>
+                  <Picker.Item label="Piauí" value="Piauí"></Picker.Item>
+                  <Picker.Item label="Rio de Janeiro" value="Rio de Janeiro"></Picker.Item>
+                  <Picker.Item label="Rio Grande do Norte" value="Rio Grande do Norte"></Picker.Item>
+                  <Picker.Item label="Rio Grande do Sul" value="Rio Grande do Sul"></Picker.Item>
+                  <Picker.Item label="Rondônia" value="Rondônia"></Picker.Item>
+                  <Picker.Item label="Roraima" value="Roraima"></Picker.Item>
+                  <Picker.Item label="Santa Catarina" value="Santa Catarina"></Picker.Item>
+                  <Picker.Item label="São Paulo" value="São Paulo"></Picker.Item>
+                  <Picker.Item label="Sergipe" value="Sergipe"></Picker.Item>
+                  <Picker.Item label="Tocantins" value="Tocantins"></Picker.Item>
+                </Picker>
+              </View>
+            </View>
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             <View className="flex flex-row px-4 py-2">
+              {adData.length == 0 && <Text className="text-center text-2xl mt-10">Nenhum anúncio encontrado.</Text>}
                 {adData.map((ad, index) => {
                   return <HomeAd id={ad.id} key={index}></HomeAd>
                 }

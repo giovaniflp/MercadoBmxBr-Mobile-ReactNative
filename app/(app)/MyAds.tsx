@@ -85,6 +85,7 @@ export default function MyAds(){
             {loading && <ActivityIndicator className="absolute top-0 left-0 right-0 bottom-0" animating={true} color={MD2Colors.purpleA700} size={50}></ActivityIndicator>}
             <View className="mt-12">
                 <Text className="text-3xl m-1">Meus anúncios</Text>
+                {ads.length == 0 && <Text className="text-center text-2xl mt-20">Você ainda não possui anúncios cadastrados!</Text>}
                 <ScrollView className="mb-28" showsVerticalScrollIndicator={false}>
                     <View>
                         {ads.map((ad, index) => {
