@@ -43,11 +43,11 @@ export default function HomeAd({id} : {id: string}){
             }}>
                 <Card mode="elevated" className="w-60 h-96">
                     <Image style={{resizeMode:"cover"}} className="w-full h-60 rounded-t-lg" source={{uri:adData.imagem}}></Image>
-                    <View className="flex m-9">
+                    <View className="flex mt-4">
                         <Text className="text-center text-purple-700 text-lg">R${adData.preco}</Text>
                         {adData.marca == "OUTRA MARCA" ? <Text className="text-center text-lg">{adData.categoria}</Text> : <Text className="text-center text-lg">{adData.categoria} {adData.marca}</Text>}
-                        <View className="flex flex-row gap-4 justify-center">
-                            <Text className="text-center">{adData.localidade}</Text>
+                        <View className="flex flex-col justify-center my-4">
+                            <Text className="text-center text-yellow-500">{adData.localidade}</Text>
                             <Text className="text-center">{formatDate} às {formatHour}</Text>
                         </View>
                     </View>

@@ -2,10 +2,14 @@ import { View, Image, Text } from "react-native";
 import * as SecureStore from 'expo-secure-store';
 import axiosInstance from "../server/axios";
 import { useEffect, useState } from "react";
+import { format } from 'date-fns';
 
 export default function adDataAd({id} : {id: string}){
     
     const [adData, setAdData] = useState([])
+
+    const[formatDate, setFormatDate] = useState("")
+    const[formatHour, setFormatHour] = useState("")
 
     const getAdData = async () => {
         const token = await SecureStore.getItemAsync('session');
@@ -15,6 +19,8 @@ export default function adDataAd({id} : {id: string}){
             }
         }
         const response = await axiosInstance.get("/api/advertisements/" + id, config)
+        setFormatDate(format(new Date(response.data.dataPostagem), 'dd/MM/yyyy'))
+        setFormatHour(format(new Date(response.data.dataPostagem), 'HH:mm'))
         setAdData(response.data)
     }
 
@@ -33,13 +39,13 @@ export default function adDataAd({id} : {id: string}){
                                         ? <View className="flex justify-center ml-2">
                                         <Text className="text-white text-lg mb-2">{adData.categoria}</Text>
                                         <Text className="text-yellow-300 font-bold mb-2">Preço: R${adData.preco}</Text>
-                                        <Text className="text-white">Postagem: {adData.dataPostagem}</Text>
-                                        <Text className="text-white">Localidade: {adData.localidade}</Text>
+                                        <Text className="text-white">{formatDate} às {formatHour}</Text>
+                                        <Text className="text-yellow-300">{adData.localidade}</Text>
                                     </View> : <View className="flex justify-center ml-2">
                                             <Text className="text-white text-lg mb-2">{adData.categoria} {adData.marca}</Text>
                                             <Text className="text-yellow-300 font-bold mb-2">R$ {adData.preco}</Text>
-                                            <Text className="text-white">Postagem: {adData.dataPostagem}</Text>
-                                            <Text className="text-white">Localidade: {adData.localidade}</Text>
+                                            <Text className="text-white">{formatDate} às {formatHour}</Text>
+                                            <Text className="text-yellow-300">{adData.localidade}</Text>
                                         </View>} 
                                     </View>
                                     <View>

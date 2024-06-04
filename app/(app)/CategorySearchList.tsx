@@ -7,10 +7,15 @@ import HomeAd from "../components/HomeAd";
 import BottomBar from "../components/BottomBar";
 import { Picker } from "@react-native-picker/picker";
 import { ActivityIndicator, Button, MD2Colors  } from "react-native-paper";
+import { format } from 'date-fns';
+
 
 export default function CategorySearchList(){
     
     const { category } = useLocalSearchParams()
+
+    const[formatDate, setFormatDate] = useState("")
+    const[formatHour, setFormatHour] = useState("")
     
     const [adData, setAdData] = useState([])
     const [modal, setModal] = useState(false)
@@ -94,8 +99,14 @@ const subPage = async () => {
             Authorization: "Bearer " + token
             }
         }
-        const response = await axiosInstance.get(`/api/advertisements/category/${category}?page=0&size=10` , config)
-        setAdData(response.data.content)
+        await axiosInstance.get(`/api/advertisements/category/${category}?page=0&size=10` , config).then(response => {
+            response.data.content.map((ad) => {
+                setFormatDate(format(new Date(ad.dataPostagem), 'dd/MM/yyyy'))
+                setFormatHour(format(new Date(ad.dataPostagem), 'HH:mm'))
+            }
+            )
+            setAdData(response.data.content)
+        })
         }
         catch (error) {
             console.log(error)
@@ -215,13 +226,7 @@ const subPage = async () => {
                             </Picker>
                     </View>
                 </View>
-                {/* <View className="border-2 border-black rounded-lg w-60">
-                    <Picker>
-                        <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
-                        <Picker.Item label="Maior Preço" value="Maior Preço"></Picker.Item>
-                        <Picker.Item label="Menor Preço" value="Menor Preço"></Picker.Item>
-                    </Picker>
-                </View>
+                {/* 
                 <View className="border-2 border-black rounded-lg w-60">
                     <Picker>
                         <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
@@ -260,13 +265,13 @@ const subPage = async () => {
                                             {ad.marca == "OUTRA MARCA" 
                                             ? <View className="flex justify-center ml-2">
                                             <Text className="text-white text-lg mb-2">{ad.categoria}</Text>
-                                            <Text className="text-white">Estado: {ad.localidade}</Text>
-                                            <Text className="text-white">Postagem: {ad.dataPostagem}</Text>
-                                            <Text className="text-yellow-300 mt-4 font-bold">Preço: R${ad.preco}</Text>
+                                            <Text className="text-yellow-300">{ad.localidade}</Text>
+                                            <Text className="text-white">{formatDate} às {formatHour}</Text>
+                                            <Text className="text-yellow-300 mt-4 font-bold">R$ {ad.preco}</Text>
                                         </View> : <View className="flex justify-center ml-2">
                                                 <Text className="text-white text-lg mb-2">{ad.categoria} {ad.marca}</Text>
-                                                <Text className="text-white">Estado: {ad.localidade}</Text>
-                                                <Text className="text-white">Postagem: {ad.dataPostagem}</Text>
+                                                <Text className="text-yellow-300">{ad.localidade}</Text>
+                                                <Text className="text-white">{formatDate} às {formatHour}</Text>
                                                 <Text className="text-yellow-300 mt-4 font-bold">R$ {ad.preco}</Text>
                                             </View>} 
                                         </View>

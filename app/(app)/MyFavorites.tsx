@@ -76,6 +76,7 @@ export default function MyFavorites(){
             <View>
                 <ScrollView className="mb-28" showsVerticalScrollIndicator={false}>
                 <View>
+                    {favorites.length == 0 && <Text className="text-center text-2xl mt-20">Você ainda não tem favoritos.</Text>}
                     {favorites.map((favorite, index) => {
                         return (
                             <TouchableOpacity key={favorite.idAnuncio} onPress={()=>{

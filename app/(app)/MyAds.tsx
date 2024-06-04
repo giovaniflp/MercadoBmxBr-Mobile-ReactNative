@@ -42,13 +42,13 @@ export default function MyAds(){
                     Authorization: "Bearer " + token
                 }
             }
-            const response = await axiosInstance.get("/api/advertisements/user/" + decodeJwt, config)
-            ads.map((ad) => {
-                setFormatDate(format(new Date(ad.dataPostagem), 'dd/MM/yyyy'))
-                setFormatHour(format(new Date(ad.dataPostagem), 'HH:mm'))
+            await axiosInstance.get("/api/advertisements/user/" + decodeJwt, config).then((response) => {
+                response.data.map((ad) => {
+                    setFormatDate(format(new Date(ad.dataPostagem), 'dd/MM/yyyy'))
+                    setFormatHour(format(new Date(ad.dataPostagem), 'HH:mm'))
+                })
+                setAds(response.data);
             })
-            console.log(response.data);
-            setAds(response.data);
         } catch (error) {
             console.log(error);
         } finally {
