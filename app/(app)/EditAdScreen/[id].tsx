@@ -879,7 +879,7 @@ export default function EditAdScreen(){
                             <SpecialAspectsEdit categoria={categoria} onChangeState={updateFilho} data={adData}></SpecialAspectsEdit>
                         </View>
                         <View className="flex justify-center items-center mb-8">
-                            <Button mode="contained" className="bg-green-500 w-40" onPress={validateForm}>Anunciar</Button>
+                            <Button mode="contained" className="bg-green-500 w-40" onPress={validateForm}>Editar</Button>
                         </View>
                     </View>
                 )}

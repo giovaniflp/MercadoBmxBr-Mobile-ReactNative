@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
-import { TextInput, Button } from "react-native-paper";
+import { TextInput, Button, ActivityIndicator, MD2Colors } from "react-native-paper";
 import BottomBar from "../components/BottomBar";
 import SpecialAspects from "../components/SpecialAspects";
 import React, {useEffect, useState} from "react";
@@ -10,6 +10,8 @@ import { router } from "expo-router";
 import * as SecureStore from 'expo-secure-store';
 
 export default function FormAdScreen(){
+
+    const [loading, setLoading] = useState(false);
     
     const [abracadeiraDiametro, setAbracadeiraDiametro] = useState(null)
     const [aroTipoFolha, setAroTipoFolha] = useState(null)
@@ -492,6 +494,7 @@ export default function FormAdScreen(){
                 idUsuario: idUsuario,
                 imagem: uploadImagem
             };
+            setLoading(true);
             try {
                 const token = await SecureStore.getItemAsync('session');
                 const formData = new FormData();
@@ -526,6 +529,8 @@ export default function FormAdScreen(){
                     
             } catch (error) {
                 alert("Erro ao enviar imagem, tente novamente");
+            } finally{
+                setLoading(false);
             }
         }
     }
@@ -739,7 +744,7 @@ export default function FormAdScreen(){
                             <SpecialAspects categoria={categoria} onChangeState={updateFilho}></SpecialAspects>
                         </View>
                         <View className="flex justify-center items-center mb-8">
-                            <Button mode="contained" className="bg-green-500 w-40" onPress={validateForm}>Anunciar</Button>
+                        {loading ? <ActivityIndicator animating={true} color={MD2Colors.green500} size={40}/> : <Button mode="contained" className="bg-green-500 w-40" onPress={validateForm}>Anunciar</Button>}
                         </View>
                     </View>
                 )}

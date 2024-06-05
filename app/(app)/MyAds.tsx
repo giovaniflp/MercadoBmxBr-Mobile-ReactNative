@@ -84,7 +84,10 @@ export default function MyAds(){
         <View className="flex h-full bg-white">
             {loading && <ActivityIndicator className="absolute top-0 left-0 right-0 bottom-0" animating={true} color={MD2Colors.purpleA700} size={50}></ActivityIndicator>}
             <View className="mt-12">
-                <Text className="text-3xl m-1">Meus anúncios</Text>
+                <View className="flex flex-row items-center">
+                    <Text className="text-3xl m-1">Meus anúncios</Text>
+                    <Image className="w-8 h-8" source={require("../../public/icons/tagAdsPng.png")}></Image>
+                </View>
                 {ads.length == 0 && <Text className="text-center text-2xl mt-20">Você ainda não possui anúncios cadastrados!</Text>}
                 <ScrollView className="mb-28" showsVerticalScrollIndicator={false}>
                     <View>
@@ -100,23 +103,23 @@ export default function MyAds(){
                                 }}>
                                     <View className="bg-purple-700 m-1 p-2 flex flex-row justify-between items-center rounded-lg">
                                         <View className="flex flex-row">
-                                            <View>
+                                            <View className="flex justify-center">
                                                 <Image style={{resizeMode:"cover"}} source={{uri:ad.imagem}} className="w-24 h-24 rounded-lg"></Image>
                                             </View>
                                             {ad.marca == "OUTRA MARCA" 
                                             ? <View className="flex justify-center ml-2">
-                                            <Text className="text-white text-lg mb-2">{ad.categoria}</Text>
-                                            <Text className="text-yellow-300 font-bold mb-2">Preço: R${ad.preco}</Text>
-                                            <Text className="text-white">Postagem: {formatDate}</Text>
+                                            <Text className="text-white text-xs font-black mb-2">{ad.categoria}</Text>
+                                            <Text className="text-yellow-300 font-bold mb-2">R$ {ad.preco}</Text>
+                                            <Text className="text-white">{formatDate}</Text>
                                             <Text className="text-white">Whatsapp: {ad.whatsapp}</Text>
                                         </View> : <View className="flex justify-center ml-2">
-                                                <Text className="text-white text-lg mb-2">{ad.categoria} {ad.marca}</Text>
+                                                <Text className="text-white text-xs font-black mb-2">{ad.categoria} {ad.marca}</Text>
                                                 <Text className="text-yellow-300 font-bold mb-2">R$ {ad.preco}</Text>
-                                                <Text className="text-white">Postagem: {formatDate}</Text>
+                                                <Text className="text-white">{formatDate}</Text>
                                                 <Text className="text-white">Whatsapp: {ad.whatsapp}</Text>
                                             </View>} 
                                         </View>
-                                        <View>
+                                        <View className="flex gap-4">
                                             <TouchableOpacity onPress={()=>deleteAd(ad.id)}><Image className="w-10 h-10" source={require('../../public/icons/deletePng.png')}></Image></TouchableOpacity>
                                             <TouchableOpacity onPress={()=>{router.push({
                                                 pathname: "/EditAdScreen/[id]",

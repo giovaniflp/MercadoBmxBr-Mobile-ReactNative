@@ -141,8 +141,9 @@ export default function FullAdScreen(){
                         <Text className="mb-1">Estado da peça: {adData.estadoDaPeca}</Text>
                         <Text className="mb-1">Cor: {adData.cor}</Text>
                         <Text className="mb-1">Material: {adData.material}</Text>
-                        <Text className="mb-1">Peso aproximado: {adData.peso}</Text>
-                        <Text className="mb-1">Descrição: {adData.descricao}</Text>
+                        <Text className="mb-3">Peso aproximado: {adData.peso}</Text>
+                        <Text className="mb-1"><Text className="text-purple-700">Descrição</Text> -------------------------------------------------------------------------</Text>
+                        <Text>{adData.descricao}</Text>
                     </View>
                     <View className="mt-4 bg-gray-200 rounded-lg p-2">
                         <Text className="mb-4 text-purple-700">Características Específicas</Text>

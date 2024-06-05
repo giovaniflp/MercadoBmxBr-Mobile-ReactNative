@@ -21,6 +21,7 @@ export default function CategorySearchList(){
     const [modal, setModal] = useState(false)
     const [localidade, setLocalidade] = useState(null)
     const [estadoDaPeca, setEstadoDaPeca] = useState(null)
+    const [dataPostagem, setDataPostagem] = useState(null)
 
     const [valor, setValor] = useState(null)
 
@@ -225,15 +226,14 @@ const subPage = async () => {
                                 <Picker.Item label="Tocantins" value="Tocantins"></Picker.Item>
                             </Picker>
                     </View>
+                    <View className="border bg-purple-100 border-black rounded-md w-60 mt-2">
+                        <Picker selectedValue={dataPostagem} onValueChange={(value)=>{setDataPostagem(value)}}>
+                            <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
+                            <Picker.Item label="Anúncios mais recentes" value="Anúncios mais recentes"></Picker.Item>
+                            <Picker.Item label="Anúncios mais antigos" value="Anúncios mais antigos"></Picker.Item>
+                        </Picker>
+                    </View>
                 </View>
-                {/* 
-                <View className="border-2 border-black rounded-lg w-60">
-                    <Picker>
-                        <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
-                        <Picker.Item label="Postagem recente" value="Postagem Recente"></Picker.Item>
-                        <Picker.Item label="Postagem mais antiga" value="Postagem Mais Antiga"></Picker.Item>
-                    </Picker>
-                </View> */}
                 <View className="flex flex-col">
                     <TouchableOpacity onPress={filter} className="bg-green-500 p-3 rounded-lg w-32 mb-2">
                         <Text className="text-center">Pesquisar</Text>
@@ -264,12 +264,12 @@ const subPage = async () => {
                                             </View>
                                             {ad.marca == "OUTRA MARCA" 
                                             ? <View className="flex justify-center ml-2">
-                                            <Text className="text-white text-lg mb-2">{ad.categoria}</Text>
+                                            <Text className="text-white text-xs font-black mb-2">{ad.categoria}</Text>
                                             <Text className="text-yellow-300">{ad.localidade}</Text>
                                             <Text className="text-white">{formatDate} às {formatHour}</Text>
                                             <Text className="text-yellow-300 mt-4 font-bold">R$ {ad.preco}</Text>
                                         </View> : <View className="flex justify-center ml-2">
-                                                <Text className="text-white text-lg mb-2">{ad.categoria} {ad.marca}</Text>
+                                                <Text className="text-white text-xs font-black mb-2">{ad.categoria} {ad.marca}</Text>
                                                 <Text className="text-yellow-300">{ad.localidade}</Text>
                                                 <Text className="text-white">{formatDate} às {formatHour}</Text>
                                                 <Text className="text-yellow-300 mt-4 font-bold">R$ {ad.preco}</Text>

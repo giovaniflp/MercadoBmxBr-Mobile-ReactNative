@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import { Button, TextInput } from "react-native-paper";
 import BottomBar from "../components/BottomBar";
 import * as SecureStore from 'expo-secure-store';
@@ -73,19 +73,23 @@ export default function DeleteAccount(){
 
     return(
         <View className="h-full bg-white flex justify-center items-center">
-            <Text>Deseja realmente excluir sua conta?</Text>
-            <Text>Com isso, excluirá também permanentemente seus anúncios e favoritos.</Text>
+            <Image className="w-40 h-40" source={require("../../public/icons/sadPng.png")}></Image>
+            <Text className="text-xl">Deseja realmente excluir sua conta?</Text>
+            <Text className="text-xs">excluirá também <Text className="text-red-500 font-bold">permanentemente</Text> seus anúncios e favoritos.</Text>
             <View className="flex flex-row">
-                <Button onPress={()=>{setModal(true)}}>Sim</Button>
-                <Button onPress={()=>{setModal(false)}}>Não</Button>
+                <Button mode="contained" className="my-4 bg-black w-60" onPress={()=>{setModal(!modal)}}>Sim, desejo continuar.</Button>
             </View>
             {modal &&
                 <View>
-                    <Text>Insira o código abaixo e sua senha atual para confirmar</Text>
-                    <Text className="text-purple-700">{randomCode}</Text>
-                    <TextInput value={code} onChangeText={setCode} label="Código" mode="outlined"></TextInput>
-                    <TextInput value={password} onChangeText={setPassword} label="Senha" mode="outlined"></TextInput>
-                    <Button onPress={deleteUser}>Deletar</Button>
+                    <Text>Insira o código abaixo e sua senha atual para confirmar.</Text>
+                    <Text className="text-purple-700 text-center my-2 text-xl">{randomCode}</Text>
+                    <View className="flex items-center mb-4 gap-2">
+                        <TextInput className="w-60" value={code} onChangeText={setCode} label="Código" mode="outlined"></TextInput>
+                        <TextInput className="w-60" value={password} onChangeText={setPassword} label="Senha atual" mode="outlined"></TextInput>
+                    </View>
+                    <View className="flex items-center">
+                        <Button mode="contained" className="w-40 bg-red-500" onPress={deleteUser}>Deletar Conta</Button>
+                    </View>
                 </View>
             }
             <BottomBar screen="MenuScreen"></BottomBar>

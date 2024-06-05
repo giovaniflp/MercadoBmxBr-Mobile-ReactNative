@@ -1,7 +1,7 @@
 import { router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { Button, TextInput, ActivityIndicator, MD2Colors } from "react-native-paper";
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import axiosInstance from "../server/axios";
 import * as SecureStore from 'expo-secure-store';
 import { useSession } from "../../auth/ctx";
@@ -52,10 +52,10 @@ export default function EmailChangeVerification(){
                     alert("Conta ativada com sucesso!")
                     signOut()
                 } else {
-                    alert("Erro ao validar conta!")
+                    alert("Erro ao validar e-mail!")
                 }
             }).catch((error) => {
-                alert("Erro ao validar conta!")
+                alert("Erro ao validar e-mail!")
             })
         } catch(error){
             alert("Erro ao validar conta!")
@@ -69,11 +69,12 @@ export default function EmailChangeVerification(){
 
     return(
         <View className="h-full bg-white flex justify-center items-center">
+            <Image className="w-20 h-20" source={require("../../public/icons/emailSendPng.png")}></Image>
             <Text>Verifique seu email: <Text className="text-purple-700">{newEmail}</Text></Text>
             <Text className="mt-2">Insira o <Text className="text-green-500">código</Text> recebido abaixo</Text>
             <TextInput className="w-60 my-4" maxLength={6} label="Código" mode="outlined" value={code} onChangeText={setCode} />
-            {loading ? <ActivityIndicator animating={true} color={MD2Colors.green500} size={40}/> : <Button mode='contained' className="bg-green-500 w-40" onPress={sendEmailCode}>Enviar código</Button>}
-            {loading2 ? <ActivityIndicator className="mt-2" animating={true} color={MD2Colors.purpleA700} size={40}/> : <Button mode='contained' className="bg-purple-500 w-40 mt-2" onPress={activateAccount}>Ativar conta</Button>}
+            {loading ? <ActivityIndicator animating={true} color={MD2Colors.green500} size={40}/> : <Button mode='contained' className="bg-green-500 w-60" onPress={sendEmailCode}>Enviar código</Button>}
+            {loading2 ? <ActivityIndicator className="mt-2" animating={true} color={MD2Colors.purpleA700} size={40}/> : <Button mode='contained' className="bg-purple-500 w-60 mt-2" onPress={activateAccount}>Verificar novo email!</Button>}
             <BottomBar screen="MenuScreen"></BottomBar>
         </View>
     )

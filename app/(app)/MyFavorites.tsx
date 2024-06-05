@@ -88,7 +88,7 @@ export default function MyFavorites(){
                                 })
                             }}>
                                 <FavoriteAd id={favorite.idAnuncio}></FavoriteAd>
-                                <View className="absolute right-2 top-20">
+                                <View className="absolute right-4 top-16">
                                     <TouchableOpacity onPress={()=>removeFavorite(favorite.idAnuncio)}><Image className="w-10 h-10" source={require('../../public/icons/deletePng.png')}></Image></TouchableOpacity>
                                 </View>
                             </TouchableOpacity>

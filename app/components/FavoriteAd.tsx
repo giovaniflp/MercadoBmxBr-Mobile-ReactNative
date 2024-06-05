@@ -37,12 +37,12 @@ export default function adDataAd({id} : {id: string}){
                                         </View>
                                         {adData.marca == "OUTRA MARCA" 
                                         ? <View className="flex justify-center ml-2">
-                                        <Text className="text-white text-lg mb-2">{adData.categoria}</Text>
-                                        <Text className="text-yellow-300 font-bold mb-2">Preço: R${adData.preco}</Text>
+                                        <Text className="text-white text-xs font-black mb-2">{adData.categoria}</Text>
+                                        <Text className="text-yellow-300 font-bold mb-2">R$ {adData.preco}</Text>
                                         <Text className="text-white">{formatDate} às {formatHour}</Text>
                                         <Text className="text-yellow-300">{adData.localidade}</Text>
                                     </View> : <View className="flex justify-center ml-2">
-                                            <Text className="text-white text-lg mb-2">{adData.categoria} {adData.marca}</Text>
+                                            <Text className="text-white text-xs font-black mb-2">{adData.categoria} {adData.marca}</Text>
                                             <Text className="text-yellow-300 font-bold mb-2">R$ {adData.preco}</Text>
                                             <Text className="text-white">{formatDate} às {formatHour}</Text>
                                             <Text className="text-yellow-300">{adData.localidade}</Text>

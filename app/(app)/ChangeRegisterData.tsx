@@ -1,4 +1,4 @@
-import { View, Text, Linking } from "react-native";
+import { View, Text, Linking, Image } from "react-native";
 import { TextInput, Button, ActivityIndicator, MD2Colors } from "react-native-paper";
 import { useEffect, useState } from "react";
 import * as SecureStore from 'expo-secure-store';
@@ -70,7 +70,7 @@ export default function ChangeRegisterData(){
                 if(novaSenha != confirmarNovaSenha){
                     alert("As senhas não coincidem!")
                 } if(nomeNovo == "" || emailNovo == "" || senhaAntiga == "" || novaSenha == "" || confirmarNovaSenha == ""){
-                    alert("Preencha algum campos!")
+                    alert("Preencha algum campo!")
                 }
                 else{
                     if(nomeNovo){
@@ -105,6 +105,7 @@ export default function ChangeRegisterData(){
 
     return(
         <View className="pt-12 h-full bg-white flex justify-center items-center">
+            <Image className="w-28 h-28" source={require("../../public/icons/registerDetailsPng.png")}></Image>
             <Text className="mb-4 text-3xl">Alteração de cadastro</Text>
             <TextInput label={"Nome atual: " + nome} mode="outlined" className="text-black text-sm w-80 h-10 mb-2" value={nomeNovo} onChangeText={setNomeNovo}></TextInput>
             <TextInput label={"Email atual: " + email} mode="outlined" className="text-black text-sm w-80 h-10 mb-2" value={emailNovo} onChangeText={setEmailNovo}></TextInput>
@@ -112,12 +113,12 @@ export default function ChangeRegisterData(){
             <TextInput label="Nova senha" mode="outlined" value={novaSenha} onChangeText={setNovaSenha} className="text-black text-sm w-80 h-10 mb-2"></TextInput>
             <TextInput label="Confirmar nova senha" mode="outlined" value={confirmarNovaSenha} onChangeText={setConfirmarNovaSenha} className="text-black text-sm w-80 h-10"></TextInput>
             <View className="flex gap-2 my-4">
-                {loading ? <ActivityIndicator animating={true} color={MD2Colors.green500} size={40}/> : <Button onPress={changeRegisterData} mode='contained' className="bg-green-500 w-40">Alterar Dados</Button>}
+                {loading ? <ActivityIndicator animating={true} color={MD2Colors.green500} size={40}/> : <Button onPress={changeRegisterData} mode='contained' className="bg-green-500 w-60">Alterar Dados</Button>}
                 <Button onPress={()=>{router.push({
                     pathname: "/DeleteAccount"
-                })}} mode='contained' className="bg-red-500 w-40">Excluir conta</Button>
+                })}} mode='contained' className="bg-red-500 w-60">Desejo excluir minha conta</Button>
             </View>
-            <Text>Em caso de problemas, contate o suporte</Text>
+            <Text className="text-xs">Em caso de problemas, denúncias ou mais, nos contate!</Text>
             <Text className="text-purple-700" onPress={()=>{Linking.openURL("mailto:mercadobmxbr@gmail.com?subject=Suporte")}}>mercadobmxbr@gmail.com</Text>
             <BottomBar screen="MenuScreen"></BottomBar>
         </View>
