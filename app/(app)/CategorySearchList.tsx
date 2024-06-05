@@ -22,6 +22,7 @@ export default function CategorySearchList(){
     const [localidade, setLocalidade] = useState(null)
     const [estadoDaPeca, setEstadoDaPeca] = useState(null)
     const [dataPostagem, setDataPostagem] = useState(null)
+    const [marca, setMarca] = useState(null)
 
     const [valor, setValor] = useState(null)
 
@@ -40,19 +41,23 @@ const addPage = async () => {
     const newPage = page + 1; // Calcular o novo valor de page
     setPage(newPage) // Atualizar o estado
 
-    if(localidade == null && estadoDaPeca == null && valor == null){
+    if(localidade == null && estadoDaPeca == null && valor == null && dataPostagem == null){
+        setAdData([])
         const response = await axiosInstance.get(`/api/advertisements/category/${category}?page=${newPage}&size=10` , config)
         if(response.data.content.length == 0){
             alert("Não há mais páginas disponíveis")
             setPage(page)
+            setAdData(response.data.content)
         } else{
             setAdData(response.data.content)
         }
     } else{
+        setAdData([])
         const response = await axiosInstance.get(`/api/advertisements/pagination?categoria=${category}&page=${newPage}&size=10&sortBy=preco&asc=false`, config)
         if(response.data.content.length == 0){
             alert("Não há mais páginas disponíveis")
             setPage(page)
+            setAdData(response.data.content)
         } else{
             setAdData(response.data.content)
         }
@@ -75,12 +80,26 @@ const subPage = async () => {
         const newPage = page - 1; // Calcular o novo valor de page
         setPage(newPage) // Atualizar o estado
 
-        if(localidade == null && estadoDaPeca == null && valor == null){
-            const response = await axiosInstance.get(`/api/advertisements/category/${category}?page=${newPage}&size=10` , config)
-            setAdData(response.data.content)
+        if(localidade == null && estadoDaPeca == null && valor == null && dataPostagem == null){
+            setAdData([])
+            const response = await axiosInstance.get(`/api/advertisements/category/${category}?page=${newPage}&size=10` , config).then(response => {
+                response.data.content.map((ad) => {
+                    const formatdate = format(new Date(ad.dataPostagem), "dd/MM/yyyy 'às' HH:mm")
+                    ad.dataPostagem = formatdate;
+                }
+                )
+                setAdData(response.data.content)
+            })
         } else{
-            const response = await axiosInstance.get(`/api/advertisements/pagination?categoria=${category}&page=${newPage}&size=10&sortBy=preco&asc=false`, config)
-            setAdData(response.data.content)
+            setAdData([])
+            await axiosInstance.get(`/api/advertisements/pagination?categoria=${category}&page=${newPage}&size=10&sortBy=preco&asc=false`, config).then(response => {
+                response.data.content.map((ad) => {
+                    const formatdate = format(new Date(ad.dataPostagem), "dd/MM/yyyy 'às' HH:mm")
+                    ad.dataPostagem = formatdate;
+                }
+                )
+                setAdData(response.data.content)
+            })
         }
 
     }
@@ -102,8 +121,8 @@ const subPage = async () => {
         }
         await axiosInstance.get(`/api/advertisements/category/${category}?page=0&size=10` , config).then(response => {
             response.data.content.map((ad) => {
-                setFormatDate(format(new Date(ad.dataPostagem), 'dd/MM/yyyy'))
-                setFormatHour(format(new Date(ad.dataPostagem), 'HH:mm'))
+                const formatdate = format(new Date(ad.dataPostagem), "dd/MM/yyyy 'às' HH:mm")
+                ad.dataPostagem = formatdate;
             }
             )
             setAdData(response.data.content)
@@ -122,7 +141,6 @@ const subPage = async () => {
         setEstadoDaPeca(null)
         setModal(false)
         getAds();
-    
     }
 
     useEffect(() => {
@@ -233,6 +251,43 @@ const subPage = async () => {
                             <Picker.Item label="Anúncios mais antigos" value="Anúncios mais antigos"></Picker.Item>
                         </Picker>
                     </View>
+                    <View className="border bg-purple-100 border-black rounded-md w-60 mt-2">
+
+                    <Picker selectedValue={marca} onValueChange={setMarca}>
+                            <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
+                            <Picker.Item label="OUTRA MARCA" value="OUTRA MARCA" />
+                            <Picker.Item label="Animal" value="Animal" />
+                            <Picker.Item label="BSD" value="BSD" />
+                            <Picker.Item label="Cinema" value="Cinema" />
+                            <Picker.Item label="Colony" value="Colony" />
+                            <Picker.Item label="Cult" value="Cult" />
+                            <Picker.Item label="Demolition" value="Demolition" />
+                            <Picker.Item label="Division" value="Division" />
+                            <Picker.Item label="Drb" value="Drb" />
+                            <Picker.Item label="Eclat" value="Eclat" />
+                            <Picker.Item label="Federal" value="Federal" />
+                            <Picker.Item label="Fiend" value="Fiend" />
+                            <Picker.Item label="FitBikeCo" value="FitBikeCo" />
+                            <Picker.Item label="Fly" value="Fly" />
+                            <Picker.Item label="G-Sport" value="G-Sport" />
+                            <Picker.Item label="Gios" value="Gios" />
+                            <Picker.Item label="Haro" value="Haro" />
+                            <Picker.Item label="Kink" value="Kink" />
+                            <Picker.Item label="Magic Flute" value="Magic Flute" />
+                            <Picker.Item label="Master Bikes" value="Master Bikes" />
+                            <Picker.Item label="Merrit" value="Merrit" />
+                            <Picker.Item label="Mob" value="Mob" />
+                            <Picker.Item label="Odyssey" value="Odyssey" />
+                            <Picker.Item label="Polso" value="Polso" />
+                            <Picker.Item label="Primo" value="Primo" />
+                            <Picker.Item label="Profile" value="Profile" />
+                            <Picker.Item label="Pro-X" value="Pro-X" />
+                            <Picker.Item label="Sunday" value="Sunday" />
+                            <Picker.Item label="United" value="United" />
+                            <Picker.Item label="Volume" value="Volume" />
+                            <Picker.Item label="We The People" value="We The People" />
+                        </Picker>
+                    </View>
                 </View>
                 <View className="flex flex-col">
                     <TouchableOpacity onPress={filter} className="bg-green-500 p-3 rounded-lg w-32 mb-2">
@@ -266,12 +321,12 @@ const subPage = async () => {
                                             ? <View className="flex justify-center ml-2">
                                             <Text className="text-white text-xs font-black mb-2">{ad.categoria}</Text>
                                             <Text className="text-yellow-300">{ad.localidade}</Text>
-                                            <Text className="text-white">{formatDate} às {formatHour}</Text>
+                                            <Text className="text-white">{ad.dataPostagem}</Text>
                                             <Text className="text-yellow-300 mt-4 font-bold">R$ {ad.preco}</Text>
                                         </View> : <View className="flex justify-center ml-2">
                                                 <Text className="text-white text-xs font-black mb-2">{ad.categoria} {ad.marca}</Text>
                                                 <Text className="text-yellow-300">{ad.localidade}</Text>
-                                                <Text className="text-white">{formatDate} às {formatHour}</Text>
+                                                <Text className="text-white">{ad.dataPostagem}</Text>
                                                 <Text className="text-yellow-300 mt-4 font-bold">R$ {ad.preco}</Text>
                                             </View>} 
                                         </View>

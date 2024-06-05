@@ -44,8 +44,8 @@ export default function MyAds(){
             }
             await axiosInstance.get("/api/advertisements/user/" + decodeJwt, config).then((response) => {
                 response.data.map((ad) => {
-                    setFormatDate(format(new Date(ad.dataPostagem), 'dd/MM/yyyy'))
-                    setFormatHour(format(new Date(ad.dataPostagem), 'HH:mm'))
+                    const formatdate = format(new Date(ad.dataPostagem), "dd/MM/yyyy 'às' HH:mm")
+                    ad.dataPostagem = formatdate;
                 })
                 setAds(response.data);
             })
@@ -110,12 +110,12 @@ export default function MyAds(){
                                             ? <View className="flex justify-center ml-2">
                                             <Text className="text-white text-xs font-black mb-2">{ad.categoria}</Text>
                                             <Text className="text-yellow-300 font-bold mb-2">R$ {ad.preco}</Text>
-                                            <Text className="text-white">{formatDate}</Text>
+                                            <Text className="text-white">{ad.dataPostagem}</Text>
                                             <Text className="text-white">Whatsapp: {ad.whatsapp}</Text>
                                         </View> : <View className="flex justify-center ml-2">
                                                 <Text className="text-white text-xs font-black mb-2">{ad.categoria} {ad.marca}</Text>
                                                 <Text className="text-yellow-300 font-bold mb-2">R$ {ad.preco}</Text>
-                                                <Text className="text-white">{formatDate}</Text>
+                                                <Text className="text-white">{ad.dataPostagem}</Text>
                                                 <Text className="text-white">Whatsapp: {ad.whatsapp}</Text>
                                             </View>} 
                                         </View>

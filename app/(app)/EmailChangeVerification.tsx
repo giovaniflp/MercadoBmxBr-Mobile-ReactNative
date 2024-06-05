@@ -74,7 +74,7 @@ export default function EmailChangeVerification(){
             <Text className="mt-2">Insira o <Text className="text-green-500">código</Text> recebido abaixo</Text>
             <TextInput className="w-60 my-4" maxLength={6} label="Código" mode="outlined" value={code} onChangeText={setCode} />
             {loading ? <ActivityIndicator animating={true} color={MD2Colors.green500} size={40}/> : <Button mode='contained' className="bg-green-500 w-60" onPress={sendEmailCode}>Enviar código</Button>}
-            {loading2 ? <ActivityIndicator className="mt-2" animating={true} color={MD2Colors.purpleA700} size={40}/> : <Button mode='contained' className="bg-purple-500 w-60 mt-2" onPress={activateAccount}>Verificar novo email!</Button>}
+            {loading2 ? <ActivityIndicator className="mt-2" animating={true} color={MD2Colors.purpleA700} size={40}/> : <Button mode='contained' className="bg-purple-500 w-60 mt-2" onPress={activateAccount}>Verificar seu novo email!</Button>}
             <BottomBar screen="MenuScreen"></BottomBar>
         </View>
     )

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import { Button, TextInput } from "react-native-paper";
 import BottomBar from "../components/BottomBar";
 import * as SecureStore from 'expo-secure-store';
@@ -24,6 +24,8 @@ export default function DeleteAccount(){
     const [id, setId] = useState("");
     const [code, setCode] = useState("");
     const [password, setPassword] = useState("");
+
+    const [seePassword, setSeePassword] = useState(true);
 
     const [modal, setModal] = useState(false);
     const [randomCode, setRandomCode] = useState("");
@@ -85,7 +87,12 @@ export default function DeleteAccount(){
                     <Text className="text-purple-700 text-center my-2 text-xl">{randomCode}</Text>
                     <View className="flex items-center mb-4 gap-2">
                         <TextInput className="w-60" value={code} onChangeText={setCode} label="Código" mode="outlined"></TextInput>
-                        <TextInput className="w-60" value={password} onChangeText={setPassword} label="Senha atual" mode="outlined"></TextInput>
+                        <View className="relative">
+                            <TextInput secureTextEntry={seePassword} maxLength={16} className="w-60" value={password} onChangeText={setPassword} label="Senha atual" mode="outlined"></TextInput>
+                            <TouchableOpacity onPress={()=>setSeePassword(!seePassword)} className="absolute top-4 right-3">
+                                <Image className="w-8 h-8" source={seePassword ? require("../../public/icons/hidePng.png") : require("../../public/icons/visibilityPng.png")}></Image>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                     <View className="flex items-center">
                         <Button mode="contained" className="w-40 bg-red-500" onPress={deleteUser}>Deletar Conta</Button>

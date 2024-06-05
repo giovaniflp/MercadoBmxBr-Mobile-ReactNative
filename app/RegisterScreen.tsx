@@ -69,7 +69,7 @@ export default function RegisterScreen(){
                         Faça seu cadastro!
                     </Text>
                     <View className="my-4">
-                        <TextInput label="Nome" mode="outlined" value={name} onChangeText={setName} className="text-black text-sm w-60" placeholder="Insira aqui seu nome"></TextInput>
+                        <TextInput maxLength={32} label="Nome" mode="outlined" value={name} onChangeText={setName} className="text-black text-sm w-60" placeholder="Insira aqui seu nome"></TextInput>
                     </View>
                     <View className="mb-4">
                         <TextInput label="E-mail" mode="outlined" value={email} onChangeText={setEmail} className="text-black text-sm w-60" placeholder="Insira aqui seu email" inputMode="email"></TextInput>
