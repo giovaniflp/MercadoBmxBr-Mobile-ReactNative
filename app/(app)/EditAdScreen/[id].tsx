@@ -31,7 +31,7 @@ export default function EditAdScreen(){
             setCategory(response.data.categoria)
             setMarca(response.data.marca)
             setModelo(response.data.modelo)
-            setPreco(response.data.preco)
+            setPreco(response.data.preco.toString());
             setLocalidade(response.data.localidade)
             setEstadoDaPeca(response.data.estadoDaPeca)
             setGrauDeDesgaste(response.data.grauDeDesgaste)
