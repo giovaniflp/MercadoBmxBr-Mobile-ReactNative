@@ -19,11 +19,11 @@ export default function CategorySearchList(){
     
     const [adData, setAdData] = useState([])
     const [modal, setModal] = useState(false)
+
     const [localidade, setLocalidade] = useState(null)
     const [estadoDaPeca, setEstadoDaPeca] = useState(null)
     const [dataPostagem, setDataPostagem] = useState(null)
     const [marca, setMarca] = useState(null)
-
     const [valor, setValor] = useState(null)
 
     const [loading, setLoading] = useState(false)
@@ -41,16 +41,21 @@ const addPage = async () => {
     const newPage = page + 1; // Calcular o novo valor de page
     setPage(newPage) // Atualizar o estado
 
-    if(localidade == null && estadoDaPeca == null && valor == null && dataPostagem == null){
-        setAdData([])
-        const response = await axiosInstance.get(`/api/advertisements/category/${category}?page=${newPage}&size=10` , config)
-        if(response.data.content.length == 0){
-            alert("Não há mais páginas disponíveis")
-            setPage(page)
-            setAdData(response.data.content)
-        } else{
-            setAdData(response.data.content)
-        }
+    if(localidade == null && estadoDaPeca == null && valor == null && dataPostagem == null && marca == null){
+        await axiosInstance.get(`/api/advertisements/category/${category}?page=${newPage}&size=10` , config).then(response => {
+            if(response.data.content.length == 0){
+                alert("Não há mais páginas disponíveis")
+                setPage(newPage - 1)
+            } else {
+                setAdData([])
+                response.data.content.map((ad) => {
+                    const formatdate = format(new Date(ad.dataPostagem), "dd/MM/yyyy 'às' HH:mm")
+                    ad.dataPostagem = formatdate;
+                }
+                )
+                setAdData(response.data.content)
+            }
+        })
     } else{
         setAdData([])
         const response = await axiosInstance.get(`/api/advertisements/pagination?categoria=${category}&page=${newPage}&size=10&sortBy=preco&asc=false`, config)
@@ -80,9 +85,9 @@ const subPage = async () => {
         const newPage = page - 1; // Calcular o novo valor de page
         setPage(newPage) // Atualizar o estado
 
-        if(localidade == null && estadoDaPeca == null && valor == null && dataPostagem == null){
+        if(localidade == null && estadoDaPeca == null && valor == null && dataPostagem == null && marca == null){
             setAdData([])
-            const response = await axiosInstance.get(`/api/advertisements/category/${category}?page=${newPage}&size=10` , config).then(response => {
+            await axiosInstance.get(`/api/advertisements/category/${category}?page=${newPage}&size=10` , config).then(response => {
                 response.data.content.map((ad) => {
                     const formatdate = format(new Date(ad.dataPostagem), "dd/MM/yyyy 'às' HH:mm")
                     ad.dataPostagem = formatdate;
@@ -101,7 +106,6 @@ const subPage = async () => {
                 setAdData(response.data.content)
             })
         }
-
     }
 }
 
@@ -139,6 +143,9 @@ const subPage = async () => {
     const removefilter = () => {
         setLocalidade(null)
         setEstadoDaPeca(null)
+        setValor(null)
+        setDataPostagem(null)
+        setMarca(null)
         setModal(false)
         getAds();
     }
@@ -342,12 +349,12 @@ const subPage = async () => {
                     }
                 </View>
                 <View className="flex flex-row justify-center items-center my-4">
-                    <TouchableOpacity className="bg-purple-700 rounded-full w-10 h-10 flex justify-center items-center" onPress={subPage}>
-                        <Text className="text-white font-extrabold">-</Text>
+                    <TouchableOpacity className="w-10 h-10 flex justify-center items-center" onPress={subPage}>
+                        <Image source={require("../../public/icons/arrowLeftPNG.png")} className="w-10 h-10"></Image>
                     </TouchableOpacity>
                     <Text className="mx-5 text-xl">Página {page + 1}</Text>
-                    <TouchableOpacity className="bg-purple-700 rounded-full w-10 h-10 flex justify-center items-center" onPress={addPage}>
-                        <Text className="text-white font-extrabold">+</Text>
+                    <TouchableOpacity className="w-10 h-10 flex justify-center items-center" onPress={addPage}>
+                        <Image source={require("../../public/icons/arrowRightPNG.png")} className="w-10 h-10"></Image>
                     </TouchableOpacity>
                 </View>
             </ScrollView>
