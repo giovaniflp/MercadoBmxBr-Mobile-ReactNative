@@ -381,15 +381,20 @@ export default function FormAdScreen(){
     const [uploadImagem, setUploadImagem] = useState(null);
 
     const pickImage = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            aspect: [4,3],
-            quality: 1,
-            allowsMultipleSelection: true
-        });
-
-        if (!result.canceled) {
-            setImagem(result.assets[0].uri);
+        try{
+            let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                aspect: [4,3],
+                quality: 1,
+                allowsMultipleSelection: true
+            });
+    
+            if (!result.canceled) {
+                setImagem(result.assets[0].uri);
+            }
+        } catch(error){
+            console.log(error);
+            alert("O formato da imagem não é suportado, tente outro formato.")
         }
     }
     

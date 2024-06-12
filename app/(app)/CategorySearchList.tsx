@@ -38,6 +38,14 @@ const addPage = async () => {
         }
     }
 
+    const formData = {
+        localidade: localidade,
+        estadoDaPeca: estadoDaPeca,
+        valor: valor,
+        dataPostagem: dataPostagem,
+        marca: marca
+    }
+
     const newPage = page + 1; // Calcular o novo valor de page
     setPage(newPage) // Atualizar o estado
 
@@ -57,15 +65,20 @@ const addPage = async () => {
             }
         })
     } else{
-        setAdData([])
-        const response = await axiosInstance.get(`/api/advertisements/pagination?categoria=${category}&page=${newPage}&size=10&sortBy=preco&asc=false`, config)
-        if(response.data.content.length == 0){
-            alert("Não há mais páginas disponíveis")
-            setPage(page)
+        await axiosInstance.post(`/api/advertisements/category/${category}/filter?page=${newPage}&size=10`, formData, config).then(response => {
+            if(response.data.content.length == 0){
+                alert("Não há mais páginas disponíveis")
+                setPage(newPage - 1)
+            } else{
+                setAdData([])
+                response.data.content.map((ad) => {
+                const formatdate = format(new Date(ad.dataPostagem), "dd/MM/yyyy 'às' HH:mm")
+                ad.dataPostagem = formatdate;
+            }
+            )
             setAdData(response.data.content)
-        } else{
-            setAdData(response.data.content)
-        }
+            }
+        })
     }
 
 }
@@ -76,6 +89,14 @@ const subPage = async () => {
         headers: {
             Authorization: "Bearer " + token
         }
+    }
+
+    const formData = {
+        localidade: localidade,
+        estadoDaPeca: estadoDaPeca,
+        valor: valor,
+        dataPostagem: dataPostagem,
+        marca: marca
     }
 
     if (page == 0) {
@@ -96,14 +117,19 @@ const subPage = async () => {
                 setAdData(response.data.content)
             })
         } else{
-            setAdData([])
-            await axiosInstance.get(`/api/advertisements/pagination?categoria=${category}&page=${newPage}&size=10&sortBy=preco&asc=false`, config).then(response => {
-                response.data.content.map((ad) => {
+            await axiosInstance.post(`/api/advertisements/category/${category}/filter?page=${newPage}&size=10`, formData, config).then(response => {
+                if(response.data.content.length == 0){
+                    alert("Não há mais páginas disponíveis")
+                    setPage(newPage - 1)
+                } else{
+                    setAdData([])
+                    response.data.content.map((ad) => {
                     const formatdate = format(new Date(ad.dataPostagem), "dd/MM/yyyy 'às' HH:mm")
                     ad.dataPostagem = formatdate;
                 }
                 )
                 setAdData(response.data.content)
+                }
             })
         }
     }
@@ -163,30 +189,40 @@ const subPage = async () => {
                 Authorization: "Bearer " + token
                 }
             }
-            if(localidade != null && estadoDaPeca == null){
-                console.log(localidade)
-                const response = await axiosInstance.get("/api/advertisements/category/" + category + "/localidade/" + localidade, config)
-                setAdData(response.data)
-                console.log(adData)
-            } else if (localidade == null && estadoDaPeca != null){
-                const response = await axiosInstance.get("/api/advertisements/category/" + category + "/estadoDaPeca/" + estadoDaPeca, config)
-                console.log(response.data)
-                setAdData(response.data)
-            } else if (localidade != null && estadoDaPeca != null){
-                const response = await axiosInstance.get("/api/advertisements/category/" + category + "/localidade/" + localidade + "/estadoDaPeca/" + estadoDaPeca, config)
-                console.log(response.data)
-                setAdData(response.data)
+            const formData = {
+                localidade: localidade,
+                estadoDaPeca: estadoDaPeca,
+                valor: valor,
+                dataPostagem: dataPostagem,
+                marca: marca
             }
-            else if(valor != null){
-                if(valor == "Menor Valor"){
-                    const response = await axiosInstance.get("/api/advertisements/pagination?categoria=" + category + "&page=" + page + "&size=10&sortBy=preco&asc=true", config)
+
+            if(localidade == null && estadoDaPeca == null && valor == null && dataPostagem == null && marca == null){
+                await axiosInstance.get(`/api/advertisements/category/${category}?page=0&size=10` , config).then(response => {
+                    response.data.content.map((ad) => {
+                        const formatdate = format(new Date(ad.dataPostagem), "dd/MM/yyyy 'às' HH:mm")
+                        ad.dataPostagem = formatdate;
+                    }
+                    )
                     setAdData(response.data.content)
-                } else if(valor == "Maior Valor"){
-                    const response = await axiosInstance.get("/api/advertisements/pagination?categoria=" + category + "&page=" + page + "&size=10&sortBy=preco&asc=false", config)
+                })
+            } else{
+                await axiosInstance.post(`/api/advertisements/category/${category}/filter?page=0&size=10`, formData, config).then(response => {
+                    if(response.data.content.length == 0){
+                        alert("Não há anúncios com esses filtros.")
+                        setPage(0)
+                        setAdData([])
+                    } else{
+                        setAdData([])
+                        setPage(0)
+                        response.data.content.map((ad) => {
+                        const formatdate = format(new Date(ad.dataPostagem), "dd/MM/yyyy 'às' HH:mm")
+                        ad.dataPostagem = formatdate;
+                    }
+                    )
                     setAdData(response.data.content)
-                }
-            } else {
-                alert("Selecione um filtro")
+                    }
+                })
             }
         } catch (error) {
             console.log(error)
@@ -206,22 +242,29 @@ const subPage = async () => {
             {modal && <View className="flex flex-row items-center justify-center gap-4 p-4">
                 <View>
                     <View className="border bg-purple-100 border-black rounded-md w-60 mb-2">
-                        <Picker selectedValue={estadoDaPeca} onValueChange={(value)=>setEstadoDaPeca(value)}>
-                            <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
-                            <Picker.Item label="Usado" value="Usado"></Picker.Item>
-                            <Picker.Item label="Novo" value="Novo"></Picker.Item>
-                        </Picker>
-                    </View>
-                    <View className="border bg-purple-100 border-black rounded-md w-60">
                         <Picker selectedValue={valor} onValueChange={(value)=>setValor(value)}>
-                            <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
+                            <Picker.Item label="Menor Valor/Maior Valor" value={null}></Picker.Item>
                             <Picker.Item label="Menor Valor" value="Menor Valor"></Picker.Item>
                             <Picker.Item label="Maior Valor" value="Maior Valor"></Picker.Item>
                         </Picker>
                     </View>
-                    <View className="border bg-purple-100 border-black rounded-md w-60 mt-2">
+                    <View className="border bg-purple-100 border-black rounded-md w-60 mb-2">
+                        <Picker selectedValue={dataPostagem} onValueChange={(value)=>{setDataPostagem(value)}}>
+                            <Picker.Item label="Data da Postagem" value={null}></Picker.Item>
+                            <Picker.Item label="Anúncios mais recentes" value="Anúncios mais recentes"></Picker.Item>
+                            <Picker.Item label="Anúncios mais antigos" value="Anúncios mais antigos"></Picker.Item>
+                        </Picker>
+                    </View>
+                    <View className="border bg-purple-100 border-black rounded-md w-60 mb-2">
+                        <Picker selectedValue={estadoDaPeca} onValueChange={(value)=>setEstadoDaPeca(value)}>
+                            <Picker.Item label="Usado/Novo" value={null}></Picker.Item>
+                            <Picker.Item label="Usado" value="Usado"></Picker.Item>
+                            <Picker.Item label="Novo" value="Novo"></Picker.Item>
+                        </Picker>
+                    </View>
+                    <View className="border bg-purple-100 border-black rounded-md w-60 mb-2">
                         <Picker selectedValue={localidade} onValueChange={(value)=>setLocalidade(value)}>
-                                <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
+                                <Picker.Item label="Selecione um estado" value={null}></Picker.Item>
                                 <Picker.Item label="Acre" value="Acre"></Picker.Item>
                                 <Picker.Item label="Alagoas" value="Alagoas"></Picker.Item>
                                 <Picker.Item label="Amapá" value="Amapá"></Picker.Item>
@@ -251,17 +294,9 @@ const subPage = async () => {
                                 <Picker.Item label="Tocantins" value="Tocantins"></Picker.Item>
                             </Picker>
                     </View>
-                    <View className="border bg-purple-100 border-black rounded-md w-60 mt-2">
-                        <Picker selectedValue={dataPostagem} onValueChange={(value)=>{setDataPostagem(value)}}>
-                            <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
-                            <Picker.Item label="Anúncios mais recentes" value="Anúncios mais recentes"></Picker.Item>
-                            <Picker.Item label="Anúncios mais antigos" value="Anúncios mais antigos"></Picker.Item>
-                        </Picker>
-                    </View>
-                    <View className="border bg-purple-100 border-black rounded-md w-60 mt-2">
-
+                    <View className="border bg-purple-100 border-black rounded-md w-60 mb-2">
                     <Picker selectedValue={marca} onValueChange={setMarca}>
-                            <Picker.Item label="Selecione uma opção" value={null}></Picker.Item>
+                            <Picker.Item label="Selecione uma marca" value={null}></Picker.Item>
                             <Picker.Item label="OUTRA MARCA" value="OUTRA MARCA" />
                             <Picker.Item label="Animal" value="Animal" />
                             <Picker.Item label="BSD" value="BSD" />
@@ -344,7 +379,7 @@ const subPage = async () => {
                         }
                         )
                     ) : (
-                        <Text>Não há anúncios nessa categoria.</Text>
+                        <Text className="text-center my-8">Não há anúncios nessa categoria ou com esses filtros.</Text>
                     )
                     }
                 </View>
