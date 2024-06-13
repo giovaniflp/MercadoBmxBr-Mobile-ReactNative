@@ -1,53 +1,59 @@
+import { router } from "expo-router";
+import axiosInstance from "../server/axios";
+import { useEffect, useState } from "react";
+import { useSession } from "../../auth/ctx";
+import BottomBar from "../components/BottomBar";
+import * as SecureStore from 'expo-secure-store';
 import { View, Text, Linking, Image, TouchableOpacity } from "react-native";
 import { TextInput, Button, ActivityIndicator, MD2Colors } from "react-native-paper";
-import { useEffect, useState } from "react";
-import * as SecureStore from 'expo-secure-store';
-import axiosInstance from "../server/axios";
-import BottomBar from "../components/BottomBar";
-import { useSession } from "../../auth/ctx";
-import { router } from "expo-router";
 
 export default function ChangeRegisterData(){
+
     const { signOut } = useSession();
+
+    const [id, setId] = useState("");
 
     const [loading, setLoading] = useState(false);
     const [loading2, setLoading2] = useState(false);
 
-
-
-    const getName = async () => {
-        const token = await SecureStore.getItemAsync('session');
-        console.log(token);
-        const config = {
-            headers: {
-                Authorization: "Bearer " + token
-            }
-        }
-        const response = await axiosInstance.get("/api/token/jwtDecode", config)
-        console.log(response.data);
-        setNome(response.data.name);
-        setEmail(response.data.sub);
-        setId(response.data.jti);
-    }
-
-    useEffect(() => {
-        getName();
-    }, [])
-
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     
-    const [id, setId] = useState("");
-
+    //Formulário de alteração de dados
     const [nomeNovo, setNomeNovo] = useState("");
     const [emailNovo, setEmailNovo] = useState("");
     const [senhaAntiga, setSenhaAntiga] = useState("");
     const [novaSenha, setNovaSenha] = useState("");
     const [confirmarNovaSenha, setConfirmarNovaSenha] = useState("");
 
+    //Visibilidade de senhas
     const [seeSenhaAntiga, setSeeSenhaAntiga] = useState(true);
     const [seeNovaSenha, setSeeNovaSenha] = useState(true);
     const [seeConfirmarNovaSenha, setSeeConfirmarNovaSenha] = useState(true);
+
+    const getName = async () => {
+        try{
+            const token = await SecureStore.getItemAsync('session');
+            console.log(token);
+            const config = {
+                headers: {
+                    Authorization: "Bearer " + token
+                }
+            }
+            const response = await axiosInstance.get("/api/token/jwtDecode", config)
+            console.log(response.data);
+            setNome(response.data.name);
+            setEmail(response.data.sub);
+            setId(response.data.jti);
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        getName();
+    }, [])
 
     const changeRegisterData = async () => {
         setLoading(true);

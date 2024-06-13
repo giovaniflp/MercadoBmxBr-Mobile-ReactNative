@@ -1,6 +1,5 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, Image } from "react-native";
 import { Link } from "expo-router"
+import { View, TouchableOpacity, Image } from "react-native";
 
 export default function BottomBar({screen}: {screen: string}){
     return(

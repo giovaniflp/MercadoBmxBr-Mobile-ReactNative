@@ -1,20 +1,214 @@
-import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
-import { useState, useEffect } from "react";
-import BottomBar from "../../components/BottomBar";
+import {format} from 'date-fns';
 import { Link } from "expo-router"
-import { useLocalSearchParams } from "expo-router";
+import { useState, useEffect } from "react";
 import axiosInstance from "../../server/axios";
 import * as SecureStore from 'expo-secure-store';
+import BottomBar from "../../components/BottomBar";
+import { useLocalSearchParams } from "expo-router";
 import { ActivityIndicator, MD2Colors  } from "react-native-paper";
-import {format} from 'date-fns';
+import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
 
 export default function FullAdScreen(){
+
     const { id } = useLocalSearchParams()
+
+    interface Ad {
+        id: string;
+        categoria: string;
+        marca: string;
+        modelo: string;
+        nomeUsuario: string;
+        whatsapp: string;
+        preco: number;
+        localidade: string;
+        dataPostagem: string;
+        imagem: string;
+        estadoDaPeca: string;
+        cor: string;
+        material: string;
+        peso: string;
+        descricao: string;
+        abracadeiraDiametro: string;
+        aroTipoFolha: string;
+        aroFuros: string;
+        aroGrossura: string;
+        bancoTipo: string;
+        bancoCanoteTamanho: string;
+        bikeCompletaModalidade: string;
+        camaraAroTamanho: string;
+        camaraTipoValvula: string;
+        canoteTipo: string;
+        canoteTamanho: string;
+        coroaDentes: string;
+        coroaProtetor: string;
+        coroaAdaptador: string;
+        correnteTipoElo: string;
+        cuboDianteiroFuros: string;
+        cuboDianteiroTipoEixo: string;
+        cuboDianteiroMaterialEixo: string;
+        cuboDianteiroMaterialParafusos: string;
+        cuboDianteiroProtetor: string;
+        tipoCubo: string;
+        cuboTraseiroTracao: string;
+        cuboTraseiroCog: string;
+        cuboTraseiroTravas: string;
+        cuboTraseiroFuros: string;
+        cuboTraseiroTipoEixo: string;
+        cuboTraseiroMaterialEixo: string;
+        cuboTraseiroMaterialParafusos: string;
+        cuboTraseiroProtetor: string;
+        eixoCentralEstrias: string;
+        eixoCentralTamanho: string;
+        freioPeca: string;
+        garfoOffset: string;
+        garfoTampa: string;
+        guidaoTamanho: string;
+        guidaoLargura: string;
+        guidaoAngulo: string;
+        guidaoTipo: string;
+        manoplaTamanho: string;
+        manoplaBarEnds: string;
+        mesaTamanho: string;
+        mesaAltura: string;
+        mesaTipo: string;
+        mesaFabricacao: string;
+        movimentoCentralTipo: string;
+        movimentoCentralRolamento:  string;
+        movimentoCentralAcompanha: string;
+        movimentoDirecaoTipo: string;
+        movimentoDirecaoTampa: string;
+        movimentoDirecaoAcompanha: string;
+        pedalRosca: string;
+        pedalConstrucao: string;
+        pedaleiraQuantidade: string;
+        pedaleiraEncaixe: string;
+        pedaleiraTamanho: string;
+        pedivelaTracao: string;
+        pedivelaTamanho: string;
+        pedivelaRolamento: string;
+        pedivelaEstrias: string;
+        pedivelaAcompanha: string;
+        pedivelaConstrucao: string;
+        pneuAro: string;
+        pneuBandaLateral: string;
+        pneuIndicacao: string;
+        pneuTamanho: string;
+        quadroAbracadeira: string;
+        quadroCentral: string;
+        quadroDirecao: string;
+        quadroEsticador: string;
+        quadroMedida: string;
+        quadroModalidade: string;
+        quadroPinos: string;
+        quadroTamanhoAro: string;
+        quadroTolerancia: string;
+        protetorLado: string;
+        raioTipo: string;
+        raioTamanho: string;
+    }
 
     const [loading, setLoading] = useState(false)
 
     const[formatDate, setFormatDate] = useState("")
     const[formatHour, setFormatHour] = useState("")
+
+    const [adData, setAdData] = useState<Ad>({
+        id: null,
+        categoria: null,
+        marca: null,
+        modelo: null,
+        nomeUsuario: null,
+        whatsapp: null,
+        preco: null,
+        localidade: null,
+        dataPostagem: null,
+        imagem: null,
+        estadoDaPeca: null,
+        cor: null,
+        material: null,
+        peso: null,
+        descricao: null,
+        abracadeiraDiametro: null,
+        aroTipoFolha: null,
+        aroFuros: null,
+        aroGrossura: null,
+        bancoTipo: null,
+        bancoCanoteTamanho: null,
+        bikeCompletaModalidade: null,
+        camaraAroTamanho: null,
+        camaraTipoValvula: null,
+        canoteTipo: null,
+        canoteTamanho: null,
+        coroaDentes: null,
+        coroaProtetor: null,
+        coroaAdaptador: null,
+        correnteTipoElo: null,
+        cuboDianteiroFuros: null,
+        cuboDianteiroTipoEixo: null,
+        cuboDianteiroMaterialEixo: null,
+        cuboDianteiroMaterialParafusos: null,
+        cuboDianteiroProtetor: null,
+        tipoCubo: null,
+        cuboTraseiroTracao: null,
+        cuboTraseiroCog: null,
+        cuboTraseiroTravas: null,
+        cuboTraseiroFuros: null,
+        cuboTraseiroTipoEixo: null,
+        cuboTraseiroMaterialEixo: null,
+        cuboTraseiroMaterialParafusos: null,
+        cuboTraseiroProtetor: null,
+        eixoCentralEstrias: null,
+        eixoCentralTamanho: null,
+        freioPeca: null,
+        garfoOffset: null,
+        garfoTampa: null,
+        guidaoTamanho: null,
+        guidaoLargura: null,
+        guidaoAngulo: null,
+        guidaoTipo: null,
+        manoplaTamanho: null,
+        manoplaBarEnds: null,
+        mesaTamanho: null,
+        mesaAltura: null,
+        mesaTipo: null,
+        mesaFabricacao: null,
+        movimentoCentralTipo: null,
+        movimentoCentralRolamento:  null,
+        movimentoCentralAcompanha: null,
+        movimentoDirecaoTipo: null,
+        movimentoDirecaoTampa: null,
+        movimentoDirecaoAcompanha: null,
+        pedalRosca: null,
+        pedalConstrucao: null,
+        pedaleiraQuantidade: null,
+        pedaleiraEncaixe: null,
+        pedaleiraTamanho: null,
+        pedivelaTracao: null,
+        pedivelaTamanho: null,
+        pedivelaRolamento: null,
+        pedivelaEstrias: null,
+        pedivelaAcompanha: null,
+        pedivelaConstrucao: null,
+        pneuAro: null,
+        pneuBandaLateral: null,
+        pneuIndicacao: null,
+        pneuTamanho: null,
+        quadroAbracadeira: null,
+        quadroCentral: null,
+        quadroDirecao: null,
+        quadroEsticador: null,
+        quadroMedida: null,
+        quadroModalidade: null,
+        quadroPinos: null,
+        quadroTamanhoAro: null,
+        quadroTolerancia: null,
+        protetorLado: null,
+        raioTipo: null,
+        raioTamanho: null,
+    })
+
+    const [favorite, setFavorite] = useState(false)
+    const [idUsuario, setIdUsuario] = useState("")
 
     const getAdData = async () => {
         setLoading(true)
@@ -42,68 +236,85 @@ export default function FullAdScreen(){
         getAdData()
     },[])
 
-    const [adData, setAdData] = useState([])
-    const [favorite, setFavorite] = useState(false)
-    const [idUsuario, setIdUsuario] = useState("")
 
     const JwtDecode = async () => {
-        const token = await SecureStore.getItemAsync('session');
-        const config = {
-            headers: {
-            Authorization: "Bearer " + token
+        try{
+            const token = await SecureStore.getItemAsync('session');
+            const config = {
+                headers: {
+                Authorization: "Bearer " + token
+                }
             }
+            await axiosInstance.get("/api/token/jwtDecode", config).then(async(response) => {
+                setIdUsuario(response.data.jti)
+                verifyFavorite(response.data.jti)
+            })
         }
-        await axiosInstance.get("/api/token/jwtDecode", config).then(async(response) => {
-            setIdUsuario(response.data.jti)
-            verifyFavorite(response.data.jti)
-        })
+        catch(error){
+            console.log(error)
+        }
     }
 
     const verifyFavorite = async (idUsuario: string) => {
-        const token = await SecureStore.getItemAsync('session');
-        const config = {
-        headers: {
-            Authorization: "Bearer " + token
-        }
-        }
-        await axiosInstance.get("/api/favorites/verify/" + idUsuario + "/" + id, config).then(async(response) => {
-            if(response.data == true){
-                setFavorite(true)
-            } else {
-                setFavorite(false)
+        try{
+            const token = await SecureStore.getItemAsync('session');
+            const config = {
+            headers: {
+                Authorization: "Bearer " + token
             }
-            console.log(response.data)
-        })
+            }
+            await axiosInstance.get("/api/favorites/verify/" + idUsuario + "/" + id, config).then(async(response) => {
+                if(response.data == true){
+                    setFavorite(true)
+                } else {
+                    setFavorite(false)
+                }
+                console.log(response.data)
+            })
+        }
+        catch(error){
+            console.log(error)
+        }
     }
 
     const addFavorite = async () => {
-        const token = await SecureStore.getItemAsync('session');
-        const config = {
-        headers: {
-            Authorization: "Bearer " + token
+        try{
+            const token = await SecureStore.getItemAsync('session');
+            const config = {
+            headers: {
+                Authorization: "Bearer " + token
+            }
+            }
+            const dataRequest = {
+                idAnuncio: id,
+                idUsuario: idUsuario
+            }
+            await axiosInstance.post("/api/favorites/save", dataRequest ,config).then(async(response) => {
+                setFavorite(true)
+                alert("Anúncio adicionado aos favoritos!")
+            })
         }
+        catch(error){
+            console.log(error)
         }
-        const dataRequest = {
-            idAnuncio: id,
-            idUsuario: idUsuario
-        }
-        await axiosInstance.post("/api/favorites/save", dataRequest ,config).then(async(response) => {
-            setFavorite(true)
-            alert("Anúncio adicionado aos favoritos!")
-        })
     }
 
     const removeFavorite = async () => {
-        const token = await SecureStore.getItemAsync('session');
-        const config = {
-        headers: {
-            Authorization: "Bearer " + token
+        try{
+            const token = await SecureStore.getItemAsync('session');
+            const config = {
+            headers: {
+                Authorization: "Bearer " + token
+            }
+            }
+            await axiosInstance.delete("/api/favorites/delete/" + id, config).then(async(response) => {
+                setFavorite(false)
+                alert("Anúncio removido dos favoritos!")
+            })
         }
+        catch(error){
+            console.log(error)
         }
-        await axiosInstance.delete("/api/favorites/delete/" + id, config).then(async(response) => {
-            setFavorite(false)
-            alert("Anúncio removido dos favoritos!")
-        })
     }
 
     
@@ -117,14 +328,15 @@ export default function FullAdScreen(){
                 </TouchableOpacity>
             </Link>
             {
-                favorite ? 
-                <TouchableOpacity onPress={removeFavorite}>
-                    <Image className="w-8 h-8" source={require('../../../public/icons/favoriteFullPNG.png')}></Image>
-                </TouchableOpacity>
-                :
-                <TouchableOpacity onPress={addFavorite}>
-                    <Image className="w-8 h-8" source={require('../../../public/icons/favoritePNG.png')}></Image>
-                </TouchableOpacity>
+            favorite 
+            ? 
+            <TouchableOpacity onPress={removeFavorite}>
+                <Image className="w-8 h-8" source={require('../../../public/icons/favoriteFullPNG.png')}></Image>
+            </TouchableOpacity>
+            :
+            <TouchableOpacity onPress={addFavorite}>
+                <Image className="w-8 h-8" source={require('../../../public/icons/favoritePNG.png')}></Image>
+            </TouchableOpacity>
             }
         </View>
             <ScrollView className="mb-14" showsVerticalScrollIndicator={false}>
@@ -260,7 +472,7 @@ export default function FullAdScreen(){
                     </View>
                 </View>
             </ScrollView>
-            <BottomBar></BottomBar>
+            <BottomBar screen=""></BottomBar>
         </View>
     )
 }

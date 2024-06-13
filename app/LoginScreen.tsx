@@ -1,21 +1,32 @@
-import React, { useState } from "react";
+import { useSession } from "../auth/ctx";
+import axiosInstance from "./server/axios";
+import React, { useEffect, useState } from "react";
+import { Link, router, useLocalSearchParams } from "expo-router";
 import { View, Text, TouchableOpacity, ImageBackground, Image } from "react-native";
 import { TextInput, Button, ActivityIndicator, MD2Colors } from "react-native-paper";
-import { router, useLocalSearchParams } from "expo-router";
-import { Link } from "expo-router";
-import axiosInstance from "./server/axios";
-import { useSession } from "../auth/ctx";
 
 export default function LoginScreen(){
     const { signIn } = useSession();
 
     const {emailLoginParam} = useLocalSearchParams();
 
+    const {registerEmailParam}  = useLocalSearchParams();
+    const {registerPasswordParam} = useLocalSearchParams();
+
     const [email, setEmail] = useState(emailLoginParam);
-    const [password, setPassword] = useState("");
+    const [password, setPassword] = useState(registerPasswordParam);
     const [seePassword, setSeePassword] = useState(true);
 
     const [loading, setLoading] = useState(false);
+
+    useEffect(()=>{
+        if(emailLoginParam == null){
+            setEmail(registerEmailParam);
+            setPassword(registerPasswordParam);
+        } else {
+            setEmail(emailLoginParam);
+        }
+    },[])
 
     const requestData = {
         email: email,
@@ -23,28 +34,27 @@ export default function LoginScreen(){
     }
 
     const loginApi = async () => {
-        setLoading(true); // Exibe o indicador de carregamento
-      
+        setLoading(true);
         try {
-          const response = await axiosInstance.post("/api/token/login", requestData);
-          alert("Usuário logado com sucesso!");
-          signIn(response.data.acessToken);
-          router.push("/HomeScreen");
+            const response = await axiosInstance.post("/api/token/login", requestData);
+            alert("Usuário logado com sucesso!");
+            signIn(response.data.acessToken);
+            router.push("/HomeScreen");
         } catch (error) {
-          if (error.response.status === 400) {
-            alert("Conta não ativada!");
-            router.push({
-                pathname: "/EmailCodeActivation",
-                params: { emailParam: email },
-            });
-          } else {
+            if (error.response.status === 400) {
+                alert("Conta não ativada!");
+                router.push({
+                    pathname: "/EmailCodeActivation",
+                    params: { emailParam: email },
+                });
+            } else {
             alert("Informações incorretas!");
             console.log(error);
-          }
+            }
         } finally {
-          setLoading(false); // Oculta o indicador de carregamento
+            setLoading(false);
         }
-      };
+    };
 
     return(
         <ImageBackground source={require('../public/images/brandWPP.jpeg')}>

@@ -1,11 +1,11 @@
-import { View, Text, TouchableOpacity, ScrollView, Image } from "react-native"
-import BottomBar from "../components/BottomBar"
-import * as SecureStore from 'expo-secure-store'
+import { router } from "expo-router";
 import axiosInstance from "../server/axios";
 import { useState, useEffect } from "react";
-import { ActivityIndicator, MD2Colors  } from "react-native-paper";
-import { router } from "expo-router";
+import BottomBar from "../components/BottomBar"
+import * as SecureStore from 'expo-secure-store'
 import FavoriteAd from "../components/FavoriteAd";
+import { ActivityIndicator, MD2Colors  } from "react-native-paper";
+import { View, Text, TouchableOpacity, ScrollView, Image } from "react-native"
 
 export default function MyFavorites(){
 
@@ -18,15 +18,20 @@ export default function MyFavorites(){
     }, [])
 
     const JwtDecode = async () => {
-        const token = await SecureStore.getItemAsync('session');
-        const config = {
-            headers: {
-            Authorization: "Bearer " + token
+        try{
+            const token = await SecureStore.getItemAsync('session');
+            const config = {
+                headers: {
+                Authorization: "Bearer " + token
+                }
             }
+            await axiosInstance.get("/api/token/jwtDecode", config).then(async(response) => {
+                FetchFavorites(response.data.jti)
+            })
         }
-        await axiosInstance.get("/api/token/jwtDecode", config).then(async(response) => {
-            FetchFavorites(response.data.jti)
-        })
+        catch (error) {
+            console.log(error)
+        }
     }
 
     const FetchFavorites = async (responseData) => {
@@ -50,20 +55,24 @@ export default function MyFavorites(){
         finally{
             setLoading(false)
         }
-        
     }
 
     const removeFavorite = async (idAnuncio) => {
-        const token = await SecureStore.getItemAsync('session');
-        const config = {
-        headers: {
-            Authorization: "Bearer " + token
+        try{
+            const token = await SecureStore.getItemAsync('session');
+            const config = {
+            headers: {
+                Authorization: "Bearer " + token
+            }
+            }
+            await axiosInstance.delete("/api/favorites/delete/" + idAnuncio, config).then(async(response) => {
+                alert("Anúncio removido dos favoritos!")
+                JwtDecode()
+            })
         }
+        catch(error){
+            console.log(error)
         }
-        await axiosInstance.delete("/api/favorites/delete/" + idAnuncio, config).then(async(response) => {
-            alert("Anúncio removido dos favoritos!")
-            JwtDecode()
-        })
     }
 
     return(
@@ -75,7 +84,7 @@ export default function MyFavorites(){
             </View>
             <View>
                 <ScrollView className="mb-28" showsVerticalScrollIndicator={false}>
-                <View>
+                    <View>
                     {favorites.length == 0 && <Text className="text-center text-2xl mt-20">Você ainda não tem favoritos.</Text>}
                     {favorites.map((favorite, index) => {
                         return (
@@ -87,17 +96,19 @@ export default function MyFavorites(){
                                     }
                                 })
                             }}>
-                                <FavoriteAd id={favorite.idAnuncio}></FavoriteAd>
-                                <View className="absolute right-4 top-16">
-                                    <TouchableOpacity onPress={()=>removeFavorite(favorite.idAnuncio)}><Image className="w-10 h-10" source={require('../../public/icons/deletePng.png')}></Image></TouchableOpacity>
-                                </View>
+                            <FavoriteAd id={favorite.idAnuncio}></FavoriteAd>
+                            <View className="absolute right-4 top-16">
+                                <TouchableOpacity onPress={()=>removeFavorite(favorite.idAnuncio)}>
+                                    <Image className="w-10 h-10" source={require('../../public/icons/deletePng.png')}></Image>
+                                </TouchableOpacity>
+                            </View>
                             </TouchableOpacity>
-                    )
-                    })}
-                </View>
+                                )
+                                })}
+                    </View>
                 </ScrollView>
             </View>
-            <BottomBar></BottomBar>
+            <BottomBar screen="MenuScreen"></BottomBar>
         </View>
     )
 }

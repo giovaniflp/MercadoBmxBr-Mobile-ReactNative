@@ -1,6 +1,6 @@
 import { View, Text } from "react-native"
-import {Picker} from '@react-native-picker/picker';
 import { useEffect, useState } from "react";
+import {Picker} from '@react-native-picker/picker';
 
 export default function SpecialAspects({categoria, onChangeState} : {categoria:string, onChangeState: any}){
 

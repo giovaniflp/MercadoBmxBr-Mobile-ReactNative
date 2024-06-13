@@ -1,12 +1,12 @@
-import { View, Text, ScrollView, RefreshControl } from "react-native";
-import { useCallback, useEffect, useState } from "react";
-import BottomBar from "../components/BottomBar";
 import HomeAd from "../components/HomeAd";
-import VerifiedStores from "../components/VerifiedStores";
 import axiosInstance from "../server/axios";
+import BottomBar from "../components/BottomBar";
 import * as SecureStore from 'expo-secure-store';
-import { ActivityIndicator, MD2Colors  } from "react-native-paper";
 import { Picker } from "@react-native-picker/picker";
+import { useCallback, useEffect, useState } from "react";
+import VerifiedStores from "../components/VerifiedStores";
+import { ActivityIndicator, MD2Colors  } from "react-native-paper";
+import { View, Text, ScrollView, RefreshControl } from "react-native";
 
 export default function HomeScreen() {
 
@@ -20,95 +20,94 @@ export default function HomeScreen() {
 
   const [localidade, setLocalidade] = useState("São Paulo");
 
-const getNewTodayAds = async () => {
-  setLoading(true)
-  try{
-    const token = await SecureStore.getItemAsync('session');
-    const config = {
-      headers: {
-        Authorization: "Bearer " + token
-      }
-    }
-    const response = await axiosInstance.post("/api/advertisements/dataPostagem/estadoDaPeca", {estadoDaPeca:"Novo"},  config)
-    setNewTodayAds(response.data.content)
-  } catch (error) {
-    console.log(error)
-  } finally{
-    setLoading(false)
-  }
-}
-
-const getNewUsedTodayAds = async () => {
-  setLoading(true)
-  try{
-    const token = await SecureStore.getItemAsync('session');
-    const config = {
-      headers: {
-        Authorization: "Bearer " + token
-      }
-    }
-    const response = await axiosInstance.post("/api/advertisements/dataPostagem/estadoDaPeca", {estadoDaPeca:"Usado"},  config)
-    setUsedTodayAds(response.data.content)
-  } catch (error) {
-    console.log(error)
-  } finally{
-    setLoading(false)
-  }
-}
-
-const getAdsByLocalidade = async () => {
-  setLoading(true)
-  try{
-    const token = await SecureStore.getItemAsync('session');
-    await SecureStore.setItemAsync('localidade', localidade)
-    console.log(localidade)
-    setAdData([])
-    const config = {
-      headers: {
-        Authorization: "Bearer " + token
-      }
-    }
-    const response = await axiosInstance.post("/api/advertisements/localidade", {localidade:localidade}, config)
-    setAdData(response.data.content)
-  } catch (error) {
-    console.log(error)
-  } finally{
-    setLoading(false)
-  }
-}
-
-useEffect(()=>{
-  getAdsByLocalidade()
-},[localidade])
-
-const refreshData = async () => {
-  setAdData([])
-  setNewTodayAds([])
-  setUsedTodayAds([])
-  try{
+  const getNewTodayAds = async () => {
+    setLoading(true)
+    try{
       const token = await SecureStore.getItemAsync('session');
-    const config = {
-      headers: {
-        Authorization: "Bearer " + token
+      const config = {
+        headers: {
+          Authorization: "Bearer " + token
+        }
       }
+      const response = await axiosInstance.post("/api/advertisements/dataPostagem/estadoDaPeca", {estadoDaPeca:"Novo"},  config)
+      setNewTodayAds(response.data.content)
+    } catch (error) {
+      console.log(error)
+    } finally{
+      setLoading(false)
     }
-    const localidade = await SecureStore.getItemAsync('localidade');
-    const response = await axiosInstance.post("/api/advertisements/localidade", {localidade:localidade}, config)
-    await SecureStore.setItemAsync('localidade', localidade)
-    setAdData(response.data.content)
-    const response2 = await axiosInstance.post("/api/advertisements/dataPostagem/estadoDaPeca", {estadoDaPeca:"Novo"},  config)
-    setNewTodayAds(response2.data.content)
-    const response3 = await axiosInstance.post("/api/advertisements/dataPostagem/estadoDaPeca", {estadoDaPeca:"Usado"},  config)
-    setUsedTodayAds(response3.data.content)
-  } catch (error) {
-    console.log(error)
-  } 
-}
+  }
 
-const refreshScreen = useCallback(()=>{
-  setRefreshing(true);
-  refreshData().then(()=>setRefreshing(false))
-},[])
+  const getNewUsedTodayAds = async () => {
+    setLoading(true)
+    try{
+      const token = await SecureStore.getItemAsync('session');
+      const config = {
+        headers: {
+          Authorization: "Bearer " + token
+        }
+      }
+      const response = await axiosInstance.post("/api/advertisements/dataPostagem/estadoDaPeca", {estadoDaPeca:"Usado"},  config)
+      setUsedTodayAds(response.data.content)
+    } catch (error) {
+      console.log(error)
+    } finally{
+      setLoading(false)
+    }
+  }
+
+  const getAdsByLocalidade = async () => {
+    setLoading(true)
+    try{
+      const token = await SecureStore.getItemAsync('session');
+      await SecureStore.setItemAsync('localidade', localidade)
+      setAdData([])
+      const config = {
+        headers: {
+          Authorization: "Bearer " + token
+        }
+      }
+      const response = await axiosInstance.post("/api/advertisements/localidade", {localidade:localidade}, config)
+      setAdData(response.data.content)
+    } catch (error) {
+      console.log(error)
+    } finally{
+      setLoading(false)
+    }
+  }
+
+  const refreshData = async () => {
+    setAdData([])
+    setNewTodayAds([])
+    setUsedTodayAds([])
+    try{
+        const token = await SecureStore.getItemAsync('session');
+      const config = {
+        headers: {
+          Authorization: "Bearer " + token
+        }
+      }
+      const localidade = await SecureStore.getItemAsync('localidade');
+      const response = await axiosInstance.post("/api/advertisements/localidade", {localidade:localidade}, config)
+      await SecureStore.setItemAsync('localidade', localidade)
+      setAdData(response.data.content)
+      const response2 = await axiosInstance.post("/api/advertisements/dataPostagem/estadoDaPeca", {estadoDaPeca:"Novo"},  config)
+      setNewTodayAds(response2.data.content)
+      const response3 = await axiosInstance.post("/api/advertisements/dataPostagem/estadoDaPeca", {estadoDaPeca:"Usado"},  config)
+      setUsedTodayAds(response3.data.content)
+    } catch (error) {
+      console.log(error)
+    } 
+  }
+
+  const refreshScreen = useCallback(()=>{
+    setRefreshing(true);
+    refreshData().then(()=>setRefreshing(false))
+  },[])
+
+  useEffect(()=>{
+    getAdsByLocalidade()
+  },[localidade])
 
   useEffect(() => {
     getNewTodayAds();

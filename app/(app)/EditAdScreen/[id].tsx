@@ -1,14 +1,14 @@
-import { router, useLocalSearchParams } from "expo-router";
-import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import { useState, useEffect } from "react";
 import axiosInstance from "../../server/axios";
-import * as SecureStore from 'expo-secure-store';
-import { Picker } from "@react-native-picker/picker";
-import SpecialAspectsEdit from "../../components/SpecialAspectEdit";
-import BottomBar from "../../components/BottomBar";
 import * as ImagePicker from 'expo-image-picker';
+import * as SecureStore from 'expo-secure-store';
+import BottomBar from "../../components/BottomBar";
+import { Picker } from "@react-native-picker/picker";
 import { TextInput, Button } from "react-native-paper";
+import { router, useLocalSearchParams } from "expo-router";
 import { ActivityIndicator, MD2Colors  } from "react-native-paper";
+import SpecialAspectsEdit from "../../components/SpecialAspectEdit";
+import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 
 export default function EditAdScreen(){
 
@@ -22,9 +22,9 @@ export default function EditAdScreen(){
 
             const token = await SecureStore.getItemAsync('session');
             const config = {
-              headers: {
+            headers: {
                 Authorization: "Bearer " + token
-              }
+            }
             }
             const response = await axiosInstance.get("/api/advertisements/" + ad, config)
             setAdData(response.data)
@@ -476,18 +476,21 @@ export default function EditAdScreen(){
         raioTamanho
     ]);
 
-    
-    
     const getDataJwt = async() => {
-        const token = await SecureStore.getItemAsync('session');
-        const config = {
-            headers: {
-                Authorization: "Bearer " + token
+        try{
+            const token = await SecureStore.getItemAsync('session');
+            const config = {
+                headers: {
+                    Authorization: "Bearer " + token
+                }
             }
+            const response = await axiosInstance.get("/api/token/jwtDecode", config)
+            setNomeUsuario(response.data.name);
+            setIdUsuario(response.data.jti);
         }
-        const response = await axiosInstance.get("/api/token/jwtDecode", config)
-        setNomeUsuario(response.data.name);
-        setIdUsuario(response.data.jti);
+        catch(error){
+            console.log(error)
+        }
     }
     
     useEffect(()=>{
@@ -498,15 +501,21 @@ export default function EditAdScreen(){
     const [uploadImagem, setUploadImagem] = useState(null);
 
     const pickImage = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            aspect: [4,3],
-            quality: 1,
-            allowsMultipleSelection: true
-        });
-
-        if (!result.canceled) {
-            setImagem(result.assets[0].uri);
+        try{
+            let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                aspect: [4,3],
+                quality: 1,
+                allowsMultipleSelection: true
+            });
+    
+            if (!result.canceled) {
+                setImagem(result.assets[0].uri);
+            }
+        }
+        catch(error){
+            console.log(error)
+            alert("O formato da imagem não é suportado, tente outro formato.")
         }
     }
     

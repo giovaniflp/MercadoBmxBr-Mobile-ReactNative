@@ -1,21 +1,23 @@
-import { View, Text, TouchableOpacity, ImageBackground, Image } from "react-native";
-import { Button } from "react-native-paper";
-import { TextInput, ActivityIndicator, MD2Colors } from "react-native-paper";
 import React, { useState } from "react";
 import { router, Link } from "expo-router";
 import axiosInstance from "./server/axios";
+import { Button } from "react-native-paper";
+import { TextInput, ActivityIndicator, MD2Colors } from "react-native-paper";
+import { View, Text, TouchableOpacity, ImageBackground, Image } from "react-native";
 
 export default function RegisterScreen(){
 
+    //Dados do usuário no cadastro/formulário
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
+    //Variáveis para ver a senha
     const [seePassword, setSeePassword] = useState(true);
     const [seeConfirmPassword, setSeeConfirmPassword] = useState(true);
 
+    //Variável para settar ícone de loading
     const [loading, setLoading] = useState(false);
 
     const requestData = {
@@ -48,10 +50,16 @@ export default function RegisterScreen(){
                         alert("Email já cadastrado! Insira outro email.");
                     } else{
                         alert("Usuário cadastrado com sucesso!");
-                        router.push("/LoginScreen");
+                        router.push({
+                            pathname: "/LoginScreen",
+                            params: {
+                                registerEmailParam: email,
+                                registerPasswordParam: password
+                            }
+                        });
                     }
             }         
-}
+        }
         catch(error){
             alert("Erro ao cadastrar usuário!");
             console.log(error);

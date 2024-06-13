@@ -1,14 +1,15 @@
-import { View, Image, Text, TouchableOpacity, Linking } from "react-native";
-import BottomBar from "../components/BottomBar";
-import { Button } from "react-native-paper";
-import * as SecureStore from 'expo-secure-store';
+import { Link } from "expo-router";
 import { useSession } from "../../auth/ctx";
 import { useEffect, useState } from "react";
-import { Link } from "expo-router";
 import axiosInstance from "../server/axios";
+import { Button } from "react-native-paper";
+import BottomBar from "../components/BottomBar";
+import * as SecureStore from 'expo-secure-store';
 import { ActivityIndicator, MD2Colors  } from "react-native-paper";
+import { View, Image, Text, TouchableOpacity, Linking } from "react-native";
 
 export default function MenuScreen(){
+
     const { signOut } = useSession();
 
     const [loading, setLoading] = useState(false)
@@ -36,7 +37,7 @@ export default function MenuScreen(){
 
     useEffect(() => {
         getName();
-    }, [])
+    },[])
 
 
     const [nome, setNome] = useState("");
@@ -47,12 +48,16 @@ export default function MenuScreen(){
             <TouchableOpacity onPress={()=>{alert("A imagem do usuário será implementada nas próximas versões!")}}>
                 <Image className="w-40 h-40 mt-2" source={require('../../public/icons/accCircle.png')}></Image>
             </TouchableOpacity>
-            { loading ? 
-            <ActivityIndicator className="mt-4" animating={true} color={MD2Colors.black} size={50}></ActivityIndicator> : 
+            {
+            loading 
+            ? 
+            <ActivityIndicator className="mt-4" animating={true} color={MD2Colors.black} size={50}></ActivityIndicator> 
+            : 
             <View className="flex justify-center items-center">
                 <Text className="text-4xl mt-4">{nome}</Text>
                 <Text className="mt-2">{email}</Text>
-            </View>  }
+            </View>  
+            }
             <Link className="my-4" href="/ChangeRegisterData" asChild>
                 <Button mode='contained' className='w-60 bg-black' textColor='white'>Alterar Dados de Cadastro</Button>
             </Link>

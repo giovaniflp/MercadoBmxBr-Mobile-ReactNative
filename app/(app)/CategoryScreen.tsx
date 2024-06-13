@@ -1,6 +1,6 @@
-import { TouchableOpacity, View, ScrollView, Text, Image } from "react-native";
-import BottomBar from "../components/BottomBar";
 import {router} from "expo-router";
+import BottomBar from "../components/BottomBar";
+import { TouchableOpacity, View, ScrollView, Text, Image } from "react-native";
 
 const images = [
     {

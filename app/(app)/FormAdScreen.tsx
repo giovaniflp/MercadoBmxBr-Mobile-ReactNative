@@ -1,18 +1,38 @@
+import { router } from "expo-router";
+import axiosInstance from "../server/axios";
+import BottomBar from "../components/BottomBar";
+import React, {useEffect, useState} from "react";
+import * as ImagePicker from 'expo-image-picker';
+import * as SecureStore from 'expo-secure-store';
+import {Picker} from '@react-native-picker/picker';
+import SpecialAspects from "../components/SpecialAspects";
 import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
 import { TextInput, Button, ActivityIndicator, MD2Colors } from "react-native-paper";
-import BottomBar from "../components/BottomBar";
-import SpecialAspects from "../components/SpecialAspects";
-import React, {useEffect, useState} from "react";
-import {Picker} from '@react-native-picker/picker';
-import * as ImagePicker from 'expo-image-picker';
-import axiosInstance from "../server/axios";
-import { router } from "expo-router";
-import * as SecureStore from 'expo-secure-store';
 
 export default function FormAdScreen(){
 
     const [loading, setLoading] = useState(false);
+
+    //Obrigatorios
+
+    const [categoria, setCategory] = useState(null);
+    const [marca, setMarca] = useState("");
+    const [modelo, setModelo] = useState("");
+    const [preco, setPreco] = useState("");
+    const [localidade, setLocalidade] = useState("");
+    const [estadoDaPeca, setEstadoDaPeca] = useState("");
+    const [grauDeDesgaste, setGrauDeDesgaste] = useState("");
+    const [cor, setCor] = useState("");
+    const [material, setMaterial] = useState("");
+    const [peso, setPeso] = useState("");
+    const [descricao, setDescricao] = useState("");
+    const [whatsapp, setWhatsapp] = useState("");
+    const [nomeUsuario, setNomeUsuario] = useState("")
+    const [idUsuario, setIdUsuario] = useState("")
     
+    const [subCategory, setSubCategory] = useState(false);
+
+    //Não Obrigatórios
     const [abracadeiraDiametro, setAbracadeiraDiametro] = useState(null)
     const [aroTipoFolha, setAroTipoFolha] = useState(null)
     const [aroFuros, setArosFuros] = useState(null)
@@ -33,10 +53,6 @@ export default function FormAdScreen(){
     const [cuboDianteiroMaterialEixo, setCuboDianteiroMaterialEixo] = useState(null)
     const [cuboDianteiroMaterialParafusos, setCuboDianteiroMaterialParafusos] = useState(null)
     const [cuboDianteiroProtetor, setCuboDianteiroProtetor] = useState(null)
-
-    const[tipoCubo, setTipoCubo] = useState()
-    const[freecoaster, setFreecoaster] = useState(true)
-
     const [cuboTraseiroTracao, setCuboTraseiroTracao] = useState(null)
     const [cuboTraseiroCog, setCuboTraseiroCog] = useState(null)
     const [cuboTraseiroTravas, setCuboTraseiroTravas] = useState(null)
@@ -93,27 +109,11 @@ export default function FormAdScreen(){
     const [protetorLado, setProtetorLado] = useState(null)
     const [raioTipo, setRaioTipo] = useState(null)
     const [raioTamanho, setRaioTamanho] = useState(null)
-    //Obrigatorios
-    const [marca, setMarca] = useState("");
-    const [modelo, setModelo] = useState("");
-    const [preco, setPreco] = useState("");
-    const [localidade, setLocalidade] = useState("");
-    const [dataPostagem, setDataPostagem] = useState(""); 
 
-    const [estadoDaPeca, setEstadoDaPeca] = useState("");
-    const [grauDeDesgaste, setGrauDeDesgaste] = useState("");
-    const [cor, setCor] = useState("");
-    const [material, setMaterial] = useState("");
-    const [peso, setPeso] = useState("");
-    const [descricao, setDescricao] = useState("");
-    const [whatsapp, setWhatsapp] = useState("");
-    const [nomeUsuario, setNomeUsuario] = useState("")
-    const [idUsuario, setIdUsuario] = useState("")
-    
-    const [subCategory, setSubCategory] = useState(false);
-    const [categoria, setCategory] = useState(null);
-    
-    
+    //Modal diferente
+    const[tipoCubo, setTipoCubo] = useState()
+    const[freecoaster, setFreecoaster] = useState(true)
+
     const updateFilho = (filhoData) => {
         setAbracadeiraDiametro(filhoData.abracadeiraDiametro);
         setAroTipoFolha(filhoData.aroTipoFolha);
@@ -362,15 +362,20 @@ export default function FormAdScreen(){
     }, [categoria]);
     
     const getDataJwt = async() => {
-        const token = await SecureStore.getItemAsync('session');
-        const config = {
-            headers: {
-                Authorization: "Bearer " + token
+        try{
+            const token = await SecureStore.getItemAsync('session');
+            const config = {
+                headers: {
+                    Authorization: "Bearer " + token
+                }
             }
+            const response = await axiosInstance.get("/api/token/jwtDecode", config)
+            setNomeUsuario(response.data.name);
+            setIdUsuario(response.data.jti);
         }
-        const response = await axiosInstance.get("/api/token/jwtDecode", config)
-        setNomeUsuario(response.data.name);
-        setIdUsuario(response.data.jti);
+        catch (error) {
+            console.log(error);
+        }
     }
     
     useEffect(()=>{
@@ -388,7 +393,6 @@ export default function FormAdScreen(){
                 quality: 1,
                 allowsMultipleSelection: true
             });
-    
             if (!result.canceled) {
                 setImagem(result.assets[0].uri);
             }
@@ -404,6 +408,9 @@ export default function FormAdScreen(){
             alert("Número de WhatsApp inválido");
         } else{
             const formRequestData = {
+                
+                // Obrigatórios
+
                 categoria: categoria,
                 marca: marca,
                 modelo: modelo,
@@ -416,7 +423,9 @@ export default function FormAdScreen(){
                 peso: peso,
                 descricao: descricao,
                 whatsapp: whatsapp,
-                // ESPECIFICOS ABAIXO
+
+                // Específicos e não obrigatórios
+
                 abracadeiraDiametro: abracadeiraDiametro,
                 aroTipoFolha: aroTipoFolha,
                 aroFuros: aroFuros,
@@ -499,7 +508,9 @@ export default function FormAdScreen(){
                 idUsuario: idUsuario,
                 imagem: uploadImagem
             };
+
             setLoading(true);
+            
             try {
                 const token = await SecureStore.getItemAsync('session');
                 const formData = new FormData();
@@ -531,7 +542,6 @@ export default function FormAdScreen(){
                 } else {
                     alert("Erro ao enviar imagem, tente novamente");
                 }
-                    
             } catch (error) {
                 alert("Erro ao enviar imagem, tente novamente");
             } finally{
@@ -541,7 +551,6 @@ export default function FormAdScreen(){
     }
     
     const validateForm = () => {
-        // Adicionar data pelo back end
         if (categoria && marca && preco && localidade && imagem && estadoDaPeca && grauDeDesgaste && cor && material && peso && whatsapp) {
             submitForm();
         } else {

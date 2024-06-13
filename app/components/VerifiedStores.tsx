@@ -1,5 +1,5 @@
-import { TouchableOpacity, Image, View, ScrollView } from "react-native"
 import { Linking } from "react-native"
+import { TouchableOpacity, Image, View, ScrollView } from "react-native"
 
 export default function VerifiedStores(){
     return(

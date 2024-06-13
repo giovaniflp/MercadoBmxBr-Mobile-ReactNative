@@ -1,20 +1,17 @@
-import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
-import BottomBar from "../components/BottomBar";
-import * as SecureStore from 'expo-secure-store';
+import { format } from 'date-fns';
+import {router } from "expo-router";
 import { useState, useEffect } from "react";
 import axiosInstance from "../server/axios";
-import {router, useNavigation } from "expo-router";
+import BottomBar from "../components/BottomBar";
+import * as SecureStore from 'expo-secure-store';
 import { ActivityIndicator, MD2Colors  } from "react-native-paper";
-import { format } from 'date-fns';
+import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 
 
 export default function MyAds(){
 
     const [ads, setAds] = useState([]);
     const [decodeJwt, setDecodeJwt] = useState("");
-
-    const[formatDate, setFormatDate] = useState("")
-    const[formatHour, setFormatHour] = useState("")
 
     const [loading, setLoading] = useState(false);
 
@@ -58,11 +55,11 @@ export default function MyAds(){
 
     useEffect(() => {
         jwtDecode();
-    }, [])
+    },[])
 
     useEffect(() => {
         getUserAds();
-    }, [decodeJwt])
+    },[decodeJwt])
 
     const deleteAd = async (id) => {
         try{
@@ -94,39 +91,48 @@ export default function MyAds(){
                         {ads.map((ad, index) => {
                             return (
                                 <TouchableOpacity key={index} onPress={()=>{
-                                    router.push({
-                                        pathname: "/FullAdScreen/[id]",
-                                        params: {
-                                            id: ad.id
-                                        }
-                                    })
-                                }}>
+                                        router.push({
+                                            pathname: "/FullAdScreen/[id]",
+                                            params: {
+                                                id: ad.id
+                                            }
+                                        })
+                                    }}>
                                     <View className="bg-purple-700 m-1 p-2 flex flex-row justify-between items-center rounded-lg">
                                         <View className="flex flex-row">
                                             <View className="flex justify-center">
                                                 <Image style={{resizeMode:"cover"}} source={{uri:ad.imagem}} className="w-24 h-24 rounded-lg"></Image>
                                             </View>
-                                            {ad.marca == "OUTRA MARCA" 
-                                            ? <View className="flex justify-center ml-2">
-                                            <Text className="text-white text-xs font-black mb-2">{ad.categoria}</Text>
-                                            <Text className="text-yellow-300 font-bold mb-2">R$ {ad.preco}</Text>
-                                            <Text className="text-white">{ad.dataPostagem}</Text>
-                                            <Text className="text-white">Whatsapp: {ad.whatsapp}</Text>
-                                        </View> : <View className="flex justify-center ml-2">
+                                            {
+                                            ad.marca == "OUTRA MARCA" 
+                                            ? 
+                                            <View className="flex justify-center ml-2">
+                                                <Text className="text-white text-xs font-black mb-2">{ad.categoria}</Text>
+                                                <Text className="text-yellow-300 font-bold mb-2">R$ {ad.preco}</Text>
+                                                <Text className="text-white">{ad.dataPostagem}</Text>
+                                                <Text className="text-white">Whatsapp: {ad.whatsapp}</Text>
+                                            </View>
+                                            : 
+                                            <View className="flex justify-center ml-2">
                                                 <Text className="text-white text-xs font-black mb-2">{ad.categoria} {ad.marca}</Text>
                                                 <Text className="text-yellow-300 font-bold mb-2">R$ {ad.preco}</Text>
                                                 <Text className="text-white">{ad.dataPostagem}</Text>
                                                 <Text className="text-white">Whatsapp: {ad.whatsapp}</Text>
-                                            </View>} 
+                                            </View>
+                                            } 
                                         </View>
                                         <View className="flex gap-4">
-                                            <TouchableOpacity onPress={()=>deleteAd(ad.id)}><Image className="w-10 h-10" source={require('../../public/icons/deletePng.png')}></Image></TouchableOpacity>
+                                            <TouchableOpacity onPress={()=>deleteAd(ad.id)}>
+                                                <Image className="w-10 h-10" source={require('../../public/icons/deletePng.png')}></Image>
+                                            </TouchableOpacity>
                                             <TouchableOpacity onPress={()=>{router.push({
                                                 pathname: "/EditAdScreen/[id]",
                                                 params: {
                                                     ad: ad.id
                                                 }
-                                            })}} ><Image className="w-10 h-10" source={require('../../public/icons/editPng.png')}></Image></TouchableOpacity>
+                                            })}} >
+                                                <Image className="w-10 h-10" source={require('../../public/icons/editPng.png')}></Image>
+                                            </TouchableOpacity>
                                         </View>
                                     </View>
                                 </TouchableOpacity>
@@ -135,7 +141,7 @@ export default function MyAds(){
                     </View>
                 </ScrollView>
             </View>
-            <BottomBar></BottomBar>
+            <BottomBar screen="MenuScreen"></BottomBar>
         </View>
     )
 }

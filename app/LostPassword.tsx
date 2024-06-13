@@ -1,11 +1,11 @@
-import { ImageBackground, View, Text,  TouchableOpacity } from "react-native";
-import { Button, TextInput, ActivityIndicator, MD2Colors } from "react-native-paper";
-import { router, Link } from "expo-router";
 import { useState } from "react";
+import { router, Link } from "expo-router";
 import axiosInstance from "./server/axios";
+import { ImageBackground, View, Text } from "react-native";
+import { Button, TextInput, ActivityIndicator, MD2Colors } from "react-native-paper";
 
 export default function LostPassword(){
-
+    
     const[email, setEmail] = useState("")
 
     const [loading, setLoading] = useState(false);
@@ -49,7 +49,7 @@ export default function LostPassword(){
                         </View>
                     </View>
                 </View>
-                </View>
+            </View>
         </ImageBackground>
     )
 }

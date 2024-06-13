@@ -1,8 +1,8 @@
+import { useState } from "react";
+import axiosInstance from "./server/axios";
 import { Link, router, useLocalSearchParams } from "expo-router";
 import { View, Text, ImageBackground, TouchableOpacity } from "react-native";
 import { Button, TextInput, ActivityIndicator, MD2Colors } from "react-native-paper";
-import { useState } from "react";
-import axiosInstance from "./server/axios";
 
 export default function EmailCodeActivation(){
 
