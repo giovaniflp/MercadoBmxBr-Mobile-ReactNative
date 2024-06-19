@@ -13,6 +13,7 @@ import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 export default function EditAdScreen(){
 
     const [loading, setLoading] = useState(false)
+    const [loading2, setLoading2] = useState(false)
 
     const { ad } = useLocalSearchParams()
 
@@ -520,127 +521,147 @@ export default function EditAdScreen(){
     }
     
     const submitForm = async () => {
-        const whatsappRegex = /^([1-9]{2})9[0-9]{8}$/;
-        if(whatsappRegex.test(whatsapp) === false){
-            alert("Número de WhatsApp inválido");
-        } else{
-            const formRequestData = {
-                categoria: categoria,
-                marca: marca,
-                modelo: modelo,
-                preco: preco,
-                localidade: localidade,
-                estadoDaPeca: estadoDaPeca,
-                grauDeDesgaste: grauDeDesgaste,
-                cor: cor,
-                material: material,
-                peso: peso,
-                descricao: descricao,
-                whatsapp: whatsapp,
-                // ESPECIFICOS ABAIXO
-                abracadeiraDiametro: abracadeiraDiametro,
-                aroTipoFolha: aroTipoFolha,
-                aroFuros: aroFuros,
-                aroGrossura: aroGrossura,
-                bancoTipo: bancoTipo,
-                bancoCanoteTamanho: bancoCanoteTamanho,
-                bikeCompletaModalidade: bikeCompletaModalidade,
-                camaraAroTamanho: camaraAroTamanho,
-                camaraTipoValvula: camaraTipoValvula,
-                canoteTipo: canoteTipo,
-                canoteTamanho: canoteTamanho,
-                coroaDentes: coroaDentes,
-                coroaProtetor: coroaProtetor,
-                coroaAdaptador: coroaAdaptador,
-                correnteTipoElo: correnteTipoElo,
-                cuboDianteiroFuros: cuboDianteiroFuros,
-                cuboDianteiroTipoEixo: cuboDianteiroTipoEixo,
-                cuboDianteiroMaterialEixo: cuboDianteiroMaterialEixo,
-                cuboDianteiroMaterialParafusos: cuboDianteiroMaterialParafusos,
-                cuboDianteiroProtetor: cuboDianteiroProtetor,
-                tipoCubo: tipoCubo,
-                freecoaster: freecoaster,
-                cuboTraseiroTracao: cuboTraseiroTracao,
-                cuboTraseiroCog: cuboTraseiroCog,
-                cuboTraseiroTravas: cuboTraseiroTravas,
-                cuboTraseiroFuros: cuboTraseiroFuros,
-                cuboTraseiroTipoEixo: cuboTraseiroTipoEixo,
-                cuboTraseiroMaterialEixo: cuboTraseiroMaterialEixo,
-                cuboTraseiroMaterialParafusos: cuboTraseiroMaterialParafusos,
-                cuboTraseiroProtetor: cuboTraseiroProtetor,
-                eixoCentralEstrias: eixoCentralEstrias,
-                eixoCentralTamanho: eixoCentralTamanho,
-                freioPeca: freioPeca,
-                garfoOffset: garfoOffset,
-                garfoTampa: garfoTampa,
-                guidaoTamanho: guidaoTamanho,
-                guidaoLargura: guidaoLargura,
-                guidaoAngulo: guidaoAngulo,
-                guidaoTipo: guidaoTipo,
-                manoplaTamanho: manoplaTamanho,
-                manoplaBarEnds: manoplaBarEnds,
-                mesaTamanho: mesaTamanho,
-                mesaAltura: mesaAltura,
-                mesaTipo: mesaTipo,
-                mesaFabricacao: mesaFabricacao,
-                movimentoCentralTipo: movimentoCentralTipo,
-                movimentoCentralRolamento: movimentoCentralRolamento,
-                movimentoCentralAcompanha: movimentoCentralAcompanha,
-                movimentoDirecaoTipo: movimentoDirecaoTipo,
-                movimentoDirecaoTampa: movimentoDirecaoTampa,
-                movimentoDirecaoAcompanha: movimentoDirecaoAcompanha,
-                pedalRosca: pedalRosca,
-                pedalConstrucao: pedalConstrucao,
-                pedaleiraQuantidade: pedaleiraQuantidade,
-                pedaleiraEncaixe: pedaleiraEncaixe,
-                pedaleiraTamanho: pedaleiraTamanho,
-                pedivelaTracao: pedivelaTracao,
-                pedivelaTamanho: pedivelaTamanho,
-                pedivelaRolamento: pedivelaRolamento,
-                pedivelaEstrias: pedivelaEstrias,
-                pedivelaAcompanha: pedivelaAcompanha,
-                pedivelaConstrucao: pedivelaConstrucao,
-                pneuAro: pneuAro,
-                pneuBandaLateral: pneuBandaLateral,
-                pneuIndicacao: pneuIndicacao,
-                pneuTamanho: pneuTamanho,
-                quadroAbracadeira: quadroAbracadeira,
-                quadroCentral: quadroCentral,
-                quadroDirecao: quadroDirecao,
-                quadroEsticador: quadroEsticador,
-                quadroMedida: quadroMedida,
-                quadroModalidade: quadroModalidade,
-                quadroPinos: quadroPinos,
-                quadroTamanhoAro: quadroTamanhoAro,
-                quadroTolerancia: quadroTolerancia,
-                protetorLado: protetorLado,
-                raioTipo: raioTipo,
-                raioTamanho: raioTamanho,
-                nomeUsuario: nomeUsuario,
-                idUsuario: idUsuario,
-                imagem: uploadImagem
-            };
-            try {
-                if(imagem){
-                    console.log(formRequestData)
-                    const token = await SecureStore.getItemAsync('session');
-                    const formData = new FormData();
-                    formData.append("file", {
-                        name: Date.now() + ".png",
-                        type: "image/png",
-                        uri: imagem
-                    });
-                    const response = await axiosInstance.post("/api/advertisements/upload", formData, {
-                        headers: {
-                            "Authorization": "Bearer " + token,
-                            "Content-Type": "multipart/form-data"
+        setLoading2(true)
+        try{
+            const whatsappRegex = /^([1-9]{2})9[0-9]{8}$/;
+            if(whatsappRegex.test(whatsapp) === false){
+                alert("Número de WhatsApp inválido");
+            } else{
+                const formRequestData = {
+                    categoria: categoria,
+                    marca: marca,
+                    modelo: modelo,
+                    preco: preco,
+                    localidade: localidade,
+                    estadoDaPeca: estadoDaPeca,
+                    grauDeDesgaste: grauDeDesgaste,
+                    cor: cor,
+                    material: material,
+                    peso: peso,
+                    descricao: descricao,
+                    whatsapp: whatsapp,
+                    // ESPECIFICOS ABAIXO
+                    abracadeiraDiametro: abracadeiraDiametro,
+                    aroTipoFolha: aroTipoFolha,
+                    aroFuros: aroFuros,
+                    aroGrossura: aroGrossura,
+                    bancoTipo: bancoTipo,
+                    bancoCanoteTamanho: bancoCanoteTamanho,
+                    bikeCompletaModalidade: bikeCompletaModalidade,
+                    camaraAroTamanho: camaraAroTamanho,
+                    camaraTipoValvula: camaraTipoValvula,
+                    canoteTipo: canoteTipo,
+                    canoteTamanho: canoteTamanho,
+                    coroaDentes: coroaDentes,
+                    coroaProtetor: coroaProtetor,
+                    coroaAdaptador: coroaAdaptador,
+                    correnteTipoElo: correnteTipoElo,
+                    cuboDianteiroFuros: cuboDianteiroFuros,
+                    cuboDianteiroTipoEixo: cuboDianteiroTipoEixo,
+                    cuboDianteiroMaterialEixo: cuboDianteiroMaterialEixo,
+                    cuboDianteiroMaterialParafusos: cuboDianteiroMaterialParafusos,
+                    cuboDianteiroProtetor: cuboDianteiroProtetor,
+                    tipoCubo: tipoCubo,
+                    freecoaster: freecoaster,
+                    cuboTraseiroTracao: cuboTraseiroTracao,
+                    cuboTraseiroCog: cuboTraseiroCog,
+                    cuboTraseiroTravas: cuboTraseiroTravas,
+                    cuboTraseiroFuros: cuboTraseiroFuros,
+                    cuboTraseiroTipoEixo: cuboTraseiroTipoEixo,
+                    cuboTraseiroMaterialEixo: cuboTraseiroMaterialEixo,
+                    cuboTraseiroMaterialParafusos: cuboTraseiroMaterialParafusos,
+                    cuboTraseiroProtetor: cuboTraseiroProtetor,
+                    eixoCentralEstrias: eixoCentralEstrias,
+                    eixoCentralTamanho: eixoCentralTamanho,
+                    freioPeca: freioPeca,
+                    garfoOffset: garfoOffset,
+                    garfoTampa: garfoTampa,
+                    guidaoTamanho: guidaoTamanho,
+                    guidaoLargura: guidaoLargura,
+                    guidaoAngulo: guidaoAngulo,
+                    guidaoTipo: guidaoTipo,
+                    manoplaTamanho: manoplaTamanho,
+                    manoplaBarEnds: manoplaBarEnds,
+                    mesaTamanho: mesaTamanho,
+                    mesaAltura: mesaAltura,
+                    mesaTipo: mesaTipo,
+                    mesaFabricacao: mesaFabricacao,
+                    movimentoCentralTipo: movimentoCentralTipo,
+                    movimentoCentralRolamento: movimentoCentralRolamento,
+                    movimentoCentralAcompanha: movimentoCentralAcompanha,
+                    movimentoDirecaoTipo: movimentoDirecaoTipo,
+                    movimentoDirecaoTampa: movimentoDirecaoTampa,
+                    movimentoDirecaoAcompanha: movimentoDirecaoAcompanha,
+                    pedalRosca: pedalRosca,
+                    pedalConstrucao: pedalConstrucao,
+                    pedaleiraQuantidade: pedaleiraQuantidade,
+                    pedaleiraEncaixe: pedaleiraEncaixe,
+                    pedaleiraTamanho: pedaleiraTamanho,
+                    pedivelaTracao: pedivelaTracao,
+                    pedivelaTamanho: pedivelaTamanho,
+                    pedivelaRolamento: pedivelaRolamento,
+                    pedivelaEstrias: pedivelaEstrias,
+                    pedivelaAcompanha: pedivelaAcompanha,
+                    pedivelaConstrucao: pedivelaConstrucao,
+                    pneuAro: pneuAro,
+                    pneuBandaLateral: pneuBandaLateral,
+                    pneuIndicacao: pneuIndicacao,
+                    pneuTamanho: pneuTamanho,
+                    quadroAbracadeira: quadroAbracadeira,
+                    quadroCentral: quadroCentral,
+                    quadroDirecao: quadroDirecao,
+                    quadroEsticador: quadroEsticador,
+                    quadroMedida: quadroMedida,
+                    quadroModalidade: quadroModalidade,
+                    quadroPinos: quadroPinos,
+                    quadroTamanhoAro: quadroTamanhoAro,
+                    quadroTolerancia: quadroTolerancia,
+                    protetorLado: protetorLado,
+                    raioTipo: raioTipo,
+                    raioTamanho: raioTamanho,
+                    nomeUsuario: nomeUsuario,
+                    idUsuario: idUsuario,
+                    imagem: uploadImagem
+                };
+                try {
+                    if(imagem){
+                        console.log(formRequestData)
+                        const token = await SecureStore.getItemAsync('session');
+                        const formData = new FormData();
+                        formData.append("file", {
+                            name: Date.now() + ".png",
+                            type: "image/png",
+                            uri: imagem
+                        });
+                        const response = await axiosInstance.post("/api/advertisements/upload", formData, {
+                            headers: {
+                                "Authorization": "Bearer " + token,
+                                "Content-Type": "multipart/form-data"
+                            }
+                        })
+                        if(response.status === 200){
+                            formRequestData.imagem = response.data;
+                            try{
+                                const response2 = await axiosInstance.patch("/api/advertisements/patch/" + ad, formRequestData, { headers: { "Authorization": "Bearer " + token } });
+                                alert("Anúncio criado com sucesso");
+                                router.push({
+                                pathname: "/FullAdScreen/[id]",
+                                params: {
+                                    id: response2.data.id
+                                }
+                            });
+                            } catch (error) {
+                                alert("Erro ao enviar formulário, tente novamente");
+                            }
+                        } else {
+                            alert("Erro ao enviar imagem, tente novamente");
                         }
-                    })
-                    if(response.status === 200){
-                        formRequestData.imagem = response.data;
+                    } else {
+                        console.log(formRequestData)
                         try{
+                            const token = await SecureStore.getItemAsync('session');
                             const response2 = await axiosInstance.patch("/api/advertisements/patch/" + ad, formRequestData, { headers: { "Authorization": "Bearer " + token } });
-                            alert("Anúncio criado com sucesso");
+                            alert("Anúncio editado com sucesso");
                             router.push({
                             pathname: "/FullAdScreen/[id]",
                             params: {
@@ -648,30 +669,20 @@ export default function EditAdScreen(){
                             }
                         });
                         } catch (error) {
-                            alert("Erro ao enviar formulário, tente novamente");
+                            console.log(error);
                         }
-                    } else {
-                        alert("Erro ao enviar imagem, tente novamente");
-                    }
-                } else {
-                    console.log(formRequestData)
-                    try{
-                        const token = await SecureStore.getItemAsync('session');
-                        const response2 = await axiosInstance.patch("/api/advertisements/patch/" + ad, formRequestData, { headers: { "Authorization": "Bearer " + token } });
-                        alert("Anúncio editado com sucesso");
-                        router.push({
-                        pathname: "/FullAdScreen/[id]",
-                        params: {
-                            id: response2.data.id
-                        }
-                    });
-                    } catch (error) {
-                        console.log(error);
-                    }
-                }  
-            } catch (error) {
-                alert("Erro ao enviar imagem, tente novamente");
+                    }  
+                } catch (error) {
+                    alert("Erro ao enviar imagem, tente novamente");
+                }
             }
+        }
+        catch(error){
+            console.log(error)
+            alert("Erro ao enviar formulário, tente novamente")
+        }
+        finally{
+            setLoading2(false)
         }
     }
     
@@ -888,7 +899,7 @@ export default function EditAdScreen(){
                             <SpecialAspectsEdit categoria={categoria} onChangeState={updateFilho} data={adData}></SpecialAspectsEdit>
                         </View>
                         <View className="flex justify-center items-center mb-8">
-                            <Button mode="contained" className="bg-green-500 w-40" onPress={validateForm}>Editar</Button>
+                            {loading2 ? <ActivityIndicator animating={true} color={MD2Colors.green500} size={40}/> :  <Button mode="contained" className="bg-green-500 w-40" onPress={validateForm}>Editar</Button>}
                         </View>
                     </View>
                 )}

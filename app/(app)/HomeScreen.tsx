@@ -180,9 +180,9 @@ export default function HomeScreen() {
                 </Picker>
               </View>
             </View>
-            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+            <ScrollView className="mb-20" horizontal={true} showsHorizontalScrollIndicator={false}>
             <View className="flex flex-row px-4 py-2">
-              {adData.length == 0 && <Text className="text-center text-2xl mt-10">Nenhum anúncio encontrado.</Text>}
+            {loading && <ActivityIndicator className="ml-32 mb-20" animating={true} color={MD2Colors.purpleA700} size={100}></ActivityIndicator>}
                 {adData.map((ad, index) => {
                   return <HomeAd id={ad.id} key={index}></HomeAd>
                 }
