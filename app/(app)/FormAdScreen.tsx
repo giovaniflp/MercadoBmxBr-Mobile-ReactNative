@@ -398,6 +398,7 @@ export default function FormAdScreen(){
             }
         } catch(error){
             console.log(error);
+            alert(error)
             alert("O formato da imagem não é suportado, tente outro formato.")
         }
     }
@@ -543,7 +544,7 @@ export default function FormAdScreen(){
                     alert("Erro ao enviar imagem, tente novamente");
                 }
             } catch (error) {
-                alert("Erro ao enviar imagem, tente novamente");
+                alert(error);
             } finally{
                 setLoading(false);
             }

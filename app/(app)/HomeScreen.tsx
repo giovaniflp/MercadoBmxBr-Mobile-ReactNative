@@ -20,6 +20,15 @@ export default function HomeScreen() {
 
   const [localidade, setLocalidade] = useState("São Paulo");
 
+  const getSecureStore = async () => {
+    const token = await SecureStore.getItemAsync('session');
+    console.log(token);
+  }
+
+  useEffect(() => {
+    getSecureStore();
+  },[])
+
   const getNewTodayAds = async () => {
     setLoading(true)
     try{

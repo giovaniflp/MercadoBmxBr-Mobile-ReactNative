@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Link, router, useLocalSearchParams } from "expo-router";
 import { View, Text, TouchableOpacity, ImageBackground, Image } from "react-native";
 import { TextInput, Button, ActivityIndicator, MD2Colors } from "react-native-paper";
+import * as SecureStore from 'expo-secure-store';
 
 export default function LoginScreen(){
     const { signIn } = useSession();
@@ -18,6 +19,18 @@ export default function LoginScreen(){
     const [seePassword, setSeePassword] = useState(true);
 
     const [loading, setLoading] = useState(false);
+
+    const getSecureStore = async () => {
+        const token = await SecureStore.getItemAsync('session');
+        if(token != null){
+          router.push("/HomeScreen");
+        }
+        console.log(token);
+      }
+    
+      useEffect(() => {
+        getSecureStore();
+      })
 
     useEffect(()=>{
         if(emailLoginParam == null){

@@ -1,11 +1,24 @@
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import React, {useEffect} from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import { Button, Text } from 'react-native-paper';
 import { View, ImageBackground } from 'react-native';
+import * as SecureStore from 'expo-secure-store';
 
 
 export default function HomePage() {
+
+  const getSecureStore = async () => {
+    const token = await SecureStore.getItemAsync('session');
+    if(token != null){
+      router.push("/HomeScreen");
+    }
+    console.log(token);
+  }
+
+  useEffect(() => {
+    getSecureStore();
+  })
   
   useEffect(() => {
     ImagePicker.requestMediaLibraryPermissionsAsync();
