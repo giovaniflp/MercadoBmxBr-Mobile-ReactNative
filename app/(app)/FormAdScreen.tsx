@@ -390,7 +390,7 @@ export default function FormAdScreen(){
             let result = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: ImagePicker.MediaTypeOptions.All,
                 aspect: [4,3],
-                quality: 1,
+                quality: 0.2,
                 allowsMultipleSelection: true
             });
             if (!result.canceled) {
@@ -399,7 +399,7 @@ export default function FormAdScreen(){
         } catch(error){
             console.log(error);
             alert(error)
-            alert("O formato da imagem não é suportado, tente outro formato.")
+            alert("O formato da imagem não é suportado ou a imagem é muito grande.")
         }
     }
     
