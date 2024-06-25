@@ -388,10 +388,9 @@ export default function FormAdScreen(){
     const pickImage = async () => {
         try{
             let result = await ImagePicker.launchImageLibraryAsync({
-                mediaTypes: ImagePicker.MediaTypeOptions.All,
-                aspect: [4,3],
-                quality: 0.2,
-                allowsMultipleSelection: true
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                quality: 0,
+                allowsMultipleSelection: false,
             });
             if (!result.canceled) {
                 setImagem(result.assets[0].uri);
