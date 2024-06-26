@@ -2,7 +2,7 @@
   "build": {
     "preview": {
       "env": {
-        "EXPO_PUBLIC_BACKEND_URL": "http://4.228.42.88:8080"
+        "EXPO_PUBLIC_BACKEND_URL": "http://20.201.76.30:8080"
       },
       "android": {
         "buildType": "apk"

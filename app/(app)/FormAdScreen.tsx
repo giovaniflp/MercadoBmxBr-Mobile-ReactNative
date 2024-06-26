@@ -389,7 +389,8 @@ export default function FormAdScreen(){
         try{
             let result = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: ImagePicker.MediaTypeOptions.Images,
-                quality: 1,
+                //Compressão da imagem abaixo
+                quality: 0.1,
                 allowsMultipleSelection: false,
             });
             if (!result.canceled) {
