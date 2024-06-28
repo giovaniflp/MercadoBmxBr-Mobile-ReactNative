@@ -74,7 +74,7 @@ export default function MenuScreen(){
             <TouchableOpacity className="pt-36 pb-8" onPress={()=>{Linking.openURL("https://docs.google.com/document/d/1xIGVn24An86dOONmL_HZsi9kBwutwcqpF7zfudxv-zw/edit?usp=sharing")}}>
                 <Text className="text-purple-700">Termos de Uso e Sobre Nós</Text>
             </TouchableOpacity>
-            <View className="flex justify-center items-center mb-8">
+            <View className="flex justify-center items-center mb-4">
                 <BannerAd unitId="ca-app-pub-6872790638818192/3543204629" size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}></BannerAd>
             </View>
             <BottomBar screen="MenuScreen"></BottomBar>

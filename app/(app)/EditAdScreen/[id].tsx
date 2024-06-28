@@ -9,6 +9,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import { ActivityIndicator, MD2Colors  } from "react-native-paper";
 import SpecialAspectsEdit from "../../components/SpecialAspectEdit";
 import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
+import { BannerAd, BannerAdSize } from "react-native-google-mobile-ads";
 
 export default function EditAdScreen(){
 
@@ -898,8 +899,11 @@ export default function EditAdScreen(){
                         <View className="mt-8">
                             <SpecialAspectsEdit categoria={categoria} onChangeState={updateFilho} data={adData}></SpecialAspectsEdit>
                         </View>
-                        <View className="flex justify-center items-center mb-8">
+                        <View className="flex justify-center items-center mb-10">
                             {loading2 ? <ActivityIndicator animating={true} color={MD2Colors.green500} size={40}/> :  <Button mode="contained" className="bg-green-500 w-40" onPress={validateForm}>Editar</Button>}
+                        </View>
+                        <View className="flex justify-center items-center">
+                            <BannerAd unitId="ca-app-pub-6872790638818192/9849043938" size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}></BannerAd>
                         </View>
                     </View>
                 )}

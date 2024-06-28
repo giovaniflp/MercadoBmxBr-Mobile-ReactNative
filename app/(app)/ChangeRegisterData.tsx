@@ -10,6 +10,8 @@ import { BannerAd, BannerAdSize, InterstitialAd } from "react-native-google-mobi
 
 const interstitialAd = InterstitialAd.createForAdRequest("ca-app-pub-6872790638818192/4689583571")
 
+interstitialAd.load()
+
 export default function ChangeRegisterData(){
 
     const { signOut } = useSession();
@@ -56,11 +58,8 @@ export default function ChangeRegisterData(){
 
     useEffect(() => {
         getName();
-    }, [])
-
-    useEffect(() => {
         interstitialAd.load()
-    })
+    }, [])
 
     const changeRegisterData = async () => {
         setLoading(true);
@@ -87,7 +86,9 @@ export default function ChangeRegisterData(){
                     if(nomeNovo == "" && senhaAntiga == "" && novaSenha == "" && confirmarNovaSenha == ""){
                         await axiosInstance.patch("/api/users/patch/" + id, requestData, config)
                         alert("Agora, verifique seu email para trocá-lo!")
-                        interstitialAd.show()
+                        if(interstitialAd.loaded){
+                            interstitialAd.show();
+                        }
                         router.push({
                             pathname: "/EmailChangeVerification",
                             params: {
@@ -98,7 +99,9 @@ export default function ChangeRegisterData(){
                     if(nomeNovo && nomeNovo != "" && senhaAntiga == "" && novaSenha == "" && confirmarNovaSenha == ""){
                         await axiosInstance.patch("/api/users/patch/" + id, requestData, config)
                         alert("Nome alterado com sucesso, agora, verifique seu email para trocá-lo!")
-                        interstitialAd.show()
+                        if(interstitialAd.loaded){
+                            interstitialAd.show();
+                        }
                         router.push({
                             pathname: "/EmailChangeVerification",
                             params: {
@@ -120,7 +123,9 @@ export default function ChangeRegisterData(){
                             } else{
                                 await axiosInstance.patch("/api/users/patch/" + id, requestData, config).then((response) => {
                                         alert("Nome e senha alterados com sucesso, agora, verifique seu email para trocá-lo!")
-                                        interstitialAd.show()
+                                        if(interstitialAd.loaded){
+                            interstitialAd.show();
+                        }
                                         router.push({
                                         pathname: "/EmailChangeVerification",
                                         params: {
@@ -157,7 +162,9 @@ export default function ChangeRegisterData(){
                     if(senhaAntiga == "" && novaSenha == "" && confirmarNovaSenha == ""){
                         await axiosInstance.patch("/api/users/patch/" + id, requestData, config)
                         alert("Nome alterado com sucesso!")
-                        interstitialAd.show()
+                        if(interstitialAd.loaded){
+                            interstitialAd.show();
+                        }
                         signOut()
                     }
                     if(senhaAntiga != "" && novaSenha != "" && confirmarNovaSenha != ""){
@@ -173,7 +180,9 @@ export default function ChangeRegisterData(){
                             } else{
                                 await axiosInstance.patch("/api/users/patch/" + id, requestData, config).then((response) => {
                                     alert("Nome e senha alterados com sucesso!")
-                                    interstitialAd.show()
+                                    if(interstitialAd.loaded){
+                            interstitialAd.show();
+                        }
                                     signOut()
                             }).catch((error)=>{
                                 alert("Senha antiga incorreta!")
@@ -214,7 +223,9 @@ export default function ChangeRegisterData(){
                             } else{
                                 await axiosInstance.patch("/api/users/patch/" + id, requestData, config).then((response) => {
                                     alert("Senha alterada com sucesso!")
-                                    interstitialAd.show()
+                                    if(interstitialAd.loaded){
+                            interstitialAd.show();
+                        }
                                     signOut()
                             }).catch((error)=>{
                                 alert("Senha antiga incorreta!")
@@ -280,7 +291,8 @@ export default function ChangeRegisterData(){
             <View className="flex gap-2 my-4">
                 {loading ? <ActivityIndicator animating={true} color={MD2Colors.green500} size={40}/> : <Button onPress={changeRegisterData} mode='contained' className="bg-green-500 w-60">Alterar Dados</Button>}
                 <Button onPress={()=>{
-                    interstitialAd.show().then(()=>{
+                        interstitialAd.show()
+                        .then(()=>{
                         router.push({
                         pathname: "/DeleteAccount"
                     })
