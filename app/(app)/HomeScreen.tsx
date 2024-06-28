@@ -8,6 +8,8 @@ import VerifiedStores from "../components/VerifiedStores";
 import { ActivityIndicator, MD2Colors  } from "react-native-paper";
 import { View, Text, ScrollView, RefreshControl } from "react-native";
 
+import { BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
+
 export default function HomeScreen() {
 
   const [adData, setAdData] = useState([])
@@ -132,6 +134,9 @@ export default function HomeScreen() {
             <Text className="text-3xl px-4 pt-4">Lojas Verificadas</Text>
             <VerifiedStores></VerifiedStores>
           </View>
+          <View className="flex justify-center items-center mx-4 my-2">
+            <BannerAd unitId="ca-app-pub-6872790638818192/6189679145" size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER} ></BannerAd>
+          </View>
           <View className="mb-8">
             <Text className="text-xl px-4">Peças novas postadas recentemente</Text>
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
@@ -189,7 +194,7 @@ export default function HomeScreen() {
                 </Picker>
               </View>
             </View>
-            <ScrollView className="mb-20" horizontal={true} showsHorizontalScrollIndicator={false}>
+            <ScrollView className="" horizontal={true} showsHorizontalScrollIndicator={false}>
             <View className="flex flex-row px-4 py-2">
             {loading && <ActivityIndicator className="ml-32 mb-20" animating={true} color={MD2Colors.purpleA700} size={100}></ActivityIndicator>}
                 {adData.map((ad, index) => {
@@ -198,6 +203,9 @@ export default function HomeScreen() {
                 )}
               </View>
             </ScrollView>
+          <View className="flex justify-center items-center mx-4 my-2">
+            <BannerAd unitId="ca-app-pub-6872790638818192/7427643153" size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}></BannerAd>
+          </View>
           </View>
         </ScrollView>
       </View>

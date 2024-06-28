@@ -7,6 +7,7 @@ import { Picker } from "@react-native-picker/picker";
 import { router, useLocalSearchParams } from "expo-router";
 import { ActivityIndicator, MD2Colors  } from "react-native-paper";
 import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
+import { BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
 
 
 export default function CategorySearchList(){
@@ -405,6 +406,9 @@ export default function CategorySearchList(){
                     <TouchableOpacity className="w-10 h-10 flex justify-center items-center" onPress={addPage}>
                         <Image source={require("../../public/icons/arrowRightPNG.png")} className="w-10 h-10"></Image>
                     </TouchableOpacity>
+                </View>
+                <View className="flex justify-center items-center">
+                    <BannerAd unitId="ca-app-pub-6872790638818192/3543204629" size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}></BannerAd>
                 </View>
             </ScrollView>
             <BottomBar screen="CategoryScreen"></BottomBar>

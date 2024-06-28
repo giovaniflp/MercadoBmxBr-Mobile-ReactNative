@@ -5,6 +5,9 @@ import BottomBar from "../components/BottomBar";
 import * as SecureStore from 'expo-secure-store';
 import { Button, TextInput } from "react-native-paper";
 import { View, Text, Image, TouchableOpacity } from "react-native";
+import { InterstitialAd } from "react-native-google-mobile-ads";
+
+const interstitialAd = InterstitialAd.createForAdRequest("ca-app-pub-6872790638818192/5759338268")
 
 export default function DeleteAccount(){
     
@@ -45,7 +48,8 @@ export default function DeleteAccount(){
 
     const deleteUser = async() => {
         if(code != randomCode){
-            alert("Código incorreto!");
+            alert("Código incorreto!")
+            interstitialAd.show()
             const randomNumber = Math.floor(Math.random() * 10000);
             const randomCodeString = randomNumber.toString().padStart(4, '0');
             setRandomCode(randomCodeString);
@@ -60,12 +64,14 @@ export default function DeleteAccount(){
                 await axiosInstance.post("/api/users/delete/" + id, {password: password}, config).then((response) => {
                     if(response.data == "Senha errada!"){
                         alert("Senha incorreta. Tente novamente!");
+                        interstitialAd.show();
                         const randomNumber = Math.floor(Math.random() * 10000);
                         const randomCodeString = randomNumber.toString().padStart(4, '0');
                         setRandomCode(randomCodeString);
                     } else {
                         alert("Conta deletada com sucesso!");
                         SecureStore.deleteItemAsync('session');
+                        interstitialAd.show();
                         router.push({
                             pathname: "/LoginScreen",
                         })
@@ -77,6 +83,10 @@ export default function DeleteAccount(){
             }
         }
     }
+
+    useEffect(() => {
+        interstitialAd.load()
+    })
 
     useEffect(()=>{
         generateCode();

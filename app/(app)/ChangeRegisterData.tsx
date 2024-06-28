@@ -6,6 +6,9 @@ import BottomBar from "../components/BottomBar";
 import * as SecureStore from 'expo-secure-store';
 import { View, Text, Linking, Image, TouchableOpacity } from "react-native";
 import { TextInput, Button, ActivityIndicator, MD2Colors } from "react-native-paper";
+import { BannerAd, BannerAdSize, InterstitialAd } from "react-native-google-mobile-ads";
+
+const interstitialAd = InterstitialAd.createForAdRequest("ca-app-pub-6872790638818192/4689583571")
 
 export default function ChangeRegisterData(){
 
@@ -55,6 +58,10 @@ export default function ChangeRegisterData(){
         getName();
     }, [])
 
+    useEffect(() => {
+        interstitialAd.load()
+    })
+
     const changeRegisterData = async () => {
         setLoading(true);
         try{
@@ -80,6 +87,7 @@ export default function ChangeRegisterData(){
                     if(nomeNovo == "" && senhaAntiga == "" && novaSenha == "" && confirmarNovaSenha == ""){
                         await axiosInstance.patch("/api/users/patch/" + id, requestData, config)
                         alert("Agora, verifique seu email para trocá-lo!")
+                        interstitialAd.show()
                         router.push({
                             pathname: "/EmailChangeVerification",
                             params: {
@@ -90,6 +98,7 @@ export default function ChangeRegisterData(){
                     if(nomeNovo && nomeNovo != "" && senhaAntiga == "" && novaSenha == "" && confirmarNovaSenha == ""){
                         await axiosInstance.patch("/api/users/patch/" + id, requestData, config)
                         alert("Nome alterado com sucesso, agora, verifique seu email para trocá-lo!")
+                        interstitialAd.show()
                         router.push({
                             pathname: "/EmailChangeVerification",
                             params: {
@@ -111,6 +120,7 @@ export default function ChangeRegisterData(){
                             } else{
                                 await axiosInstance.patch("/api/users/patch/" + id, requestData, config).then((response) => {
                                         alert("Nome e senha alterados com sucesso, agora, verifique seu email para trocá-lo!")
+                                        interstitialAd.show()
                                         router.push({
                                         pathname: "/EmailChangeVerification",
                                         params: {
@@ -147,6 +157,7 @@ export default function ChangeRegisterData(){
                     if(senhaAntiga == "" && novaSenha == "" && confirmarNovaSenha == ""){
                         await axiosInstance.patch("/api/users/patch/" + id, requestData, config)
                         alert("Nome alterado com sucesso!")
+                        interstitialAd.show()
                         signOut()
                     }
                     if(senhaAntiga != "" && novaSenha != "" && confirmarNovaSenha != ""){
@@ -162,6 +173,7 @@ export default function ChangeRegisterData(){
                             } else{
                                 await axiosInstance.patch("/api/users/patch/" + id, requestData, config).then((response) => {
                                     alert("Nome e senha alterados com sucesso!")
+                                    interstitialAd.show()
                                     signOut()
                             }).catch((error)=>{
                                 alert("Senha antiga incorreta!")
@@ -202,6 +214,7 @@ export default function ChangeRegisterData(){
                             } else{
                                 await axiosInstance.patch("/api/users/patch/" + id, requestData, config).then((response) => {
                                     alert("Senha alterada com sucesso!")
+                                    interstitialAd.show()
                                     signOut()
                             }).catch((error)=>{
                                 alert("Senha antiga incorreta!")
@@ -266,12 +279,22 @@ export default function ChangeRegisterData(){
             </View>
             <View className="flex gap-2 my-4">
                 {loading ? <ActivityIndicator animating={true} color={MD2Colors.green500} size={40}/> : <Button onPress={changeRegisterData} mode='contained' className="bg-green-500 w-60">Alterar Dados</Button>}
-                <Button onPress={()=>{router.push({
-                    pathname: "/DeleteAccount"
-                })}} mode='contained' className="bg-red-500 w-60">Desejo excluir minha conta</Button>
+                <Button onPress={()=>{
+                    interstitialAd.show().then(()=>{
+                        router.push({
+                        pathname: "/DeleteAccount"
+                    })
+                    }).catch((error)=>{
+                        console.log('AdMob failed to show', error)
+                        alert("Erro ao tentar exibir anúncio, tente novamente!")
+                    })
+                }} mode='contained' className="bg-red-500 w-60">Desejo excluir minha conta</Button>
             </View>
             <Text className="text-xs">Em caso de problemas, denúncias ou mais, nos contate!</Text>
-            <Text className="text-purple-700" onPress={()=>{Linking.openURL("mailto:mercadobmxbr@gmail.com?subject=Suporte")}}>mercadobmxbr@gmail.com</Text>
+            <Text className="text-purple-700 mb-10" onPress={()=>{Linking.openURL("mailto:mercadobmxbr@gmail.com?subject=Suporte")}}>mercadobmxbr@gmail.com</Text>
+            <View className="flex justify-center items-center mb-10">
+                <BannerAd unitId="ca-app-pub-6872790638818192/6001847009" size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}></BannerAd>
+            </View>
             <BottomBar screen="MenuScreen"></BottomBar>
         </View>
     )

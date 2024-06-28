@@ -28,10 +28,12 @@
     "nativewind": "^2.0.11",
     "react": "^18.2.0",
     "react-native": "0.73.6",
+    "react-native-google-mobile-ads": "^13.6.0",
     "react-native-paper": "^5.12.3",
     "react-native-safe-area-context": "4.8.2",
     "react-native-screens": "~3.29.0",
-    "typescript": "^5.3.0"
+    "typescript": "^5.3.0",
+    "expo-dev-client": "~3.3.12"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

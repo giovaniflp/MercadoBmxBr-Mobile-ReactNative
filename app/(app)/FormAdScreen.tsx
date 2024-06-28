@@ -8,6 +8,7 @@ import {Picker} from '@react-native-picker/picker';
 import SpecialAspects from "../components/SpecialAspects";
 import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
 import { TextInput, Button, ActivityIndicator, MD2Colors } from "react-native-paper";
+import { BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
 
 export default function FormAdScreen(){
 
@@ -760,6 +761,9 @@ export default function FormAdScreen(){
                         </View>
                         <View className="flex justify-center items-center mb-8">
                         {loading ? <ActivityIndicator animating={true} color={MD2Colors.green500} size={40}/> : <Button mode="contained" className="bg-green-500 w-40" onPress={validateForm}>Anunciar</Button>}
+                        </View>
+                        <View className="flex justify-center items-center">
+                            <BannerAd unitId="ca-app-pub-6872790638818192/9479091427" size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}></BannerAd>
                         </View>
                     </View>
                 )}

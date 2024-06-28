@@ -14,7 +14,8 @@
     },
     "plugins": [
       [
-        "expo-build-properties",{
+        "expo-build-properties",
+        {
           "android": {
             "usesCleartextTraffic": true
           }
@@ -28,7 +29,17 @@
         }
       ],
       "expo-secure-store"
-    ]
+    ],
+    "android": {
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.giovaniflp.mobilemarketbmxbr"
+    }
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-6872790638818192~3888402137",
+    "ios_app_id": "ca-app-pub-6872790638818192~3888402137"
   },
   "name": "mobile-marketbmxbr"
 }

@@ -7,6 +7,7 @@ import BottomBar from "../components/BottomBar";
 import * as SecureStore from 'expo-secure-store';
 import { ActivityIndicator, MD2Colors  } from "react-native-paper";
 import { View, Image, Text, TouchableOpacity, Linking } from "react-native";
+import { BannerAd, BannerAdSize } from "react-native-google-mobile-ads";
 
 export default function MenuScreen(){
 
@@ -70,9 +71,12 @@ export default function MenuScreen(){
             <View className="my-4">
                 <Button onPress={signOut} mode='elevated' className='w-60' textColor='black'>Sair</Button>
             </View>
-            <TouchableOpacity className="pt-40" onPress={()=>{Linking.openURL("https://docs.google.com/document/d/1xIGVn24An86dOONmL_HZsi9kBwutwcqpF7zfudxv-zw/edit?usp=sharing")}}>
+            <TouchableOpacity className="pt-36 pb-8" onPress={()=>{Linking.openURL("https://docs.google.com/document/d/1xIGVn24An86dOONmL_HZsi9kBwutwcqpF7zfudxv-zw/edit?usp=sharing")}}>
                 <Text className="text-purple-700">Termos de Uso e Sobre Nós</Text>
             </TouchableOpacity>
+            <View className="flex justify-center items-center mb-8">
+                <BannerAd unitId="ca-app-pub-6872790638818192/3543204629" size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}></BannerAd>
+            </View>
             <BottomBar screen="MenuScreen"></BottomBar>
         </View>
     )

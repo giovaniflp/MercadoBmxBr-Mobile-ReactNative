@@ -7,6 +7,7 @@ import BottomBar from "../../components/BottomBar";
 import { useLocalSearchParams } from "expo-router";
 import { ActivityIndicator, MD2Colors  } from "react-native-paper";
 import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
+import { BannerAd, BannerAdSize } from "react-native-google-mobile-ads";
 
 export default function FullAdScreen(){
 
@@ -344,6 +345,9 @@ export default function FullAdScreen(){
                 <View className="mx-2">
                     <View>
                     <Text className="text-xs text-gray-400">Cód. anúncio - {adData.id}</Text>
+                    <View className="flex justify-center items-center my-2">
+                        <BannerAd unitId="ca-app-pub-6872790638818192/2506488964" size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}></BannerAd>
+                    </View>
                     {adData.marca == "OUTRA MARCA" ? <Text className="text-2xl">{adData.categoria} {adData.modelo}</Text> : <Text className="text-2xl">{adData.categoria} {adData.marca} {adData.modelo}</Text>}
                         <Text className="text-lg">Preço: <Text className="text-purple-700">R${adData.preco}</Text></Text>
                         <Text>{adData.localidade} | {formatDate} às {formatHour}</Text>            
@@ -437,11 +441,11 @@ export default function FullAdScreen(){
                         {adData.raioTipo && <Text className="mb-1">Tipo do raio: {adData.raioTipo}</Text>}
                         {adData.raioTamanho && <Text className="mb-1">Tamanho: {adData.raioTamanho}</Text>}
                     </View>
-                    <View className="mt-2 mb-2">
+                    <View className="mt-2 mb-4 flex items-center">
                         <Text>Anunciado por <Text className="text-yellow-500">{adData.nomeUsuario}</Text></Text>
-                        <View className="flex flex-row">
-                        <Text className="text-xl text-purple-700">Fale com o vendedor: </Text>
-                        {adData.marca == "OUTRA MARCA" ? <Link href={"https://api.whatsapp.com/send?phone=55" + 
+                        <View className="flex flex-col">
+                        <View className='flex justify-center items-center'>
+                            {adData.marca == "OUTRA MARCA" ? <View className='flex flex-row gap-4'><Link href={"https://api.whatsapp.com/send?phone=55" + 
                         adData.whatsapp + 
                         "&text=Ol%C3%A1%20"+ adData.nomeUsuario +",%20vim%20do%20seu%20an%C3%BAncio%20no%20Mercado%20Bmx%20Br"+ 
                         "%20-%20" + 
@@ -451,22 +455,30 @@ export default function FullAdScreen(){
                                 <Image style={{resizeMode:"contain"}} className="w-8 h-8" source={require('../../../public/icons/whatsapp.png')}></Image>
                             </TouchableOpacity>
                         </Link>
+                        <TouchableOpacity onPress={()=>{alert("O Chat será implementado em próximas versões!")}}>
+                            <Image style={{resizeMode:"contain"}} className="w-8 h-8" source={require('../../../public/icons/messagePNG.png')}></Image>
+                        </TouchableOpacity>
+                        </View>
                         : 
-                        <Link href={"https://api.whatsapp.com/send?phone=55" + 
-                        adData.whatsapp     + 
-                        "&text=Ol%C3%A1%20"+ adData.nomeUsuario +",%20vim%20do%20seu%20an%C3%BAncio%20no%20Mercado%20Bmx%20Br"+ 
-                        "%20-%20" + 
-                        adData.categoria + 
-                        "%20" +
-                        adData.marca +
-                        "%20" +
-                        adData.modelo +
-                        ",%20ainda%20est%C3%A1%20dispon%C3%ADvel?" } asChild>
-                            <TouchableOpacity>
-                                <Image style={{resizeMode:"contain"}} className="w-8 h-8" source={require('../../../public/icons/whatsapp.png')}></Image>
+                        <View className='flex flex-row gap-4 pt-4'><Link href={"https://api.whatsapp.com/send?phone=55" + 
+                            adData.whatsapp     + 
+                            "&text=Ol%C3%A1%20"+ adData.nomeUsuario +",%20vim%20do%20seu%20an%C3%BAncio%20no%20Mercado%20Bmx%20Br"+ 
+                            "%20-%20" + 
+                            adData.categoria + 
+                            "%20" +
+                            adData.marca +
+                            "%20" +
+                            adData.modelo +
+                            ",%20ainda%20est%C3%A1%20dispon%C3%ADvel?" } asChild>
+                                <TouchableOpacity>
+                                    <Image style={{resizeMode:"contain"}} className="w-8 h-8" source={require('../../../public/icons/whatsapp.png')}></Image>
+                                </TouchableOpacity>
+                            </Link>
+                            <TouchableOpacity onPress={()=>{alert("O Chat será implementado em próximas versões!")}}>
+                                <Image style={{resizeMode:"contain"}} className="w-8 h-8" source={require('../../../public/icons/messagePNG.png')}></Image>
                             </TouchableOpacity>
-                        </Link>
-                        }
+                            </View>
+                        }</View>
                         </View>
                         
                     </View>

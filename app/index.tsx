@@ -4,7 +4,9 @@ import * as ImagePicker from 'expo-image-picker';
 import { Button, Text } from 'react-native-paper';
 import { View, ImageBackground } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
+import mobileAds, { AppOpenAd } from 'react-native-google-mobile-ads';
 
+const appOpenAd = AppOpenAd.createForAdRequest("ca-app-pub-6872790638818192/4593827764")
 
 export default function HomePage() {
 
@@ -16,6 +18,17 @@ export default function HomePage() {
     console.log(token);
   }
 
+  const adExibition = async () => {
+    mobileAds().initialize().then(()=>{
+      appOpenAd.load()
+      if(appOpenAd.loaded){
+        appOpenAd.show()
+      }
+    }).catch((error)=>{
+      console.log('AdMob failed to initialize', error)
+    })
+  }
+
   useEffect(() => {
     getSecureStore();
   })
@@ -23,10 +36,14 @@ export default function HomePage() {
   useEffect(() => {
     ImagePicker.requestMediaLibraryPermissionsAsync();
     ImagePicker.requestCameraPermissionsAsync();
+
+    adExibition();
+
   }, [])
 
     return(
       <ImageBackground source={require('../public/images/brandWPP.jpeg')}>
+        <View></View>
         <View className="flex h-full justify-end pb-28 items-center">
           <View className='bg-white w-full absolute py-14 rounded-t-3xl'>
             <Text className="text-2xl text-black text-center">Bem-vindo ao Mercado Bmx Br</Text>
