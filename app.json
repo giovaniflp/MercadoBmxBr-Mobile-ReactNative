@@ -3,7 +3,7 @@
     "name": "Mercado Bmx Br",
     "slug": "mobile-marketbmxbr",
     "scheme": "mobile-marketbmxbr",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -34,7 +34,8 @@
       "permissions": [
         "android.permission.RECORD_AUDIO"
       ],
-      "package": "com.giovaniflp.mobilemarketbmxbr"
+      "package": "com.giovaniflp.mobilemarketbmxbr",
+      "versionCode": 2
     }
   },
   "react-native-google-mobile-ads": {
