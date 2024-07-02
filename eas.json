@@ -5,7 +5,7 @@
         "buildType": "apk"
       },
       "env": {
-        "EXPO_PUBLIC_BACKEND_URL": "http://192.168.16.8:8080"
+        "EXPO_PUBLIC_BACKEND_URL": "https://mercadobmxbr-docker-spring.purplemoss-8d7acf95.brazilsouth.azurecontainerapps.io"
       }
     },
     "preview2": {
@@ -19,6 +19,13 @@
     "preview4": {
       "distribution": "internal"
     },
-    "production": {}
+    "production": {
+      "android": {
+        "buildType": "app-bundle"
+      },
+      "env": {
+        "EXPO_PUBLIC_BACKEND_URL": "https://mercadobmxbr-docker-spring.purplemoss-8d7acf95.brazilsouth.azurecontainerapps.io"
+      }
+    }
   }
 }

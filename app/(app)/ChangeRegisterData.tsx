@@ -291,15 +291,18 @@ export default function ChangeRegisterData(){
             <View className="flex gap-2 my-4">
                 {loading ? <ActivityIndicator animating={true} color={MD2Colors.green500} size={40}/> : <Button onPress={changeRegisterData} mode='contained' className="bg-green-500 w-60">Alterar Dados</Button>}
                 <Button onPress={()=>{
+                    if(interstitialAd.loaded){
                         interstitialAd.show()
                         .then(()=>{
+                            router.push({
+                                pathname: "/DeleteAccount"
+                            })
+                        }).catch((error)=>{console.log('AdMob failed to show', error)})
+                    } else {
                         router.push({
-                        pathname: "/DeleteAccount"
-                    })
-                    }).catch((error)=>{
-                        console.log('AdMob failed to show', error)
-                        alert("Erro ao tentar exibir anúncio, tente novamente!")
-                    })
+                            pathname: "/DeleteAccount"
+                        })
+                    }
                 }} mode='contained' className="bg-red-500 w-60">Desejo excluir minha conta</Button>
             </View>
             <Text className="text-xs">Em caso de problemas, denúncias ou mais, nos contate!</Text>
