@@ -1,47 +1,81 @@
-<div align='center'>
 
-<h1>React Native</h1>
-<p>App desenvolvido em React Native utilizando Expo, Tailwindcss e bibliotecas de UI/UX e publicado na Google Play</p>
+# Mercado Bmx Br - Mobile
 
-<h4> <span> · </span> <a href="https://github.com/giovaniflp/MercadoBmxBr-Mobile-ReactNative/blob/master/README.md"> Documentation </a> <span> · </span> <a href="https://github.com/giovaniflp/MercadoBmxBr-Mobile-ReactNative/issues"> Report Bug </a> <span> · </span> <a href="https://github.com/giovaniflp/MercadoBmxBr-Mobile-ReactNative/issues"> Request Feature </a> </h4>
+App desenvolvido em React Native utilizando Expo, Tailwindcss e bibliotecas de UI/UX e publicado na Google Play.
 
-
-</div>
-
-# :notebook_with_decorative_cover: Table of Contents
-
-- [About the Project](#star2-about-the-project)
-- [Contact](#handshake-contact)
+Esse app resolve o problema ao procurar por peças de medidas específicas e organiza esses anúncios em um só lugar.
 
 
-## :star2: About the Project
 
-### :art: Color Reference
-| Color | Hex |
-| --------------- | ---------------------------------------------------------------- |
-| Primary Color | ![#7500fb](https://via.placeholder.com/10/7500fb?text=+) #7500fb |
-| Secondary Color | ![#393E46](https://via.placeholder.com/10/393E46?text=+) #393E46 |
-| Accent Color | ![#00ADB5](https://via.placeholder.com/10/00ADB5?text=+) #00ADB5 |
-| Text Color | ![#EEEEEE](https://via.placeholder.com/10/EEEEEE?text=+) #EEEEEE |
 
-### :key: Environment Variables
-To run this project, you will need to add the following environment variables to your .env file
+![Demonstração](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeXcybGl2d3p4Y25wa213czl6aWZ3MWVuN3FsaWR0dHdhMWM3c3Z5bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/wnbut6lGD6zrhzcV10/giphy.gif)
+
+## Funcionalidades
+
+- Filtros por categoria
+- Filtros dos anúncios de determinada categoria
+- Criptografia dos dados
+- Aplicação leve
+- Criação de anúncios completa
+
+
+## Stack utilizada
+
+**Front-end:** Typescript, React Native, Expo, Axios, TailwindCSS, React Native Paper.
+
+**Back-end:** Java, Spring Boot, Azure, Docker, MongoDB
+
+
+## Instalação
+
+Instale o projeto com npm
+
+```bash
+  npm install 
+```
+
+Rode usando o expo
+
+```bash
+  npx expo run
+```
+
+Se caso der erro no Expo Go, rode localmente com os comando:
+
+```bash
+  npx expo prebuild
+```
+```bash
+  npx expo run:android 
+```
+
+    
+## Variáveis de Ambiente
+
+Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env
+
 `EXPO_PUBLIC_BACKEND_URL`
 
 
 
-## :toolbox: Getting Started
+## Aprendizados
 
-### :gear: Installation
-
-Instalação dos pacotes do projeto
-```bash
-npm install
-```
+Com esse projeto aprendi a fazer uma aplicação RN desde a idealização até o Deploy, consumir APIs, Autenticação JWT, Armazenamento de dados locais usando Expo Secure Store e à utilizar o Eco-sistema Expo.
 
 
-## :handshake: Contact
+## Feedback
 
-Giovani Feitosa - - giovanifeitosa123@gmail.com
+Se você tiver algum feedback, por favor nos deixe saber por meio de mercadobmxbr@gmail.com
 
-Project Link: [https://github.com/giovaniflp/MercadoBmxBr-Mobile-ReactNative](https://github.com/giovaniflp/MercadoBmxBr-Mobile-ReactNative)
+
+## Relacionados
+
+Backend dessa aplicação
+
+[MercadoBmxBr-Backend-SpringBoot](https://github.com/giovaniflp/MercadoBmxBr-Backend-SpringBoot)
+
+
+## Autores
+
+- [@giovaniflp](https://www.github.com/giovaniflp)
+
