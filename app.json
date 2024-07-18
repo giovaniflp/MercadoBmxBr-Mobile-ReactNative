@@ -2,8 +2,9 @@
   "expo": {
     "name": "Mercado Bmx Br",
     "slug": "mobile-marketbmxbr",
+    "icon": "./public/appIcon.png",
     "scheme": "mobile-marketbmxbr",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -35,7 +36,7 @@
         "android.permission.RECORD_AUDIO"
       ],
       "package": "com.giovaniflp.mobilemarketbmxbr",
-      "versionCode": 2
+      "versionCode": 3
     }
   },
   "react-native-google-mobile-ads": {
