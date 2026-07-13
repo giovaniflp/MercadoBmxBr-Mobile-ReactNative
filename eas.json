@@ -23,6 +23,9 @@
       "android": {
         "buildType": "app-bundle"
       },
+      "node": {
+        "enableCorepack": true
+      },
       "env": {
         "EXPO_PUBLIC_BACKEND_URL": "https://mercadobmxbr-docker-spring.purplemoss-8d7acf95.brazilsouth.azurecontainerapps.io"
       }
