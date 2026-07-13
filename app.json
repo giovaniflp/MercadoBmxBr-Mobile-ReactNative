@@ -4,7 +4,7 @@
     "slug": "mobile-marketbmxbr",
     "icon": "./public/appIcon.png",
     "scheme": "mobile-marketbmxbr",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -37,7 +37,7 @@
       "permissions": [
         "android.permission.RECORD_AUDIO"
       ],
-      "versionCode": 6,
+      "versionCode": 7,
       "package": "com.giovaniflp.mobilemarketbmxbr"
     }
   },
